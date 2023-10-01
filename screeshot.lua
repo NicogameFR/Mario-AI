@@ -69,7 +69,7 @@ function main()
 		-- Pour mario petit
 		if marioType == 0 then
 			-- Pour mario petit en saut
-            --dessin(mariox1-5, marioy1-4, mariox2+4, marioy2+3)
+            --dessin(mariox1-4, marioy1-3, mariox2+3, marioy2+2)
 			ecritureMarioFichier(marioType, mariox1-4, marioy1-3, mariox2+3, marioy2+2)
 			end
 		-- Pour mario grand
@@ -77,7 +77,7 @@ function main()
 			if marioType ~= 1 then
 				marioType = 2
 			end
-			--dessin(mariox1-4, marioy1-8, mariox2+3, marioy2+3)
+			--dessin(mariox1-3, marioy1-7, mariox2+2, marioy2+2)
 			ecritureMarioFichier(marioType, mariox1-3, marioy1-7, mariox2+2, marioy2+2)
 		end
 	end
