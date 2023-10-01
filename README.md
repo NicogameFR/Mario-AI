@@ -11,7 +11,8 @@
 ![GitHub issues](https://img.shields.io/github/issues/NicogameFR/Mario-AI)
 ![GitHub pull requests](https://img.shields.io/github/issues-pr/NicogameFR/Mario-AI)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](/LICENSE)
-
+![GitHub last commit (branch)](https://img.shields.io/github/last-commit/NicogameFR/Mario-AI/main)
+![Nombre de Commit](https://img.shields.io/github/commits-since/NicogameFR/Mario-AI/1.0.0.svg)
 </div>
 
 
