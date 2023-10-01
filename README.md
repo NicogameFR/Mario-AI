@@ -99,4 +99,4 @@ Give an example
 
 ## 🎉 Remerciements <a name = "acknowledgement"></a>
 
-- Me
+- Moi 😎
