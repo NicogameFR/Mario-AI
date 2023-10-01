@@ -25,7 +25,6 @@
 - [About](#about)
 - [Getting Started](#getting_started)
 - [Deployment](#deployment)
-- [Usage](#usage)
 - [Built Using](#built_using)
 - [TODO](../TODO.md)
 - [Contributing](../CONTRIBUTING.md)
@@ -86,29 +85,19 @@ Explain what these tests test and why
 Give an example
 ```
 
-## 🎈 Usage <a name="usage"></a>
 
-Add notes about how to use the system.
+## 🚀 Déploiement <a name = "deployment"></a>
 
-## 🚀 Deployment <a name = "deployment"></a>
+- Pas encore déployé (en cours de développement)
 
-Add additional notes about how to deploy this on a live system.
+## ⛏️ Créé en utilisant <a name = "built_using"></a>
 
-## ⛏️ Built Using <a name = "built_using"></a>
+- [YoloV8](https://yolov8.com/) - Model de détéction des objets
 
-- [MongoDB](https://www.mongodb.com/) - Database
-- [Express](https://expressjs.com/) - Server Framework
-- [VueJs](https://vuejs.org/) - Web Framework
-- [NodeJs](https://nodejs.org/en/) - Server Environment
+## ✍️ Auteur <a name = "authors"></a>
 
-## ✍️ Authors <a name = "authors"></a>
+- [@NicogameFR](https://github.com/NicogameFR) - Créateur du projet
 
-- [@kylelobo](https://github.com/kylelobo) - Idea & Initial work
+## 🎉 Remerciements <a name = "acknowledgement"></a>
 
-See also the list of [contributors](https://github.com/kylelobo/The-Documentation-Compendium/contributors) who participated in this project.
-
-## 🎉 Acknowledgements <a name = "acknowledgement"></a>
-
-- Hat tip to anyone whose code was used
-- Inspiration
-- References
+- Me
