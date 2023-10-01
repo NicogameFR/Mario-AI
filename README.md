@@ -8,21 +8,16 @@
 <div align="center">
 
 [![Status](https://img.shields.io/badge/status-active-success.svg)]()
-[![GitHub Issues](https://img.shields.io/github/issues/kylelobo/The-Documentation-Compendium.svg)](https://github.com/NicogameFR/Mario-AI/issues)
+
 [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/kylelobo/The-Documentation-Compendium.svg)](https://github.com/NicogameFR/Mario-AI/pulls)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](/LICENSE)
 
 </div>
 
----
 
-<p align="center"> Few lines describing your project.
-    <br> 
-</p>
+## 📝 Table des matières
 
-## 📝 Table of Contents
-
-- [About](#about)
+- [À propos](#about)
 - [Getting Started](#getting_started)
 - [Deployment](#deployment)
 - [Built Using](#built_using)
@@ -31,9 +26,11 @@
 - [Authors](#authors)
 - [Acknowledgments](#acknowledgement)
 
-## 🧐 About <a name = "about"></a>
+## 🧐 À propos <a name = "about"></a>
 
-Write about 1-2 paragraphs describing the purpose of your project.
+Ce projet est une intelligence artificielle capable de jouer à Super Mario Bros. de manière autonome. Cette IA est capable de détecter des objets sur l'écran, de les interpréter et d'en extraire les données nécessaires pour informer un modèle d'apprentissage par renforcement. Ce projet comprend donc deux intelligences artificielles, l'une pour la détection des objets et l'autre pour la prise de décision. À terme, l'IA devrait être capable de jouer au jeu en utilisant uniquement des données visuelles (flux vidéo). Cela lui permettra d'être utilisée avec la seule contrainte de filmer l'écran de jeu et de la connecter sous forme de manette à la console.
+
+<!--
 
 ## 🏁 Getting Started <a name = "getting_started"></a>
 
@@ -84,7 +81,7 @@ Explain what these tests test and why
 ```
 Give an example
 ```
-
+-->
 
 ## 🚀 Déploiement <a name = "deployment"></a>
 
