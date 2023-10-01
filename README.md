@@ -8,7 +8,6 @@
 <div align="center">
 
 [![Status](https://img.shields.io/badge/status-active-success.svg)]()
-
 [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/kylelobo/The-Documentation-Compendium.svg)](https://github.com/NicogameFR/Mario-AI/pulls)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](/LICENSE)
 
@@ -17,14 +16,14 @@
 
 ## 📝 Table des matières
 
-- [À propos](#about)
+<!--
 - [Getting Started](#getting_started)
-- [Deployment](#deployment)
-- [Built Using](#built_using)
-- [TODO](../TODO.md)
-- [Contributing](../CONTRIBUTING.md)
-- [Authors](#authors)
-- [Acknowledgments](#acknowledgement)
+-->
+- [À propos](#about)
+- [Déploiement](#deployment)
+- [Créé en utilisant](#built_using)
+- [Auteur](#authors)
+- [Remerciements](#acknowledgement)
 
 ## 🧐 À propos <a name = "about"></a>
 
