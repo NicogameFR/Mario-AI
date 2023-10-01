@@ -1,0 +1,34 @@
+2023-10-01 11:00:32,311 INFO    MainThread:11468 [wandb_setup.py:_flush():76] Current SDK version is 0.15.8
+2023-10-01 11:00:32,311 INFO    MainThread:11468 [wandb_setup.py:_flush():76] Configure stats pid to 11468
+2023-10-01 11:00:32,311 INFO    MainThread:11468 [wandb_setup.py:_flush():76] Loading settings from C:\Users\bapti\.config\wandb\settings
+2023-10-01 11:00:32,311 INFO    MainThread:11468 [wandb_setup.py:_flush():76] Loading settings from C:\Users\bapti\Desktop\IA\YoloV8\wandb\settings
+2023-10-01 11:00:32,311 INFO    MainThread:11468 [wandb_setup.py:_flush():76] Loading settings from environment variables: {}
+2023-10-01 11:00:32,311 INFO    MainThread:11468 [wandb_setup.py:_flush():76] Applying setup settings: {'_disable_service': False}
+2023-10-01 11:00:32,311 INFO    MainThread:11468 [wandb_setup.py:_flush():76] Inferring run settings from compute environment: {'program_relpath': 'train.py', 'program': 'c:\\Users\\bapti\\Desktop\\IA\\YoloV8\\train.py'}
+2023-10-01 11:00:32,311 INFO    MainThread:11468 [wandb_init.py:_log_setup():507] Logging user logs to C:\Users\bapti\Desktop\IA\YoloV8\wandb\run-20231001_110032-8da463f9\logs\debug.log
+2023-10-01 11:00:32,311 INFO    MainThread:11468 [wandb_init.py:_log_setup():508] Logging internal logs to C:\Users\bapti\Desktop\IA\YoloV8\wandb\run-20231001_110032-8da463f9\logs\debug-internal.log
+2023-10-01 11:00:32,312 INFO    MainThread:11468 [wandb_init.py:init():547] calling init triggers
+2023-10-01 11:00:32,312 INFO    MainThread:11468 [wandb_init.py:init():554] wandb.init called with sweep_config: {}
+config: {'task': 'detect', 'mode': 'train', 'model': 'yolov8n.yaml', 'data': 'data.yaml', 'epochs': 3, 'patience': 50, 'batch': 16, 'imgsz': 640, 'save': True, 'save_period': -1, 'cache': False, 'device': None, 'workers': 0, 'project': None, 'name': None, 'exist_ok': False, 'pretrained': True, 'optimizer': 'auto', 'verbose': True, 'seed': 0, 'deterministic': True, 'single_cls': False, 'rect': False, 'cos_lr': False, 'close_mosaic': 10, 'resume': False, 'amp': True, 'fraction': 1.0, 'profile': False, 'freeze': None, 'overlap_mask': True, 'mask_ratio': 4, 'dropout': 0.0, 'val': True, 'split': 'val', 'save_json': False, 'save_hybrid': False, 'conf': None, 'iou': 0.7, 'max_det': 300, 'half': False, 'dnn': False, 'plots': True, 'source': None, 'show': False, 'save_txt': False, 'save_conf': False, 'save_crop': False, 'show_labels': True, 'show_conf': True, 'vid_stride': 1, 'stream_buffer': False, 'line_width': None, 'visualize': False, 'augment': False, 'agnostic_nms': False, 'classes': None, 'retina_masks': False, 'boxes': True, 'format': 'torchscript', 'keras': False, 'optimize': False, 'int8': False, 'dynamic': False, 'simplify': False, 'opset': None, 'workspace': 4, 'nms': False, 'lr0': 0.01, 'lrf': 0.01, 'momentum': 0.937, 'weight_decay': 0.0005, 'warmup_epochs': 3.0, 'warmup_momentum': 0.8, 'warmup_bias_lr': 0.1, 'box': 7.5, 'cls': 0.5, 'dfl': 1.5, 'pose': 12.0, 'kobj': 1.0, 'label_smoothing': 0.0, 'nbs': 64, 'hsv_h': 0.015, 'hsv_s': 0.7, 'hsv_v': 0.4, 'degrees': 0.0, 'translate': 0.1, 'scale': 0.5, 'shear': 0.0, 'perspective': 0.0, 'flipud': 0.0, 'fliplr': 0.5, 'mosaic': 1.0, 'mixup': 0.0, 'copy_paste': 0.0, 'cfg': None, 'tracker': 'botsort.yaml', 'save_dir': 'runs\\detect\\train3'}
+2023-10-01 11:00:32,312 INFO    MainThread:11468 [wandb_init.py:init():596] starting backend
+2023-10-01 11:00:32,312 INFO    MainThread:11468 [wandb_init.py:init():600] setting up manager
+2023-10-01 11:00:32,314 INFO    MainThread:11468 [backend.py:_multiprocessing_setup():106] multiprocessing start_methods=spawn, using: spawn
+2023-10-01 11:00:32,317 INFO    MainThread:11468 [wandb_init.py:init():606] backend started and connected
+2023-10-01 11:00:32,322 INFO    MainThread:11468 [wandb_init.py:init():697] updated telemetry
+2023-10-01 11:00:32,325 INFO    MainThread:11468 [wandb_init.py:init():730] communicating run to backend with 60.0 second timeout
+2023-10-01 11:00:34,585 INFO    MainThread:11468 [wandb_run.py:_on_init():2180] communicating current version
+2023-10-01 11:00:34,677 INFO    MainThread:11468 [wandb_run.py:_on_init():2189] got version response upgrade_message: "wandb version 0.15.11 is available!  To upgrade, please run:\n $ pip install wandb --upgrade"
+
+2023-10-01 11:00:34,677 INFO    MainThread:11468 [wandb_init.py:init():781] starting run threads in backend
+2023-10-01 11:00:34,744 INFO    MainThread:11468 [wandb_run.py:_console_start():2159] atexit reg
+2023-10-01 11:00:34,744 INFO    MainThread:11468 [wandb_run.py:_redirect():2014] redirect: wrap_raw
+2023-10-01 11:00:34,744 INFO    MainThread:11468 [wandb_run.py:_redirect():2079] Wrapping output streams.
+2023-10-01 11:00:34,744 INFO    MainThread:11468 [wandb_run.py:_redirect():2104] Redirects installed.
+2023-10-01 11:00:34,745 INFO    MainThread:11468 [wandb_init.py:init():822] run started, returning control to user process
+2023-10-01 11:57:01,579 INFO    MainThread:11468 [wandb_run.py:_finish():1894] finishing run baptiste-hustaix/YOLOv8/8da463f9
+2023-10-01 11:57:01,580 INFO    MainThread:11468 [wandb_run.py:_atexit_cleanup():2128] got exitcode: 0
+2023-10-01 11:57:01,580 INFO    MainThread:11468 [wandb_run.py:_restore():2111] restore
+2023-10-01 11:57:01,581 INFO    MainThread:11468 [wandb_run.py:_restore():2117] restore done
+2023-10-01 11:57:07,937 INFO    MainThread:11468 [wandb_run.py:_footer_history_summary_info():3481] rendering history
+2023-10-01 11:57:07,938 INFO    MainThread:11468 [wandb_run.py:_footer_history_summary_info():3513] rendering summary
+2023-10-01 11:57:07,945 INFO    MainThread:11468 [wandb_run.py:_footer_sync_info():3440] logging synced files

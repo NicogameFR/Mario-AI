@@ -1,0 +1,13 @@
+train: ../train/images
+val: ../valid/images
+test: ../test/images
+
+nc: 3
+names: ['big_mario', 'fire_mario', 'little_mario']
+
+roboflow:
+  workspace: baptiste-hustaix-znm0u
+  project: super-mario-bros-ai
+  version: 3
+  license: BY-NC-SA 4.0
+  url: https://universe.roboflow.com/baptiste-hustaix-znm0u/super-mario-bros-ai/dataset/3
