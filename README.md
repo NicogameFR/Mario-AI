@@ -8,7 +8,8 @@
 <div align="center">
 
 [![Status](https://img.shields.io/badge/status-active-success.svg)]()
-[![GitHub Pull Requests](https://img.shields.io/github/issues-pr/kylelobo/The-Documentation-Compendium.svg)]()
+![GitHub issues](https://img.shields.io/github/issues/NicogameFR/Mario-AI)
+![GitHub pull requests](https://img.shields.io/github/issues-pr/NicogameFR/Mario-AI)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](/LICENSE)
 
 </div>
