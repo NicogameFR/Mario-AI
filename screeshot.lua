@@ -3,21 +3,21 @@ gui.clearGraphics()
 marioOldY = 100000
 
 function deleteOldFiles()
-	local command_1 = "cd C:/Users/bapti/Desktop/IA/database/train/images/ & del *.png"
+	local command_1 = "cd C:/Users/bapti/Desktop/IA/database/images/ & del *.png"
 	os.execute(command_1)
-	local command_2 = "cd C:/Users/bapti/Desktop/IA/database/train/labels/ & del *.txt"
+	local command_2 = "cd C:/Users/bapti/Desktop/IA/database/labels/ & del *.txt"
 	os.execute(command_2)
 end
 
 function saveScreenshot(nom)
-    local command_1 = "nircmd.exe savescreenshot C:/Users/bapti/Desktop/IA/database/train/images/" .. nom .. ".png 80 46 863 659"
+    local command_1 = "nircmd.exe savescreenshot C:/Users/bapti/Desktop/IA/database/images/" .. nom .. ".png 80 46 863 659"
     local command_2 = 'nircmd.exe win hide foreground & ' .. command_1 .. '& exit'
     os.execute(command_2)
     attendreCreationFichier(nom .. ".png")
 end
 
 function attendreCreationFichier(nom)
-    local chemin = "C:/Users/bapti/Desktop/IA/database/train/images/" .. nom
+    local chemin = "C:/Users/bapti/Desktop/IA/database/images/" .. nom
     local timeouts = 0
     while not io.open(chemin, "r") do
         timeouts = timeouts + 1
@@ -30,7 +30,7 @@ end
 
 -- fonction d'ecriture pour n'importe quel objet
 function ecritureFichier(Type, marioX, marioY, marioX_width, marioY_height)
-    local fichier = io.open("C:/Users/bapti/Desktop/IA/database/train/labels/frame_".. nb+1 ..".txt", "w")
+    local fichier = io.open("C:/Users/bapti/Desktop/IA/database/labels/frame_".. nb+1 ..".txt", "w")
     fichier:write(Type .. " " .. marioX .. " " .. marioY .. " " .. marioX_width .. " " .. marioY_height)
     fichier:close()
 end
@@ -54,7 +54,7 @@ end
 nb = 0
 function main()
 	--while true do
-	for i = 1 , 4200 do
+	for i = 1 , 3 do
         
         emu.frameadvance()
         if nb ~= 0 or nb ~= 1 then
