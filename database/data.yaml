@@ -1,0 +1,6 @@
+train: ../train/images
+val: ../valid/images
+test: ../test/images
+
+nc: 6
+names: ['little_mario','big_mario', 'fire_mario','goomba', 'koopa', 'fireball']
