@@ -24,6 +24,9 @@ function saveScreenshot(nom)
 end
 
 function ecritureFichier(Type, X, Y, X_width, Y_height)
+    if nb + 1 > nb_image - 2 then
+        return
+    end
     local fichier = io.open("./database/labels/frame_" .. nb + 1 .. ".txt", "a+")
     fichier:write(Type .. " " .. X .. " " .. Y .. " " .. X_width .. " " .. Y_height .. "\n")
     fichier:close()
@@ -35,16 +38,16 @@ function dessin(x1, y1, x2, y2)
     gui.drawRectangle(x1, y1, X_width, Y_height, "white")
 end
 
-nb = 0
-
+nb = -1
+nb_image = 50
 function main()
-    -- while true do
+    -- while true do --
 
-    for i = 1, 200 do
-        emu.frameadvance()
-        if nb ~= 0 or nb ~= 1 then
-            saveScreenshot("frame_" .. nb)
-        end
+    for i = 1, nb_image do --
+        emu.frameadvance() --
+        if nb > 0 then --
+            saveScreenshot("frame_" .. nb) --
+        end --
         nb = nb + 1
 
         local mariox1 = memory.readbyte(0x04AC)
@@ -117,7 +120,7 @@ function main()
             fireball2y2 = memory.readbyte(0x04CF) - 9
         end
 
-        -- emu.frameadvance()
+        -- emu.frameadvance() --
 
         Mario(marioType, mariox1, marioy1, mariox2, marioy2)
 
@@ -186,8 +189,8 @@ function Mario(Type, x1, y1, x2, y2)
         local Y = coordonees[2]
         local X_width = coordonees[3]
         local Y_height = coordonees[4]
-        -- dessin(x1-4, y1-3, x2+3, y2+2)
-        ecritureFichier(Type, X, Y, X_width, Y_height)
+        -- dessin(x1-4, y1-3, x2+3, y2+2) --
+        ecritureFichier(Type, X, Y, X_width, Y_height)  --
     end
     if Type ~= 0 then
         local coordonees = coordonees(x1 - 3, y1 - 7, x2 + 2, y2 + 2)
@@ -195,8 +198,8 @@ function Mario(Type, x1, y1, x2, y2)
         local Y = coordonees[2]
         local X_width = coordonees[3]
         local Y_height = coordonees[4]
-        -- dessin(x1-3, y1-7, x2+2, y2+2)
-        ecritureFichier(Type, X, Y, X_width, Y_height)
+        -- dessin(x1-3, y1-7, x2+2, y2+2) --
+        ecritureFichier(Type, X, Y, X_width, Y_height) --
     end
 end
 
@@ -206,8 +209,8 @@ function koopa(x1, y1, x2, y2)
     local Y = coordonees[2]
     local X_width = coordonees[3]
     local Y_height = coordonees[4]
-    -- dessin(x1-3, y1-7, x2+2, y2+5)
-    ecritureFichier(4, X, Y, X_width, Y_height)
+    -- dessin(x1-3, y1-7, x2+2, y2+5) --
+    ecritureFichier(4, X, Y, X_width, Y_height) --
 end
 
 function goomba(x1, y1, x2, y2)
@@ -216,8 +219,8 @@ function goomba(x1, y1, x2, y2)
     local Y = coordonees[2]
     local X_width = coordonees[3]
     local Y_height = coordonees[4]
-    -- dessin(x1-4, y1-5, x2+3, y2+6)
-    ecritureFichier(3, X, Y, X_width, Y_height)
+    -- dessin(x1-4, y1-5, x2+3, y2+6) --
+    ecritureFichier(3, X, Y, X_width, Y_height) --
 end
 
 function fireball(x1, y1, x2, y2)
@@ -226,8 +229,8 @@ function fireball(x1, y1, x2, y2)
     local Y = coordonees[2]
     local X_width = coordonees[3]
     local Y_height = coordonees[4]
-    -- dessin(x1, y1+1, x2, y2+2)
-    ecritureFichier(5, X, Y, X_width, Y_height)
+    -- dessin(x1, y1+1, x2, y2+2) --
+    ecritureFichier(5, X, Y, X_width, Y_height) --
 
 end
 
