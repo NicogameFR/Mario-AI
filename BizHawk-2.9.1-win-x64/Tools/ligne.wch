@@ -142,7 +142,6 @@ SystemID NES
 054C	b	u	0	RAM	Ligne 9 / 13
 054D	b	u	0	RAM	Ligne 9 / 14
 054E	b	u	0	RAM	Ligne 9 / 15
-054F	b	u	0	RAM Ligne 9 / 16
 0530	b	u	0	RAM	Ligne 10 / 1
 0531	b	u	0	RAM	Ligne 10 / 2
 0532	b	u	0	RAM	Ligne 10 / 3
@@ -223,3 +222,6 @@ SystemID NES
 04FD	b	u	0	RAM	Ligne 14 / 14
 04FE	b	u	0	RAM	Ligne 14 / 15
 04FF	b	u	0	RAM	Ligne 14 / 16
+071D	b	u	0	RAM	Défilement
+071C	b	u	0	RAM	Défilement + 1 ???
+
