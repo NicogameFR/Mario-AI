@@ -1,6 +1,7 @@
 SystemID NES
 0723	b	u	0	RAM	Scroll Lock
 07FA	b	u	0	RAM	Timer
+071C	b	u	0	RAM	Défilement
 000E	b	u	0	RAM	Mario state
 0756	b	u	0	RAM	Mario type
 04AC	b	u	0	RAM	Mario x1

@@ -1,5 +1,15 @@
 -- racio: 1024:768
 
+
+forecolor = nil -- Par défaut, la couleur du texte est blanche
+backcolor = nil -- Par défaut, l'arrière-plan est transparent
+fontfamily = nil -- Par défaut, la famille de police est monospace générique
+fontstyle = "regular" -- Par défaut, le style de police est "regular"
+horizalign = "left" -- Par défaut, l'alignement horizontal est "left"
+vertalign = "bottom" -- Par défaut, l'alignement vertical est "bottom"
+surfacename = nil -- Le nom de la surface si nécess
+
+
 function deleteOldFiles()
     local command_1 = "cd ./database/images/ & del *.png"
     os.execute(command_1)
@@ -37,7 +47,11 @@ function dessin(x1, y1, x2, y2)
     gui.drawRectangle(x1, y1, X_width, Y_height, "white")
 end
 
+fontsize = 9 -- Par défaut, la taille de la police est de 12
+
+
 function quadrillage()
+    
     gui.drawRectangle(0, 0, 16 - defilement, 8, "red")
     gui.drawRectangle(256 - defilement, 0, defilement - 1, 8, "red")
     gui.drawRectangle(0, 216, 16 - defilement, 7, "red")
@@ -47,7 +61,24 @@ function quadrillage()
         gui.drawRectangle(0, 216 - y * 16, 16 - defilement, 16, "red")
         for i = 1, 15 do
             gui.drawRectangle(256 - defilement - i * 16, 0, 16, 8, "red")
-            gui.drawRectangle(256 - defilement - i * 16, 216 - y * 16, 16, 16, "red")
+
+            
+            color = 'red'
+
+            if memory.readbyte(0x05BF - (i-1) - (y-1)*16) == 84 then
+                color = "green"
+            end
+
+
+            if memory.readbyte(0x05BF - (i-1) - (y-1)*16) == 81 or memory.readbyte(0x05BF - (i-1) - (y-1)*16) == 35 then
+                color = "white"
+            end
+
+
+            gui.drawRectangle(256 - defilement - i * 16, 216 - y * 16, 16, 16, color)
+
+
+
             gui.drawRectangle(256 - defilement - i * 16, 216, 16, 7, "red")
         end
     end
@@ -74,7 +105,7 @@ function choix()
 end
 
 function main()
-    defilement = (memory.readbyte(0x071C) % 256) % 16
+    defilement = (memory.readbyte(0x071C)) % 16
 
     local mariox1 = memory.readbyte(0x04AC)
     local mariox2 = memory.readbyte(0x04AE)
@@ -147,8 +178,27 @@ function main()
     end
 
     if affichage == 1 then
-        emu.frameadvance() --
-        quadrillage()
+        for i = 0 , 15 do 
+            gui.drawRectangle(0+16*i,0,15,7,"red")
+            gui.drawRectangle(0+16*i,216,15,7,"red")
+        end
+
+        for i = 0, 12 do
+            for y = 0, 15 do
+                gui.drawRectangle(0+16*y,8+16*i,15,15,"red")
+            end
+        end
+
+        emu.frameadvance()
+        --quadrillage()
+        if memory.readbyte(0x06A0)%2 == 0 then
+            if (memory.readbyte(0x06A0)-24) >= 0 then
+                dep = memory.readbyte(0x06A0)-24
+            else
+                dep = memory.readbyte(0x06A0)+8
+            end
+            gui.drawString(100, 100, dep, forecolor, backcolor, fontsize, fontfamily, fontstyle, horizalign, vertalign, surfacename)
+        end
     end
 
 
@@ -204,10 +254,10 @@ function main()
 end
 
 function coordonees(x1, y1, x2, y2)
-    local X = ((x1 + x2) / 2) / 255
-    local Y = ((y1 + y2) / 2) / 223
-    local X_width = (x2 - x1) / 255
-    local Y_height = (y2 - y1) / 223
+    local X = ((x1 + x2) / 2) / 256
+    local Y = ((y1 + y2) / 2) / 224
+    local X_width = (x2 - x1) / 256
+    local Y_height = (y2 - y1) / 224
     return {X, Y, X_width, Y_height}
 end
 
@@ -290,5 +340,6 @@ nb_image = 200
 
 nb_image = nb_image + 2
 gui.clearGraphics()
+gui.cleartext()
 deleteOldFiles()
 choix()
