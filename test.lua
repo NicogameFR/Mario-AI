@@ -1,44 +1,34 @@
 
+for i = 0 , 15 do 
+    gui.drawRectangle(0+16*i,0,15,7,"red")
+    gui.drawRectangle(0+16*i,216,15,7,"red")
+end
 
-variable = 0x05D0-17
-
-
-print(string.format("%X", variable))
-
-print(memory.readbyte(variable))
---local number = "05C0"
-
---number = tonumber(number,16)
-
---number = number + 1
-
---print(number)
-
---number = "0".. number
-
---print(number)
-
---number = string.format("%X",number)
+for i = 0, 12 do
+    for y = 0, 15 do
+        gui.drawRectangle(0+16*y,8+16*i,15,15,"red")
+    end
+end
 
 
 
+defilement = (memory.readbyte(0x071C)) % 16
 
--- Coordonnées x et y
-local x = 100
-local y = 200
 
--- Texte à afficher
-local message = "Hello, World!"
 
--- Options facultatives avec les mêmes valeurs par défaut que dans votre description
-local forecolor = nil -- Par défaut, la couleur du texte est blanche
-local backcolor = nil -- Par défaut, l'arrière-plan est transparent
-local fontsize = 6 -- Par défaut, la taille de la police est de 12
-local fontfamily = nil -- Par défaut, la famille de police est monospace générique
-local fontstyle = "regular" -- Par défaut, le style de police est "regular"
-local horizalign = "left" -- Par défaut, l'alignement horizontal est "left"
-local vertalign = "bottom" -- Par défaut, l'alignement vertical est "bottom"
-local surfacename = nil -- Le nom de la surface si nécessaire
-
--- Appel de la fonction gui.drawString avec les mêmes valeurs que dans votre description
-gui.drawString(x, y, message, forecolor, backcolor, fontsize, fontfamily, fontstyle, horizalign, vertalign, surfacename)
+function quadrillage()
+    
+    gui.drawRectangle(0, 0, 16 - defilement, 8, "red")
+    gui.drawRectangle(256 - defilement, 0, defilement - 1, 8, "red")
+    gui.drawRectangle(0, 216, 16 - defilement, 7, "red")
+    gui.drawRectangle(256 - defilement, 216, defilement - 1, 7, "red")
+    for y = 1, 13 do
+        gui.drawRectangle(256 - defilement, 216 - y * 16, defilement - 1, 16, "red")
+        gui.drawRectangle(0, 216 - y * 16, 16 - defilement, 16, "red")
+        for i = 1, 15 do
+            gui.drawRectangle(256 - defilement - i * 16, 0, 16, 8, "red")
+            gui.drawRectangle(256 - defilement - i * 16, 216 - y * 16, 16, 16, 'red')
+            gui.drawRectangle(256 - defilement - i * 16, 216, 16, 7, "red")
+        end
+    end
+end

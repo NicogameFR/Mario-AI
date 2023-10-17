@@ -50,39 +50,47 @@ end
 fontsize = 9 -- Par défaut, la taille de la police est de 12
 
 
+
+
 function quadrillage()
     
-    gui.drawRectangle(0, 0, 16 - defilement, 8, "red")
-    gui.drawRectangle(256 - defilement, 0, defilement - 1, 8, "red")
-    gui.drawRectangle(0, 216, 16 - defilement, 7, "red")
-    gui.drawRectangle(256 - defilement, 216, defilement - 1, 7, "red")
-    for y = 1, 13 do
-        gui.drawRectangle(256 - defilement, 216 - y * 16, defilement - 1, 16, "red")
-        gui.drawRectangle(0, 216 - y * 16, 16 - defilement, 16, "red")
-        for i = 1, 15 do
-            gui.drawRectangle(256 - defilement - i * 16, 0, 16, 8, "red")
-
-            
-            color = 'red'
-
-            if memory.readbyte(0x05BF - (i-1) - (y-1)*16) == 84 then
-                color = "green"
-            end
-
-
-            if memory.readbyte(0x05BF - (i-1) - (y-1)*16) == 81 or memory.readbyte(0x05BF - (i-1) - (y-1)*16) == 35 then
-                color = "white"
-            end
-
-
-            gui.drawRectangle(256 - defilement - i * 16, 216 - y * 16, 16, 16, color)
-
-
-
-            gui.drawRectangle(256 - defilement - i * 16, 216, 16, 7, "red")
+    for i = 0, 14 do
+        if i == 0 then
+            gui.drawRectangle(0, 0, 15 - defilement, 7, "red")
+        elseif i == 14  then
+            gui.drawRectangle(0,216,15 - defilement, 7, "red")
+        else
+            gui.drawRectangle(0, 8+16*(i-1), 15 - defilement, 15, "red")
         end
     end
+
+    for i = 1 , 15 do 
+        gui.drawRectangle(0+16*i-defilement,0,15,7,"red")
+        gui.drawRectangle(0+16*i-defilement,216,15,7,"red")
+    end
+
+    for i = 0, 12 do
+        for y = 1, 15 do
+            gui.drawRectangle(0+16*y-defilement,8+16*i,15,15,"red")
+        end
+    end
+
+    for i = 0 , 14 do 
+        if i == 0 then
+            gui.drawRectangle(256-defilement, 0, defilement-1, 7, "red")
+        elseif i == 14  then
+            gui.drawRectangle(256-defilement,216, defilement-1, 7, "red")
+        else
+            gui.drawRectangle(256-defilement, 8+16*(i-1), defilement-1, 15, "red")
+        end
+    end
+
+
 end
+
+
+
+
 
 
 
@@ -178,19 +186,9 @@ function main()
     end
 
     if affichage == 1 then
-        for i = 0 , 15 do 
-            gui.drawRectangle(0+16*i,0,15,7,"red")
-            gui.drawRectangle(0+16*i,216,15,7,"red")
-        end
-
-        for i = 0, 12 do
-            for y = 0, 15 do
-                gui.drawRectangle(0+16*y,8+16*i,15,15,"red")
-            end
-        end
-
+        
         emu.frameadvance()
-        --quadrillage()
+        quadrillage()
         if memory.readbyte(0x06A0)%2 == 0 then
             if (memory.readbyte(0x06A0)-24) >= 0 then
                 dep = memory.readbyte(0x06A0)-24
