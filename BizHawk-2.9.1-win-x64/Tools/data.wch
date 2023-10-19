@@ -1,4 +1,6 @@
 SystemID NES
+06A0	b	u	0	RAM	
+073D	b	u	0	RAM	
 0723	b	u	0	RAM	Scroll Lock
 07FA	b	u	0	RAM	Timer
 071C	b	u	0	RAM	Défilement

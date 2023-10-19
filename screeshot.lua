@@ -1,15 +1,4 @@
 -- racio: 1024:768
-
-
-forecolor = nil -- Par défaut, la couleur du texte est blanche
-backcolor = nil -- Par défaut, l'arrière-plan est transparent
-fontfamily = nil -- Par défaut, la famille de police est monospace générique
-fontstyle = "regular" -- Par défaut, le style de police est "regular"
-horizalign = "left" -- Par défaut, l'alignement horizontal est "left"
-vertalign = "bottom" -- Par défaut, l'alignement vertical est "bottom"
-surfacename = nil -- Le nom de la surface si nécess
-
-
 function deleteOldFiles()
     local command_1 = "cd ./database/images/ & del *.png"
     os.execute(command_1)
@@ -47,52 +36,40 @@ function dessin(x1, y1, x2, y2)
     gui.drawRectangle(x1, y1, X_width, Y_height, "white")
 end
 
-fontsize = 9 -- Par défaut, la taille de la police est de 12
-
-
-
-
 function quadrillage()
-    
+
     for i = 0, 14 do
         if i == 0 then
             gui.drawRectangle(0, 0, 15 - defilement, 7, "red")
-        elseif i == 14  then
-            gui.drawRectangle(0,216,15 - defilement, 7, "red")
+        elseif i == 14 then
+            gui.drawRectangle(0, 216, 15 - defilement, 7, "red")
         else
-            gui.drawRectangle(0, 8+16*(i-1), 15 - defilement, 15, "red")
+            gui.drawRectangle(0, 8 + 16 * (i - 1), 15 - defilement, 15, "red")
         end
     end
 
-    for i = 1 , 15 do 
-        gui.drawRectangle(0+16*i-defilement,0,15,7,"red")
-        gui.drawRectangle(0+16*i-defilement,216,15,7,"red")
+    for i = 1, 15 do
+        gui.drawRectangle(0 + 16 * i - defilement, 0, 15, 7, "red")
+        gui.drawRectangle(0 + 16 * i - defilement, 216, 15, 7, "red")
     end
 
     for i = 0, 12 do
         for y = 1, 15 do
-            gui.drawRectangle(0+16*y-defilement,8+16*i,15,15,"red")
+            gui.drawRectangle(0 + 16 * y - defilement, 8 + 16 * i, 15, 15, "red")
         end
     end
 
-    for i = 0 , 14 do 
+    for i = 0, 14 do
         if i == 0 then
-            gui.drawRectangle(256-defilement, 0, defilement-1, 7, "red")
-        elseif i == 14  then
-            gui.drawRectangle(256-defilement,216, defilement-1, 7, "red")
+            gui.drawRectangle(256 - defilement, 0, defilement - 1, 7, "red")
+        elseif i == 14 then
+            gui.drawRectangle(256 - defilement, 216, defilement - 1, 7, "red")
         else
-            gui.drawRectangle(256-defilement, 8+16*(i-1), defilement-1, 15, "red")
+            gui.drawRectangle(256 - defilement, 8 + 16 * (i - 1), defilement - 1, 15, "red")
         end
     end
-
 
 end
-
-
-
-
-
-
 
 function choix()
     if affichage == 1 then
@@ -184,21 +161,22 @@ function main()
         fireball2y1 = memory.readbyte(0x04CD) - 9
         fireball2y2 = memory.readbyte(0x04CF) - 9
     end
-
     if affichage == 1 then
-        
+
+        local deplacement = memory.readbyte(0x06A0)
+        local frame1 = memory.readbyte(0x073D) // 16
+        if (deplacement - 24) >= 0 then
+            deplacement = deplacement - 24
+        else
+            deplacement = deplacement + 8
+        end
+        deplacement = deplacement + frame1
+
+
         emu.frameadvance()
         quadrillage()
-        if memory.readbyte(0x06A0)%2 == 0 then
-            if (memory.readbyte(0x06A0)-24) >= 0 then
-                dep = memory.readbyte(0x06A0)-24
-            else
-                dep = memory.readbyte(0x06A0)+8
-            end
-            gui.drawString(100, 100, dep, forecolor, backcolor, fontsize, fontfamily, fontstyle, horizalign, vertalign, surfacename)
-        end
+        gui.drawString(100, 100, deplacement)
     end
-
 
     Mario(marioType, mariox1, marioy1, mariox2, marioy2)
 
@@ -269,7 +247,7 @@ function Mario(Type, x1, y1, x2, y2)
         if affichage == 1 then
             dessin(x1 - 4, y1 - 3, x2 + 3, y2 + 2) --
         else
-            ecritureFichier(Type, X, Y, X_width, Y_height)  --
+            ecritureFichier(Type, X, Y, X_width, Y_height) --
         end
     end
     if Type ~= 0 then
@@ -326,18 +304,12 @@ function fireball(x1, y1, x2, y2)
 
 end
 
-
-
-
 affichage = 1
 nb_image = 200
-
-
-
-
 
 nb_image = nb_image + 2
 gui.clearGraphics()
 gui.cleartext()
+
 deleteOldFiles()
 choix()
