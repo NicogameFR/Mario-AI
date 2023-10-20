@@ -1,8 +1,11 @@
 SystemID NES
+06A0	b	u	0	RAM	
+073D	b	u	0	RAM	
+0723	b	u	0	RAM	Scroll Lock
+07FA	b	u	0	RAM	Timer
+071C	b	u	0	RAM	Défilement
 000E	b	u	0	RAM	Mario state
 0756	b	u	0	RAM	Mario type
-0005	b	u	0	RAM	Mario x
-0002	b	u	0	RAM	Mario y
 04AC	b	u	0	RAM	Mario x1
 04AD	b	u	0	RAM	Mario y1
 04AE	b	u	0	RAM	Mario x2
@@ -52,9 +55,6 @@ SystemID NES
 04CD	b	u	0	RAM	Fireball2 y1
 04CE	b	u	0	RAM	Fireball2 x2
 04CF	b	u	0	RAM	Fireball2 y2
-0030	b	u	0	RAM	Hammer7
-0031	b	u	0	RAM	Hammer8
-0032	b	u	0	RAM	Hammer9
 002A	b	u	0	RAM	Hammer1
 04D0	b	u	0	RAM	Hammer1 x1
 04D1	b	u	0	RAM	Hammer1 y1
@@ -85,14 +85,17 @@ SystemID NES
 04E5	b	u	0	RAM	Hammer6 y1
 04E6	b	u	0	RAM	Hammer6 x2
 04E7	b	u	0	RAM	Hammer6 y2
+0030	b	u	0	RAM	Hammer7
 04E8	b	u	0	RAM	Hammer7 x1
 04E9	b	u	0	RAM	Hammer7 y1
 04EA	b	u	0	RAM	Hammer7 x2
 04EB	b	u	0	RAM	Hammer7 y2
+0031	b	u	0	RAM	Hammer8
 04EC	b	u	0	RAM	Hammer8 x1
 04ED	b	u	0	RAM	Hammer8 y1
 04EE	b	u	0	RAM	Hammer8 x2
 04EF	b	u	0	RAM	Hammer8 y2
+0032	b	u	0	RAM	Hammer9
 04F0	b	u	0	RAM	Hammer9 x1
 04F1	b	u	0	RAM	Hammer9 y1
 04F2	b	u	0	RAM	Hammer9 x2
@@ -112,5 +115,4 @@ SystemID NES
 04E9	b	u	0	RAM	Coin3 y1
 04EA	b	u	0	RAM	Coin3 x2
 04EB	b	u	0	RAM	Coin3 y2
-07FA	b	u	0	RAM	
 

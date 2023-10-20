@@ -36,36 +36,69 @@ function dessin(x1, y1, x2, y2)
     gui.drawRectangle(x1, y1, X_width, Y_height, "white")
 end
 
-function quadrillage()
+function quadrillage(defilement, dep)
 
-    for i = 0, 14 do
-        if i == 0 then
-            gui.drawRectangle(0, 0, 15 - defilement, 7, "red")
-        elseif i == 14 then
-            gui.drawRectangle(0, 216, 15 - defilement, 7, "red")
-        else
-            gui.drawRectangle(0, 8 + 16 * (i - 1), 15 - defilement, 15, "red")
+    for i = 2, 14 do
+      if i == 14 then
+          gui.drawRectangle(0, 216, 15 - defilement, 7, "red")
+          gui.drawRectangle(256 - defilement, 216, defilement - 1, 7, "red")
+      else
+          gui.drawRectangle(0, 8 + 16 * (i - 1), 15 - defilement, 15, "red")
+          gui.drawRectangle(256 - defilement, 8 + 16 * (i - 1), defilement - 1, 15, "red")
+      end
+    end
+
+
+    if dep <= 15 then
+        for y = dep + 1, 15 do
+            for i = 1, 13 do
+                local val = memory.readbyte(0x500 + y + (i - 1) * 16)
+                if val ~= 0 then
+                    if i == 13 then
+                        gui.drawRectangle(0 + 16 * y - defilement-dep*16, 216, 15, 7, "red")
+                    else
+                        gui.drawRectangle(0 + 16 * y - defilement-dep*16, 8 + 16 * i, 15, 15, "red")
+                    end
+                end
+            end
+        end -- dep*16 + defilement
+        for y = 0, dep - 1 do
+            for i = 1, 13 do
+                local val = memory.readbyte(0x5D0 + y + (i - 1) * 16)
+                if val ~= 0 then
+                    if i == 13 then
+                        gui.drawRectangle(256 - (dep * 16 + defilement) + 16 * y, 216, 15, 7, "yellow")
+                    else
+                        gui.drawRectangle(256 - (dep * 16 + defilement) + 16 * y, 8 + 16 * i, 15, 15, "yellow")
+                    end
+                end
+            end
         end
-    end
-
-    for i = 1, 15 do
-        gui.drawRectangle(0 + 16 * i - defilement, 0, 15, 7, "red")
-        gui.drawRectangle(0 + 16 * i - defilement, 216, 15, 7, "red")
-    end
-
-    for i = 0, 12 do
-        for y = 1, 15 do
-            gui.drawRectangle(0 + 16 * y - defilement, 8 + 16 * i, 15, 15, "red")
-        end
-    end
-
-    for i = 0, 14 do
-        if i == 0 then
-            gui.drawRectangle(256 - defilement, 0, defilement - 1, 7, "red")
-        elseif i == 14 then
-            gui.drawRectangle(256 - defilement, 216, defilement - 1, 7, "red")
-        else
-            gui.drawRectangle(256 - defilement, 8 + 16 * (i - 1), defilement - 1, 15, "red")
+    else
+        dep = dep - 16
+        for y = dep + 1, 15 do
+            for i = 1, 13 do
+                local val = memory.readbyte(0x5D0 + y + (i - 1) * 16)
+                if val ~= 0 then
+                    if i == 13 then
+                        gui.drawRectangle(0 + 16 * y - defilement-dep*16, 216, 15, 7, "yellow")
+                    else
+                        gui.drawRectangle(0 + 16 * y - defilement-dep*16, 8 + 16 * i, 15, 15, "yellow")
+                    end
+                end
+            end
+        end -- dep*16 + defilement
+        for y = 0, dep - 1 do
+            for i = 1, 13 do
+                local val = memory.readbyte(0x500 + y + (i - 1) * 16)
+                if val ~= 0 then
+                    if i == 13 then
+                        gui.drawRectangle(256 - (dep * 16 + defilement) + 16 * y, 216, 15, 7, "red")
+                    else
+                        gui.drawRectangle(256 - (dep * 16 + defilement) + 16 * y, 8 + 16 * i, 15, 15, "red")
+                    end
+                end
+            end
         end
     end
 
@@ -90,7 +123,7 @@ function choix()
 end
 
 function main()
-    defilement = (memory.readbyte(0x071C)) % 16
+    local defilement = (memory.readbyte(0x071C)) % 16
 
     local mariox1 = memory.readbyte(0x04AC)
     local mariox2 = memory.readbyte(0x04AE)
@@ -162,20 +195,25 @@ function main()
         fireball2y2 = memory.readbyte(0x04CF) - 9
     end
     if affichage == 1 then
-
         local deplacement = memory.readbyte(0x06A0)
-        local frame1 = memory.readbyte(0x073D) // 16
+        local frame1 = memory.readbyte(0x073D)
+
         if (deplacement - 24) >= 0 then
             deplacement = deplacement - 24
         else
             deplacement = deplacement + 8
         end
-        deplacement = deplacement + frame1
-
-
+        if deplacement% 2 == 1 then
+            deplacement = deplacement + 1
+        else
+            deplacement = deplacement + (frame1 // 16)
+        end
+        
         emu.frameadvance()
-        quadrillage()
+
+        quadrillage(defilement, deplacement)
         gui.drawString(100, 100, deplacement)
+
     end
 
     Mario(marioType, mariox1, marioy1, mariox2, marioy2)
