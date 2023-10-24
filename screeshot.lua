@@ -1,6 +1,6 @@
 -- racio: 1024:768
-affichage = 1
-nb_image = 20
+affichage = 0
+nb_image = 200
 
 function deleteOldFiles()
     local command_1 = "cd ./database/images/ & del *.png"
@@ -29,6 +29,8 @@ function ecritureFichier(Type, X, Y, X_width, Y_height)
         return
     end
     if X_width == 0 or Y_height == 0 then
+        local fichier = io.open("./database/labels/frame_" .. nb + 1 .. ".txt", "a+")
+        fichier:close()
         return
     end
     local fichier = io.open("./database/labels/frame_" .. nb + 1 .. ".txt", "a+")
@@ -46,13 +48,22 @@ function detection(m1, m2, decalage_niveau, decalage_block)
     for y = decalage_niveau + 1, 15 do
         for i = 1, 13 do
             local val = memory.readbyte(m1 + y + (i - 1) * 16)
-            local color = color_choix(val)
+            local color = choix_block(val)
             if color ~= nil then
                 if val ~= 0 then
                     if i == 13 then
-                        gui.drawRectangle(0 + 16 * y - decalage_block - decalage_niveau * 16, 216, 15, 7, color)
+                        if affichage == 0 then
+                            block(color, 0 + 16 * y - decalage_block - decalage_niveau * 16, 216, 15, 7)
+                        else
+                            gui.drawRectangle(0 + 16 * y - decalage_block - decalage_niveau * 16, 216, 15, 7, color)
+                        end
                     else
-                        gui.drawRectangle(0 + 16 * y - decalage_block - decalage_niveau * 16, 8 + 16 * i, 15, 15, color)
+                        if affichage == 0 then
+                            block(color, 0 + 16 * y - decalage_block - decalage_niveau * 16, 8 + 16 * i, 15, 15)
+                        else
+                            gui.drawRectangle(0 + 16 * y - decalage_block - decalage_niveau * 16, 8 + 16 * i, 15, 15,
+                                color)
+                        end
                     end
                 end
             end
@@ -61,14 +72,23 @@ function detection(m1, m2, decalage_niveau, decalage_block)
     for y = 0, decalage_niveau - 1 do
         for i = 1, 13 do
             local val = memory.readbyte(m2 + y + (i - 1) * 16)
-            local color = color_choix(val)
+            local color = choix_block(val)
             if color ~= nil then
                 if val ~= 0 then
                     if i == 13 then
-                        gui.drawRectangle(256 - (decalage_niveau * 16 + decalage_block) + 16 * y, 216, 15, 7, color)
+                        if affichage == 0 then
+                            block(color, 256 - (decalage_niveau * 16 + decalage_block) + 16 * y, 216, 15, 7)
+                        else
+                            gui.drawRectangle(256 - (decalage_niveau * 16 + decalage_block) + 16 * y, 216, 15, 7,
+                                color)
+                        end
                     else
-                        gui.drawRectangle(256 - (decalage_niveau * 16 + decalage_block) + 16 * y, 8 + 16 * i, 15, 15,
-                            color)
+                        if affichage == 0 then
+                            block(color, 256 - (decalage_niveau * 16 + decalage_block) + 16 * y, 8 + 16 * i, 15, 15)
+                        else
+                            gui.drawRectangle(256 - (decalage_niveau * 16 + decalage_block) + 16 * y, 8 + 16 * i, 15,
+                                15, color)
+                        end
                     end
                 end
             end
@@ -79,28 +99,44 @@ end
 function detection_cote(m1, m2, decalage_niveau, decalage_block)
     for i = 2, 14 do
         local val = memory.readbyte(m1 + (i - 2) * 16 + decalage_niveau)
-        local color = color_choix(val)
+        local color = choix_block(val)
         if color ~= nil then
             if i == 14 then
                 if val ~= 0 then
-                    gui.drawRectangle(0, 216, 15 - decalage_block, 7, color)
+                    if affichage == 0 then
+                        block(color, 0, 216, 15 - decalage_block, 7)
+                    else
+                        gui.drawRectangle(0, 216, 15 - decalage_block, 7, color)
+                    end
                 end
             else
                 if val ~= 0 then
-                    gui.drawRectangle(0, 8 + 16 * (i - 1), 15 - decalage_block, 15, color)
+                    if affichage == 0 then
+                        block(color, 0, 8 + 16 * (i - 1), 15 - decalage_block, 15)
+                    else
+                        gui.drawRectangle(0, 8 + 16 * (i - 1), 15 - decalage_block, 15, color)
+                    end
                 end
             end
         end
         local val = memory.readbyte(m2 + (i - 2) * 16 + decalage_niveau)
-        local color = color_choix(val)
+        local color = choix_block(val)
         if color ~= nil then
             if i == 14 then
                 if val ~= 0 then
-                    gui.drawRectangle(256 - decalage_block, 216, decalage_block - 1, 7, color)
+                    if affichage == 0 then
+                        block(color, 256 - decalage_block, 216, decalage_block - 1, 7)
+                    else
+                        gui.drawRectangle(256 - decalage_block, 216, decalage_block - 1, 7, color)
+                    end
                 end
             else
                 if val ~= 0 then
-                    gui.drawRectangle(256 - decalage_block, 8 + 16 * (i - 1), decalage_block - 1, 15, color)
+                    if affichage == 0 then
+                        block(color, 256 - decalage_block, 8 + 16 * (i - 1), decalage_block - 1, 15)
+                    else
+                        gui.drawRectangle(256 - decalage_block, 8 + 16 * (i - 1), decalage_block - 1, 15, color)
+                    end
                 end
             end
         end
@@ -152,37 +188,50 @@ function choix()
     end
 end
 
-function color_choix(val)
+function choix_block(val)
     local color = nil
+    local num = nil
     if val == 84 then
         color = "black"
+        num = 10
     end
     if val == 81 or val == 88 or val == 87 or val == 82 or val == 90 or val == 93 then
         color = "blue"
+        num = 9
     end
     if val == 192 or val == 193 then
         color = "red"
+        num = 11
     end
-    -- pipe
     if val == 20 or val == 21 or val == 32 or val == 30 or val == 29 or val == 32 or val == 33 then
         color = "green"
+        num = 12
     end
     if val == 16 or val == 17 or val == 18 or val == 19 or val == 28 or val == 31 then
         color = "purple"
+        num = 13
     end
     if val == 97 then
         color = "yellow"
+        num = 14
     end
     if val == 36 or val == 37 then
         color = "purple"
+        num = 15
     end
     if val == 196 then
         color = "pink"
+        num = 8
     end
     if val == 194 then
         color = 'yellow'
+        num = 20
     end
-    return color
+    if affichage == 0 then
+        return num
+    else
+        return color
+    end
 end
 
 function main()
@@ -195,9 +244,15 @@ function main()
     local marioState = memory.readbyte(0x000E)
 
     if marioState == 0 then
-        gui.clearGraphics()
-        emu.frameadvance()
-        return
+        if affichage == 0 then
+            local fichier = io.open("./database/labels/frame_" .. nb + 1 .. ".txt", "a+")
+            fichier:close()
+            return
+        else
+            gui.clearGraphics()
+            emu.frameadvance()
+            return
+        end
     end
     local enemy1
     local enemy2
@@ -214,6 +269,10 @@ function main()
     local fireball1
     local fireball2
 
+    local powerup1
+
+    powerup1 = memory.readbyte(0x0014)
+
     if marioType == 2 then
         fireball1 = memory.readbyte(0x0024)
         fireball2 = memory.readbyte(0x0025)
@@ -225,6 +284,7 @@ function main()
         enemy1y1 = memory.readbyte(0x04B1) - 9
         enemy1y2 = memory.readbyte(0x04B3) - 9
         enemy1Type = memory.readbyte(0x0016)
+        enemy1State = memory.readbyte(0x001E)
     else
         memory.writebyte(0x04B0, 255)
         memory.writebyte(0x04B1, 255)
@@ -238,6 +298,7 @@ function main()
         enemy2y1 = memory.readbyte(0x04B5) - 9
         enemy2y2 = memory.readbyte(0x04B7) - 9
         enemy2Type = memory.readbyte(0x0017)
+        enemy2State = memory.readbyte(0x001F)
     else
         memory.writebyte(0x04B4, 255)
         memory.writebyte(0x04B6, 255)
@@ -252,6 +313,7 @@ function main()
         enemy3y1 = memory.readbyte(0x04B9) - 9
         enemy3y2 = memory.readbyte(0x04BB) - 9
         enemy3Type = memory.readbyte(0x0018)
+        enemy3State = memory.readbyte(0x0020)
     else
         memory.writebyte(0x04B8, 255)
         memory.writebyte(0x04BA, 255)
@@ -265,6 +327,7 @@ function main()
         enemy4y1 = memory.readbyte(0x04BD) - 9
         enemy4y2 = memory.readbyte(0x04BF) - 9
         enemy4Type = memory.readbyte(0x0019)
+        enemy4State = memory.readbyte(0x0021)
     else
         memory.writebyte(0x04BC, 255)
         memory.writebyte(0x04BE, 255)
@@ -278,6 +341,7 @@ function main()
         enemy5y1 = memory.readbyte(0x04C1) - 9
         enemy5y2 = memory.readbyte(0x04C3) - 9
         enemy5Type = memory.readbyte(0x001A)
+        enemy5State = memory.readbyte(0x0022)
     else
         memory.writebyte(0x04C0, 255)
         memory.writebyte(0x04C2, 255)
@@ -299,6 +363,23 @@ function main()
         fireball2y2 = memory.readbyte(0x04CF) - 9
     end
 
+    if powerup1 == 1 then
+        powerupx1 = memory.readbyte(0x04C4)
+        powerupx2 = memory.readbyte(0x04C6)
+        powerupy1 = memory.readbyte(0x04C5) - 9
+        if memory.readbyte(0x0023) ~= 128 and memory.readbyte(0x0023) ~= 192 then
+            powerupy2 = powerupy1 + (memory.readbyte(0x0023) - 5)
+        else
+            powerupy2 = memory.readbyte(0x04C7) - 9
+        end
+        powerup1Type = memory.readbyte(0x0039)
+    else
+        memory.writebyte(0x04C4, 255)
+        memory.writebyte(0x04C6, 255)
+        memory.writebyte(0x04C5, 255)
+        memory.writebyte(0x04C7, 255)
+    end
+
     if affichage == 1 then
         local decalage_block = memory.readbyte(0x071C) % 16
         local decalage_niveau = memory.readbyte(0x071C) // 16
@@ -311,27 +392,26 @@ function main()
         emu.frameadvance()
 
         quadrillage(decalage_block, decalage_niveau)
-        gui.drawString(50, 100, "decalage_block : " .. decalage_niveau, "white")
     end
 
     if marioState ~= 3 and marioState ~= 6 and marioState ~= 11 and marioState ~= 5 and marioState ~= 7 and marioState ~=
-        2 then
+        2 and marioState ~= 9 and marioState ~= 10 and marioState ~= 13 then
         Mario(marioType, mariox1, marioy1, mariox2, marioy2)
     end
 
-    if enemy1 == 1 then
+    if enemy1 == 1 and (enemy1State == 0 or enemy1State == 132) then
         enemyType(enemy1Type, enemy1x1, enemy1y1, enemy1x2, enemy1y2)
     end
-    if enemy2 == 1 then
+    if enemy2 == 1 and (enemy2State == 0 or enemy2State == 132) then
         enemyType(enemy2Type, enemy2x1, enemy2y1, enemy2x2, enemy2y2)
     end
-    if enemy3 == 1 then
+    if enemy3 == 1 and (enemy3State == 0 or enemy3State == 132) then
         enemyType(enemy3Type, enemy3x1, enemy3y1, enemy3x2, enemy3y2)
     end
-    if enemy4 == 1 then
+    if enemy4 == 1 and (enemy4State == 0 or enemy4State == 132) then
         enemyType(enemy4Type, enemy4x1, enemy4y1, enemy4x2, enemy4y2)
     end
-    if enemy5 == 1 then
+    if enemy5 == 1 and (enemy5State == 0 or enemy5State == 132) then
         enemyType(enemy5Type, enemy5x1, enemy5y1, enemy5x2, enemy5y2)
     end
     if fireball1 == 1 then
@@ -339,6 +419,9 @@ function main()
     end
     if fireball2 == 1 then
         fireball(fireball2x1, fireball2y1, fireball2x2, fireball2y2)
+    end
+    if powerup1 == 1 then
+        powerup(powerupx1, powerupy1, powerupx2, powerupy2)
     end
 end
 
@@ -402,7 +485,7 @@ function koopa(x1, y1, x2, y2)
     if affichage == 1 then
         dessin(x1 - 3, y1 - 7, x2 + 2, y2 + 5, "red") --
     else
-        ecritureFichier(2, X, Y, X_width, Y_height) --
+        ecritureFichier(4, X, Y, X_width, Y_height) --
     end
 end
 
@@ -415,7 +498,7 @@ function goomba(x1, y1, x2, y2)
     if affichage == 1 then
         dessin(x1 - 4, y1 - 5, x2 + 3, y2 + 6, "pink") --
     else
-        ecritureFichier(4, X, Y, X_width, Y_height) --
+        ecritureFichier(3, X, Y, X_width, Y_height) --
     end
 end
 
@@ -428,12 +511,12 @@ function fireball(x1, y1, x2, y2)
     if affichage == 1 then
         dessin(x1, y1 + 1, x2, y2 + 2, "yellow")
     else
-        ecritureFichier(3, X, Y, X_width, Y_height)
+        ecritureFichier(5, X, Y, X_width, Y_height)
     end
 end
 
 function piranha(x1, y1, x2, y2)
-    local coordonees = coordonees(x1 - 4, y1 - 5, x2 + 3, y2 + 6)
+    local coordonees = coordonees(x1 - 5, y1 - 13, x2 + 4, y2 + 5)
     local X = coordonees[1]
     local Y = coordonees[2]
     local X_width = coordonees[3]
@@ -441,21 +524,53 @@ function piranha(x1, y1, x2, y2)
     if affichage == 1 then
         dessin(x1 - 5, y1 - 13, x2 + 4, y2 + 5, "pink") --
     else
-        ecritureFichier(4, X, Y, X_width, Y_height) --
+        ecritureFichier(6, X, Y, X_width, Y_height) --
     end
 end
 
 function plateforme(x1, y1, x2, y2)
-    local coordonees = coordonees(x1 - 4, y1 - 5, x2 + 3, y2 + 6)
+    local coordonees = coordonees(x1 - 2, y1 - 2, x2 + 1, y2 - 1)
     local X = coordonees[1]
     local Y = coordonees[2]
     local X_width = coordonees[3]
     local Y_height = coordonees[4]
     if affichage == 1 then
-        dessin(x1-2, y1-2, x2+1, y2-1, "red") --
+        dessin(x1 - 2, y1 - 2, x2 + 1, y2 - 1, "red") --
     else
-        ecritureFichier(4, X, Y, X_width, Y_height) --
+        ecritureFichier(7, X, Y, X_width, Y_height) --
     end
+end
+
+function powerup(x1, y1, x2, y2)
+    local coordonees = coordonees(x1 - 3, y1, x2 + 2, y2 + 5)
+    local X = coordonees[1]
+    local Y = coordonees[2]
+    local X_width = coordonees[3]
+    local Y_height = coordonees[4]
+    local type
+    if powerup1Type == 0 then
+        type = 16
+    elseif powerup1Type == 1 then
+        type = 17
+    elseif powerup1Type == 2 then
+        type = 18
+    else
+        type = 19
+    end
+
+    if affichage == 1 then
+        dessin(x1 - 3, y1, x2 + 2, y2 + 5, "pink") --
+    else
+        ecritureFichier(type, X, Y, X_width, Y_height) --
+    end
+end
+
+function block(type, x, y, X_width, Y_height)
+    local X = (x + X_width / 2) / 256
+    local Y = (y + Y_height / 2) / 224
+    local X_width = X_width / 256
+    local Y_height = Y_height / 224
+    ecritureFichier(type, X, Y, X_width, Y_height)
 end
 
 gui.clearGraphics()

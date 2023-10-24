@@ -3,4 +3,27 @@ val: ../valid/images
 test: ../test/images
 
 nc: 6
-names: ['little_mario','big_mario', 'fire_mario','goomba', 'koopa', 'fireball']
+names:
+  [
+    "little_mario",
+    "big_mario",
+    "fire_mario",
+    "goomba",
+    "koopa",
+    "fireball",
+    "piranha",
+    "scale_lift",
+    "empty_block",
+    "brick_block",
+    "undestructible_block",
+    "mystery_block",
+    "pipe",
+    "pipe_head",
+    "coin",
+    "goal_pole",
+    "mushroom",
+    "flower",
+    "star",
+    "1up",
+    "hard_block"
+  ]
