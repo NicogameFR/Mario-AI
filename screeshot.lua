@@ -1,6 +1,6 @@
 -- racio: 1024:768
 affichage = 0
-nb_image = 200
+nb_image = 1
 
 function deleteOldFiles()
     local command_1 = "cd ./database/images/ & del *.png"
@@ -10,7 +10,7 @@ function deleteOldFiles()
 end
 
 function saveScreenshot(nom)
-    local commande = "nircmd.exe win hide foreground & " .. "nircmd.exe savescreenshot ./database/images/" .. nom ..
+    local commande = "nircmd.exe savescreenshot ./database/images/" .. nom ..
                          ".png 1513 54 814 623 " .. '& exit'
     os.execute(commande)
     local chemin = "./database/images/" .. nom .. ".png"
@@ -213,7 +213,7 @@ function choix_block(val)
     end
     if val == 97 then
         color = "yellow"
-        num = 14
+        num = 20
     end
     if val == 36 or val == 37 then
         color = "purple"
@@ -225,7 +225,7 @@ function choix_block(val)
     end
     if val == 194 then
         color = 'yellow'
-        num = 20
+        num = 14
     end
     if affichage == 0 then
         return num
@@ -566,10 +566,10 @@ function powerup(x1, y1, x2, y2)
 end
 
 function block(type, x, y, X_width, Y_height)
-    local X = (x + X_width / 2) / 256
-    local Y = (y + Y_height / 2) / 224
-    local X_width = X_width / 256
-    local Y_height = Y_height / 224
+    local X = ((x + X_width / 2)+0.5) / 256
+    local Y = ((y + Y_height / 2)+0.5) / 224
+    local X_width = (X_width+1) / 256
+    local Y_height = (Y_height+1) / 224
     ecritureFichier(type, X, Y, X_width, Y_height)
 end
 
