@@ -1,2 +1,2 @@
-cd ./database/images/ & del *.png
-cd ../labels/ & del *.txt
+cd ./database/images/ & del /f *.png
+cd ../labels/ & del /f *.txt

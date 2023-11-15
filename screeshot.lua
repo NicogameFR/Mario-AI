@@ -1,5 +1,5 @@
 -- racio: 1024:768
-affichage = 0
+affichage = 1
 nb_image = 1
 
 function deleteOldFiles()
@@ -11,7 +11,7 @@ end
 
 function saveScreenshot(nom)
     local commande = "nircmd.exe savescreenshot ./database/images/" .. nom ..
-                         ".png 1513 54 814 623 " .. '& exit'
+                         ".png 1515 54 809 619 " .. '& exit'
     os.execute(commande)
     local chemin = "./database/images/" .. nom .. ".png"
     local timeouts = 0
@@ -25,18 +25,15 @@ function saveScreenshot(nom)
 end
 
 function ecritureFichier(Type, X, Y, X_width, Y_height)
-    if nb + 1 > nb_image - 2 then
-        return
-    end
     if X_width == 0 or Y_height == 0 then
-        local fichier = io.open("./database/labels/frame_" .. nb + 1 .. ".txt", "a+")
+        local fichier = io.open("./database/labels/frame_" .. nb .. ".txt", "a+")
         fichier:close()
         return
     end
-    local fichier = io.open("./database/labels/frame_" .. nb + 1 .. ".txt", "a+")
+    local fichier = io.open("./database/labels/frame_" .. nb .. ".txt", "a+")
     fichier:write(Type .. " " .. X .. " " .. Y .. " " .. X_width .. " " .. Y_height .. "\n")
     fichier:close()
-end
+end  
 
 function dessin(x1, y1, x2, y2, color)
     local X_width = (x2 - x1)
@@ -166,9 +163,8 @@ function choix()
             main()
         end
     elseif affichage == 0 then
-        nb_image = nb_image + 2
         deleteOldFiles()
-        nb = -1
+        nb = 0
         for i = 1, nb_image do
             local decalage_block = memory.readbyte(0x071C) % 16
             local decalage_niveau = memory.readbyte(0x071C) // 16
@@ -177,14 +173,20 @@ function choix()
             if ecran_actuel % 2 ~= 0 then
                 decalage_niveau = decalage_niveau + 16
             end
-            emu.frameadvance()
-            if nb > 0 then
-                saveScreenshot("frame_" .. nb)
-            end
-            nb = nb + 1
             quadrillage(decalage_block, decalage_niveau)
             main()
+            emu.frameadvance()
+            emu.frameadvance()
+            saveScreenshot("frame_" .. nb)
+            nb = nb + 1
+            frame_pass(100)
         end
+    end
+end
+
+function frame_pass(x)
+    for i = 0, x do
+        emu.frameadvance()
     end
 end
 
@@ -243,17 +245,17 @@ function main()
     local marioType = memory.readbyte(0x0756)
     local marioState = memory.readbyte(0x000E)
 
-    if marioState == 0 then
-        if affichage == 0 then
-            local fichier = io.open("./database/labels/frame_" .. nb + 1 .. ".txt", "a+")
-            fichier:close()
-            return
-        else
-            gui.clearGraphics()
-            emu.frameadvance()
-            return
-        end
-    end
+    --if marioState == 0 then
+    --    if affichage == 0 then
+    --        local fichier = io.open("./database/labels/frame_" .. nb .. ".txt", "a+")
+    --        fichier:close()
+    --        return
+    --    else
+    --        gui.clearGraphics()
+    --        emu.frameadvance()
+    --        return
+    --    end
+    --end
     local enemy1
     local enemy2
     local enemy3
@@ -367,7 +369,7 @@ function main()
         powerupx1 = memory.readbyte(0x04C4)
         powerupx2 = memory.readbyte(0x04C6)
         powerupy1 = memory.readbyte(0x04C5) - 9
-        if memory.readbyte(0x0023) ~= 128 and memory.readbyte(0x0023) ~= 192 then
+        if memory.readbyte(0x0023) ~= 128 and memory.readbyte(0x0023) ~= 192 and memory.readbyte(0x0023) ~= 194  and memory.readbyte(0x0023) ~= 130 then
             powerupy2 = powerupy1 + (memory.readbyte(0x0023) - 5)
         else
             powerupy2 = memory.readbyte(0x04C7) - 9
@@ -399,20 +401,20 @@ function main()
         Mario(marioType, mariox1, marioy1, mariox2, marioy2)
     end
 
-    if enemy1 == 1 and (enemy1State == 0 or enemy1State == 132) then
-        enemyType(enemy1Type, enemy1x1, enemy1y1, enemy1x2, enemy1y2)
+    if enemy1 == 1 and (enemy1State == 0 or ((enemy1State == 132 or enemy1State == 4) and (enemy1Type == 0))) then
+        enemyType(enemy1Type, enemy1x1, enemy1y1, enemy1x2, enemy1y2, enemy1State)
     end
-    if enemy2 == 1 and (enemy2State == 0 or enemy2State == 132) then
-        enemyType(enemy2Type, enemy2x1, enemy2y1, enemy2x2, enemy2y2)
+    if enemy2 == 1 and (enemy2State == 0 or ((enemy2State == 132 or enemy2State == 4) and (enemy2Type == 0))) then
+        enemyType(enemy2Type, enemy2x1, enemy2y1, enemy2x2, enemy2y2, enemy2State)
     end
-    if enemy3 == 1 and (enemy3State == 0 or enemy3State == 132) then
-        enemyType(enemy3Type, enemy3x1, enemy3y1, enemy3x2, enemy3y2)
+    if enemy3 == 1 and (enemy3State == 0 or ((enemy3State == 132 or enemy3State == 4) and (enemy3Type == 0))) then
+        enemyType(enemy3Type, enemy3x1, enemy3y1, enemy3x2, enemy3y2, enemy3State)
     end
-    if enemy4 == 1 and (enemy4State == 0 or enemy4State == 132) then
-        enemyType(enemy4Type, enemy4x1, enemy4y1, enemy4x2, enemy4y2)
+    if enemy4 == 1 and (enemy4State == 0 or ((enemy4State == 132 or enemy4State == 4) and (enemy4Type == 0))) then
+        enemyType(enemy4Type, enemy4x1, enemy4y1, enemy4x2, enemy4y2, enemy4State)
     end
-    if enemy5 == 1 and (enemy5State == 0 or enemy5State == 132) then
-        enemyType(enemy5Type, enemy5x1, enemy5y1, enemy5x2, enemy5y2)
+    if enemy5 == 1 and (enemy5State == 0 or ((enemy5State == 132 or enemy5State == 4) and (enemy5Type == 0))) then
+        enemyType(enemy5Type, enemy5x1, enemy5y1, enemy5x2, enemy5y2, enemy5State)
     end
     if fireball1 == 1 then
         fireball(fireball1x1, fireball1y1, fireball1x2, fireball1y2)
@@ -425,9 +427,9 @@ function main()
     end
 end
 
-function enemyType(type, x1, y1, x2, y2)
+function enemyType(type, x1, y1, x2, y2, State)
     if type == 0 or type == 3 then
-        koopa(x1, y1, x2, y2)
+        koopa(x1, y1, x2, y2, State)
     elseif type == 6 then
         goomba(x1, y1, x2, y2)
     elseif type == 13 then
@@ -476,16 +478,28 @@ function Mario(Type, x1, y1, x2, y2)
     end
 end
 
-function koopa(x1, y1, x2, y2)
-    local coordonees = coordonees(x1 - 3, y1 - 7, x2 + 2, y2 + 5)
-    local X = coordonees[1]
-    local Y = coordonees[2]
-    local X_width = coordonees[3]
-    local Y_height = coordonees[4]
-    if affichage == 1 then
-        dessin(x1 - 3, y1 - 7, x2 + 2, y2 + 5, "red") --
+function koopa(x1, y1, x2, y2, State)
+    local infos
+    local type
+    if State == 132 or State == 4 then
+        infos = coordonees(x1 - 3, y1 +1 , x2 + 2, y2 + 5)
+        type = "21"
     else
-        ecritureFichier(4, X, Y, X_width, Y_height) --
+        infos = coordonees(x1 - 3, y1 - 7, x2 + 2, y2 + 5)
+        type = "4"
+    end
+    local X = infos[1]
+    local Y = infos[2]
+    local X_width = infos[3]
+    local Y_height = infos[4]
+    if affichage == 1 then
+        if State == 132 or State == 4 then
+            dessin(x1 - 3, y1+1, x2 + 2, y2 + 5, "red") --
+        else
+            dessin(x1 - 3, y1 - 7, x2 + 2, y2 + 5, "red") --
+        end
+    else
+        ecritureFichier(type, X, Y, X_width, Y_height) --
     end
 end
 
