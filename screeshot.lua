@@ -1,6 +1,6 @@
 -- racio: 1024:768
-affichage = 1
-nb_image = 1
+affichage = 0
+nb_image = 10
 
 function deleteOldFiles()
     local command_1 = "cd ./database/images/ & del *.png"
