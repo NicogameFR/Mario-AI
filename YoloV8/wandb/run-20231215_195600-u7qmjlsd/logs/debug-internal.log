@@ -1,0 +1,489 @@
+2023-12-15 19:56:00,842 INFO    StreamThr :51772 [internal.py:wandb_internal():86] W&B internal server running at pid: 51772, started at: 2023-12-15 19:56:00.842473
+2023-12-15 19:56:00,843 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: status
+2023-12-15 19:56:00,848 INFO    WriterThread:51772 [datastore.py:open_for_write():85] open: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\run-u7qmjlsd.wandb
+2023-12-15 19:56:00,849 DEBUG   SenderThread:51772 [sender.py:send():379] send: header
+2023-12-15 19:56:00,903 DEBUG   SenderThread:51772 [sender.py:send():379] send: run
+2023-12-15 19:56:01,319 INFO    SenderThread:51772 [dir_watcher.py:__init__():211] watching files in: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files
+2023-12-15 19:56:01,319 INFO    SenderThread:51772 [sender.py:_start_run_threads():1121] run started: u7qmjlsd with start time 1702666560.843897
+2023-12-15 19:56:01,321 DEBUG   SenderThread:51772 [sender.py:send_request():406] send_request: summary_record
+2023-12-15 19:56:01,323 INFO    SenderThread:51772 [sender.py:_save_file():1375] saving file wandb-summary.json with policy end
+2023-12-15 19:56:01,329 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: check_version
+2023-12-15 19:56:01,329 DEBUG   SenderThread:51772 [sender.py:send_request():406] send_request: check_version
+2023-12-15 19:56:01,423 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: run_start
+2023-12-15 19:56:01,462 DEBUG   HandlerThread:51772 [system_info.py:__init__():31] System info init
+2023-12-15 19:56:01,462 DEBUG   HandlerThread:51772 [system_info.py:__init__():46] System info init done
+2023-12-15 19:56:01,462 INFO    HandlerThread:51772 [system_monitor.py:start():181] Starting system monitor
+2023-12-15 19:56:01,463 INFO    SystemMonitor:51772 [system_monitor.py:_start():145] Starting system asset monitoring threads
+2023-12-15 19:56:01,464 INFO    HandlerThread:51772 [system_monitor.py:probe():201] Collecting system info
+2023-12-15 19:56:01,476 INFO    SystemMonitor:51772 [interfaces.py:start():190] Started cpu monitoring
+2023-12-15 19:56:01,477 INFO    SystemMonitor:51772 [interfaces.py:start():190] Started disk monitoring
+2023-12-15 19:56:01,477 INFO    SystemMonitor:51772 [interfaces.py:start():190] Started gpu monitoring
+2023-12-15 19:56:01,486 INFO    SystemMonitor:51772 [interfaces.py:start():190] Started memory monitoring
+2023-12-15 19:56:01,513 INFO    SystemMonitor:51772 [interfaces.py:start():190] Started network monitoring
+2023-12-15 19:56:01,521 DEBUG   HandlerThread:51772 [system_info.py:probe():195] Probing system
+2023-12-15 19:56:01,522 DEBUG   HandlerThread:51772 [system_info.py:_probe_git():180] Probing git
+2023-12-15 19:56:01,627 DEBUG   HandlerThread:51772 [system_info.py:_probe_git():188] Probing git done
+2023-12-15 19:56:01,627 DEBUG   HandlerThread:51772 [system_info.py:probe():240] Probing system done
+2023-12-15 19:56:01,627 DEBUG   HandlerThread:51772 [system_monitor.py:probe():210] {'os': 'Windows-10-10.0.22621-SP0', 'python': '3.10.8', 'heartbeatAt': '2023-12-15T18:56:01.521949', 'startedAt': '2023-12-15T18:56:00.827137', 'docker': None, 'cuda': None, 'args': (), 'state': 'running', 'program': 'c:\\Users\\bapti\\Desktop\\Mario-AI\\YoloV8\\train.py', 'codePath': 'YoloV8\\train.py', 'git': {'remote': 'https://github.com/NicogameFR/Mario-AI.git', 'commit': '15963f8f378eb49b37ed53b784c5de8b51ceeb86'}, 'email': 'baptiste.hustaix@gmail.com', 'root': 'C:/Users/bapti/Desktop/Mario-AI', 'host': 'Portable-BH', 'username': 'bapti', 'executable': 'C:\\Users\\bapti\\AppData\\Local\\Programs\\Python\\Python310\\python.exe', 'cpu_count': 6, 'cpu_count_logical': 12, 'cpu_freq': {'current': 2022.0, 'min': 0.0, 'max': 4301.0}, 'cpu_freq_per_core': [{'current': 2022.0, 'min': 0.0, 'max': 4301.0}], 'disk': {'total': 476.03319931030273, 'used': 237.06761932373047}, 'gpu': 'NVIDIA GeForce RTX 4060 Laptop GPU', 'gpu_count': 1, 'gpu_devices': [{'name': 'NVIDIA GeForce RTX 4060 Laptop GPU', 'memory_total': 8585740288}], 'memory': {'total': 15.194202423095703}}
+2023-12-15 19:56:01,627 INFO    HandlerThread:51772 [system_monitor.py:probe():211] Finished collecting system info
+2023-12-15 19:56:01,627 INFO    HandlerThread:51772 [system_monitor.py:probe():214] Publishing system info
+2023-12-15 19:56:01,627 DEBUG   HandlerThread:51772 [system_info.py:_save_pip():51] Saving list of pip packages installed into the current environment
+2023-12-15 19:56:01,628 DEBUG   HandlerThread:51772 [system_info.py:_save_pip():67] Saving pip packages done
+2023-12-15 19:56:01,629 INFO    HandlerThread:51772 [system_monitor.py:probe():216] Finished publishing system info
+2023-12-15 19:56:01,642 DEBUG   SenderThread:51772 [sender.py:send():379] send: files
+2023-12-15 19:56:01,642 INFO    SenderThread:51772 [sender.py:_save_file():1375] saving file wandb-metadata.json with policy now
+2023-12-15 19:56:01,650 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: stop_status
+2023-12-15 19:56:01,650 DEBUG   SenderThread:51772 [sender.py:send_request():406] send_request: stop_status
+2023-12-15 19:56:01,833 DEBUG   SenderThread:51772 [sender.py:send():379] send: telemetry
+2023-12-15 19:56:02,268 INFO    wandb-upload_0:51772 [upload_job.py:push():131] Uploaded file C:\Users\bapti\AppData\Local\Temp\tmp119lot44wandb\ju418qvs-wandb-metadata.json
+2023-12-15 19:56:02,328 INFO    Thread-16 :51772 [dir_watcher.py:_on_file_created():271] file/dir created: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\requirements.txt
+2023-12-15 19:56:02,328 INFO    Thread-16 :51772 [dir_watcher.py:_on_file_created():271] file/dir created: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\wandb-summary.json
+2023-12-15 19:56:02,328 INFO    Thread-16 :51772 [dir_watcher.py:_on_file_created():271] file/dir created: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\output.log
+2023-12-15 19:56:02,328 INFO    Thread-16 :51772 [dir_watcher.py:_on_file_created():271] file/dir created: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\wandb-metadata.json
+2023-12-15 19:56:04,344 INFO    Thread-16 :51772 [dir_watcher.py:_on_file_modified():288] file/dir modified: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\output.log
+2023-12-15 19:56:06,346 INFO    Thread-16 :51772 [dir_watcher.py:_on_file_modified():288] file/dir modified: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\output.log
+2023-12-15 19:56:06,703 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: status_report
+2023-12-15 19:56:11,770 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: status_report
+2023-12-15 19:56:16,648 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: stop_status
+2023-12-15 19:56:16,649 DEBUG   SenderThread:51772 [sender.py:send_request():406] send_request: stop_status
+2023-12-15 19:56:16,811 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: status_report
+2023-12-15 19:56:21,855 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: status_report
+2023-12-15 19:56:26,892 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: status_report
+2023-12-15 19:56:31,652 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: stop_status
+2023-12-15 19:56:31,652 DEBUG   SenderThread:51772 [sender.py:send_request():406] send_request: stop_status
+2023-12-15 19:56:32,853 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: status_report
+2023-12-15 19:56:33,617 INFO    Thread-16 :51772 [dir_watcher.py:_on_file_modified():288] file/dir modified: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\config.yaml
+2023-12-15 19:56:38,109 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: status_report
+2023-12-15 19:56:40,673 INFO    Thread-16 :51772 [dir_watcher.py:_on_file_modified():288] file/dir modified: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\output.log
+2023-12-15 19:56:43,982 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: status_report
+2023-12-15 19:56:46,657 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: stop_status
+2023-12-15 19:56:46,657 DEBUG   SenderThread:51772 [sender.py:send_request():406] send_request: stop_status
+2023-12-15 19:56:49,855 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: status_report
+2023-12-15 19:56:54,888 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: status_report
+2023-12-15 19:56:59,936 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: status_report
+2023-12-15 19:57:01,513 DEBUG   SystemMonitor:51772 [system_monitor.py:_start():159] Starting system metrics aggregation loop
+2023-12-15 19:57:01,513 DEBUG   SenderThread:51772 [sender.py:send():379] send: stats
+2023-12-15 19:57:01,670 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: stop_status
+2023-12-15 19:57:01,671 DEBUG   SenderThread:51772 [sender.py:send_request():406] send_request: stop_status
+2023-12-15 19:57:05,940 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: status_report
+2023-12-15 19:57:10,980 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: status_report
+2023-12-15 19:57:16,027 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: status_report
+2023-12-15 19:57:16,683 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: stop_status
+2023-12-15 19:57:16,684 DEBUG   SenderThread:51772 [sender.py:send_request():406] send_request: stop_status
+2023-12-15 19:57:21,950 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: status_report
+2023-12-15 19:57:26,972 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: status_report
+2023-12-15 19:57:31,556 DEBUG   SenderThread:51772 [sender.py:send():379] send: stats
+2023-12-15 19:57:31,927 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: stop_status
+2023-12-15 19:57:31,927 DEBUG   SenderThread:51772 [sender.py:send_request():406] send_request: stop_status
+2023-12-15 19:57:32,174 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: status_report
+2023-12-15 19:57:37,604 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: status_report
+2023-12-15 19:57:39,223 INFO    Thread-16 :51772 [dir_watcher.py:_on_file_modified():288] file/dir modified: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\output.log
+2023-12-15 19:57:41,239 INFO    Thread-16 :51772 [dir_watcher.py:_on_file_modified():288] file/dir modified: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\output.log
+2023-12-15 19:57:42,253 INFO    Thread-16 :51772 [dir_watcher.py:_on_file_modified():288] file/dir modified: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\output.log
+2023-12-15 19:57:42,817 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: status_report
+2023-12-15 19:57:43,254 INFO    Thread-16 :51772 [dir_watcher.py:_on_file_modified():288] file/dir modified: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\output.log
+2023-12-15 19:57:44,269 INFO    Thread-16 :51772 [dir_watcher.py:_on_file_modified():288] file/dir modified: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\output.log
+2023-12-15 19:57:46,286 INFO    Thread-16 :51772 [dir_watcher.py:_on_file_modified():288] file/dir modified: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\output.log
+2023-12-15 19:57:46,925 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: stop_status
+2023-12-15 19:57:46,926 DEBUG   SenderThread:51772 [sender.py:send_request():406] send_request: stop_status
+2023-12-15 19:57:47,876 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: status_report
+2023-12-15 19:57:48,303 INFO    Thread-16 :51772 [dir_watcher.py:_on_file_modified():288] file/dir modified: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\output.log
+2023-12-15 19:57:50,326 INFO    Thread-16 :51772 [dir_watcher.py:_on_file_modified():288] file/dir modified: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\output.log
+2023-12-15 19:57:52,357 INFO    Thread-16 :51772 [dir_watcher.py:_on_file_modified():288] file/dir modified: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\output.log
+2023-12-15 19:57:53,008 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: status_report
+2023-12-15 19:57:54,382 INFO    Thread-16 :51772 [dir_watcher.py:_on_file_modified():288] file/dir modified: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\output.log
+2023-12-15 19:57:56,408 INFO    Thread-16 :51772 [dir_watcher.py:_on_file_modified():288] file/dir modified: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\output.log
+2023-12-15 19:57:58,366 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: status_report
+2023-12-15 19:57:58,369 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: partial_history
+2023-12-15 19:57:58,369 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: partial_history
+2023-12-15 19:57:58,416 INFO    Thread-16 :51772 [dir_watcher.py:_on_file_modified():288] file/dir modified: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\output.log
+2023-12-15 19:58:00,427 INFO    Thread-16 :51772 [dir_watcher.py:_on_file_modified():288] file/dir modified: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\output.log
+2023-12-15 19:58:01,551 DEBUG   SenderThread:51772 [sender.py:send():379] send: stats
+2023-12-15 19:58:01,941 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: stop_status
+2023-12-15 19:58:01,941 DEBUG   SenderThread:51772 [sender.py:send_request():406] send_request: stop_status
+2023-12-15 19:58:02,442 INFO    Thread-16 :51772 [dir_watcher.py:_on_file_modified():288] file/dir modified: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\output.log
+2023-12-15 19:58:02,803 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: partial_history
+2023-12-15 19:58:03,198 DEBUG   SenderThread:51772 [sender.py:send():379] send: files
+2023-12-15 19:58:03,198 INFO    SenderThread:51772 [sender.py:_save_file():1375] saving file media\images\labels_1_69f98955b3e96a948804.jpg with policy now
+2023-12-15 19:58:03,199 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: partial_history
+2023-12-15 19:58:03,230 DEBUG   SenderThread:51772 [sender.py:send():379] send: files
+2023-12-15 19:58:03,231 INFO    SenderThread:51772 [sender.py:_save_file():1375] saving file media\images\train_batch0_1_df6bbc0c7de71bcb6201.jpg with policy now
+2023-12-15 19:58:03,231 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: partial_history
+2023-12-15 19:58:03,258 DEBUG   SenderThread:51772 [sender.py:send():379] send: files
+2023-12-15 19:58:03,260 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: partial_history
+2023-12-15 19:58:03,260 INFO    SenderThread:51772 [sender.py:_save_file():1375] saving file media\images\train_batch1_1_2aae6c051a7009987820.jpg with policy now
+2023-12-15 19:58:03,285 DEBUG   SenderThread:51772 [sender.py:send():379] send: files
+2023-12-15 19:58:03,285 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: partial_history
+2023-12-15 19:58:03,285 INFO    SenderThread:51772 [sender.py:_save_file():1375] saving file media\images\train_batch2_1_dca261128fa96da45ddb.jpg with policy now
+2023-12-15 19:58:03,458 INFO    Thread-16 :51772 [dir_watcher.py:_on_file_created():271] file/dir created: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\media\images\train_batch0_1_df6bbc0c7de71bcb6201.jpg
+2023-12-15 19:58:03,458 INFO    Thread-16 :51772 [dir_watcher.py:_on_file_created():271] file/dir created: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\media\images\train_batch2_1_dca261128fa96da45ddb.jpg
+2023-12-15 19:58:03,459 INFO    Thread-16 :51772 [dir_watcher.py:_on_file_created():271] file/dir created: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\media\images\train_batch1_1_2aae6c051a7009987820.jpg
+2023-12-15 19:58:03,460 INFO    Thread-16 :51772 [dir_watcher.py:_on_file_created():271] file/dir created: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\media\images\labels_1_69f98955b3e96a948804.jpg
+2023-12-15 19:58:03,460 INFO    Thread-16 :51772 [dir_watcher.py:_on_file_created():271] file/dir created: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\media\images
+2023-12-15 19:58:03,460 INFO    Thread-16 :51772 [dir_watcher.py:_on_file_created():271] file/dir created: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\media
+2023-12-15 19:58:03,567 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: partial_history
+2023-12-15 19:58:03,603 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: status_report
+2023-12-15 19:58:03,838 INFO    wandb-upload_0:51772 [upload_job.py:push():131] Uploaded file C:\Users\bapti\AppData\Local\Temp\tmp119lot44wandb\a1pnj1qa-media/images/labels_1_69f98955b3e96a948804.jpg
+2023-12-15 19:58:04,181 INFO    wandb-upload_3:51772 [upload_job.py:push():131] Uploaded file C:\Users\bapti\AppData\Local\Temp\tmp119lot44wandb\fmy5yn4c-media/images/train_batch2_1_dca261128fa96da45ddb.jpg
+2023-12-15 19:58:04,226 INFO    wandb-upload_1:51772 [upload_job.py:push():131] Uploaded file C:\Users\bapti\AppData\Local\Temp\tmp119lot44wandb\ckn3rt3u-media/images/train_batch0_1_df6bbc0c7de71bcb6201.jpg
+2023-12-15 19:58:04,304 INFO    wandb-upload_2:51772 [upload_job.py:push():131] Uploaded file C:\Users\bapti\AppData\Local\Temp\tmp119lot44wandb\7cjs8pyt-media/images/train_batch1_1_2aae6c051a7009987820.jpg
+2023-12-15 19:58:04,475 INFO    Thread-16 :51772 [dir_watcher.py:_on_file_modified():288] file/dir modified: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\output.log
+2023-12-15 19:58:04,951 INFO    wandb-upload_3:51772 [upload_job.py:push():131] Uploaded file C:\Users\bapti\AppData\Local\Temp\tmp119lot44wandb\vrdnwuj3-media/images/labels_1_69f98955b3e96a948804.jpg
+2023-12-15 19:58:05,029 INFO    wandb-upload_0:51772 [upload_job.py:push():131] Uploaded file C:\Users\bapti\AppData\Local\Temp\tmp119lot44wandb\axvhsts5-media/images/train_batch2_1_dca261128fa96da45ddb.jpg
+2023-12-15 19:58:05,484 INFO    Thread-16 :51772 [dir_watcher.py:_on_file_modified():288] file/dir modified: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\output.log
+2023-12-15 19:58:05,967 INFO    wandb-upload_2:51772 [upload_job.py:push():131] Uploaded file C:\Users\bapti\AppData\Local\Temp\tmp119lot44wandb\yj2dwq7z-media/images/train_batch0_1_df6bbc0c7de71bcb6201.jpg
+2023-12-15 19:58:05,990 INFO    wandb-upload_3:51772 [upload_job.py:push():131] Uploaded file C:\Users\bapti\AppData\Local\Temp\tmp119lot44wandb\ff6ttexz-media/images/train_batch1_1_2aae6c051a7009987820.jpg
+2023-12-15 19:58:06,497 INFO    Thread-16 :51772 [dir_watcher.py:_on_file_modified():288] file/dir modified: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\output.log
+2023-12-15 19:58:08,528 INFO    Thread-16 :51772 [dir_watcher.py:_on_file_modified():288] file/dir modified: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\output.log
+2023-12-15 19:58:08,662 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: status_report
+2023-12-15 19:58:10,541 INFO    Thread-16 :51772 [dir_watcher.py:_on_file_modified():288] file/dir modified: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\output.log
+2023-12-15 19:58:12,563 INFO    Thread-16 :51772 [dir_watcher.py:_on_file_modified():288] file/dir modified: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\output.log
+2023-12-15 19:58:13,690 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: status_report
+2023-12-15 19:58:14,592 INFO    Thread-16 :51772 [dir_watcher.py:_on_file_modified():288] file/dir modified: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\output.log
+2023-12-15 19:58:16,611 INFO    Thread-16 :51772 [dir_watcher.py:_on_file_modified():288] file/dir modified: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\output.log
+2023-12-15 19:58:16,951 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: stop_status
+2023-12-15 19:58:16,951 DEBUG   SenderThread:51772 [sender.py:send_request():406] send_request: stop_status
+2023-12-15 19:58:17,645 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: partial_history
+2023-12-15 19:58:17,648 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: partial_history
+2023-12-15 19:58:17,648 DEBUG   SenderThread:51772 [sender.py:send():379] send: history
+2023-12-15 19:58:17,648 DEBUG   SenderThread:51772 [sender.py:send_request():406] send_request: summary_record
+2023-12-15 19:58:17,649 INFO    SenderThread:51772 [sender.py:_save_file():1375] saving file wandb-summary.json with policy end
+2023-12-15 19:58:18,646 INFO    Thread-16 :51772 [dir_watcher.py:_on_file_modified():288] file/dir modified: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\wandb-summary.json
+2023-12-15 19:58:18,646 INFO    Thread-16 :51772 [dir_watcher.py:_on_file_modified():288] file/dir modified: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\output.log
+2023-12-15 19:58:18,976 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: status_report
+2023-12-15 19:58:20,664 INFO    Thread-16 :51772 [dir_watcher.py:_on_file_modified():288] file/dir modified: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\output.log
+2023-12-15 19:58:22,120 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: partial_history
+2023-12-15 19:58:22,681 INFO    Thread-16 :51772 [dir_watcher.py:_on_file_modified():288] file/dir modified: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\output.log
+2023-12-15 19:58:24,064 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: status_report
+2023-12-15 19:58:24,705 INFO    Thread-16 :51772 [dir_watcher.py:_on_file_modified():288] file/dir modified: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\output.log
+2023-12-15 19:58:26,725 INFO    Thread-16 :51772 [dir_watcher.py:_on_file_modified():288] file/dir modified: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\output.log
+2023-12-15 19:58:28,737 INFO    Thread-16 :51772 [dir_watcher.py:_on_file_modified():288] file/dir modified: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\output.log
+2023-12-15 19:58:29,092 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: status_report
+2023-12-15 19:58:30,766 INFO    Thread-16 :51772 [dir_watcher.py:_on_file_modified():288] file/dir modified: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\output.log
+2023-12-15 19:58:31,561 DEBUG   SenderThread:51772 [sender.py:send():379] send: stats
+2023-12-15 19:58:31,967 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: stop_status
+2023-12-15 19:58:31,967 DEBUG   SenderThread:51772 [sender.py:send_request():406] send_request: stop_status
+2023-12-15 19:58:32,794 INFO    Thread-16 :51772 [dir_watcher.py:_on_file_modified():288] file/dir modified: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\output.log
+2023-12-15 19:58:34,128 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: status_report
+2023-12-15 19:58:34,816 INFO    Thread-16 :51772 [dir_watcher.py:_on_file_modified():288] file/dir modified: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\output.log
+2023-12-15 19:58:35,103 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: partial_history
+2023-12-15 19:58:35,104 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: partial_history
+2023-12-15 19:58:35,104 DEBUG   SenderThread:51772 [sender.py:send():379] send: history
+2023-12-15 19:58:35,104 DEBUG   SenderThread:51772 [sender.py:send_request():406] send_request: summary_record
+2023-12-15 19:58:35,106 INFO    SenderThread:51772 [sender.py:_save_file():1375] saving file wandb-summary.json with policy end
+2023-12-15 19:58:35,831 INFO    Thread-16 :51772 [dir_watcher.py:_on_file_modified():288] file/dir modified: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\wandb-summary.json
+2023-12-15 19:58:36,845 INFO    Thread-16 :51772 [dir_watcher.py:_on_file_modified():288] file/dir modified: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\output.log
+2023-12-15 19:58:38,872 INFO    Thread-16 :51772 [dir_watcher.py:_on_file_modified():288] file/dir modified: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\output.log
+2023-12-15 19:58:39,215 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: partial_history
+2023-12-15 19:58:39,253 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: status_report
+2023-12-15 19:58:40,886 INFO    Thread-16 :51772 [dir_watcher.py:_on_file_modified():288] file/dir modified: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\output.log
+2023-12-15 19:58:42,897 INFO    Thread-16 :51772 [dir_watcher.py:_on_file_modified():288] file/dir modified: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\output.log
+2023-12-15 19:58:44,570 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: status_report
+2023-12-15 19:58:44,902 INFO    Thread-16 :51772 [dir_watcher.py:_on_file_modified():288] file/dir modified: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\output.log
+2023-12-15 19:58:46,916 INFO    Thread-16 :51772 [dir_watcher.py:_on_file_modified():288] file/dir modified: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\output.log
+2023-12-15 19:58:46,991 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: stop_status
+2023-12-15 19:58:46,992 DEBUG   SenderThread:51772 [sender.py:send_request():406] send_request: stop_status
+2023-12-15 19:58:48,940 INFO    Thread-16 :51772 [dir_watcher.py:_on_file_modified():288] file/dir modified: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\output.log
+2023-12-15 19:58:50,093 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: status_report
+2023-12-15 19:58:50,971 INFO    Thread-16 :51772 [dir_watcher.py:_on_file_modified():288] file/dir modified: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\output.log
+2023-12-15 19:58:52,983 INFO    Thread-16 :51772 [dir_watcher.py:_on_file_modified():288] file/dir modified: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\output.log
+2023-12-15 19:58:53,591 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: partial_history
+2023-12-15 19:58:53,617 DEBUG   SenderThread:51772 [sender.py:send():379] send: files
+2023-12-15 19:58:53,617 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: partial_history
+2023-12-15 19:58:53,617 INFO    SenderThread:51772 [sender.py:_save_file():1375] saving file media\images\val_batch0_labels_3_d335c01632943ca3c783.jpg with policy now
+2023-12-15 19:58:53,645 DEBUG   SenderThread:51772 [sender.py:send():379] send: files
+2023-12-15 19:58:53,645 INFO    SenderThread:51772 [sender.py:_save_file():1375] saving file media\images\val_batch0_pred_3_8a97e9e1d3cad902eacd.jpg with policy now
+2023-12-15 19:58:53,645 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: partial_history
+2023-12-15 19:58:53,670 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: partial_history
+2023-12-15 19:58:53,670 DEBUG   SenderThread:51772 [sender.py:send():379] send: files
+2023-12-15 19:58:53,670 INFO    SenderThread:51772 [sender.py:_save_file():1375] saving file media\images\val_batch1_labels_3_5cb462951da28d0a79da.jpg with policy now
+2023-12-15 19:58:53,694 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: partial_history
+2023-12-15 19:58:53,695 DEBUG   SenderThread:51772 [sender.py:send():379] send: files
+2023-12-15 19:58:53,695 INFO    SenderThread:51772 [sender.py:_save_file():1375] saving file media\images\val_batch1_pred_3_acec94ef22bf4ce447e1.jpg with policy now
+2023-12-15 19:58:53,717 DEBUG   SenderThread:51772 [sender.py:send():379] send: files
+2023-12-15 19:58:53,717 INFO    SenderThread:51772 [sender.py:_save_file():1375] saving file media\images\val_batch2_labels_3_ba8f17154544b79bc207.jpg with policy now
+2023-12-15 19:58:53,717 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: partial_history
+2023-12-15 19:58:53,746 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: partial_history
+2023-12-15 19:58:53,746 DEBUG   SenderThread:51772 [sender.py:send():379] send: files
+2023-12-15 19:58:53,747 INFO    SenderThread:51772 [sender.py:_save_file():1375] saving file media\images\val_batch2_pred_3_00caaa920cb191fe852b.jpg with policy now
+2023-12-15 19:58:53,801 DEBUG   SenderThread:51772 [sender.py:send():379] send: files
+2023-12-15 19:58:53,801 INFO    SenderThread:51772 [sender.py:_save_file():1375] saving file media\images\PR_curve_3_d45e2aaf02620215689c.png with policy now
+2023-12-15 19:58:53,801 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: partial_history
+2023-12-15 19:58:53,850 DEBUG   SenderThread:51772 [sender.py:send():379] send: files
+2023-12-15 19:58:53,850 INFO    SenderThread:51772 [sender.py:_save_file():1375] saving file media\images\F1_curve_3_86402cd9cb131477a712.png with policy now
+2023-12-15 19:58:53,850 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: partial_history
+2023-12-15 19:58:53,903 DEBUG   SenderThread:51772 [sender.py:send():379] send: files
+2023-12-15 19:58:53,903 INFO    SenderThread:51772 [sender.py:_save_file():1375] saving file media\images\P_curve_3_ae7fc27220c82b789a65.png with policy now
+2023-12-15 19:58:53,903 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: partial_history
+2023-12-15 19:58:53,951 DEBUG   SenderThread:51772 [sender.py:send():379] send: files
+2023-12-15 19:58:53,951 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: partial_history
+2023-12-15 19:58:53,951 INFO    SenderThread:51772 [sender.py:_save_file():1375] saving file media\images\R_curve_3_c1d04d3edbde64c8facd.png with policy now
+2023-12-15 19:58:54,000 INFO    Thread-16 :51772 [dir_watcher.py:_on_file_created():271] file/dir created: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\media\images\val_batch2_pred_3_00caaa920cb191fe852b.jpg
+2023-12-15 19:58:54,000 INFO    Thread-16 :51772 [dir_watcher.py:_on_file_created():271] file/dir created: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\media\images\val_batch0_pred_3_8a97e9e1d3cad902eacd.jpg
+2023-12-15 19:58:54,001 INFO    Thread-16 :51772 [dir_watcher.py:_on_file_created():271] file/dir created: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\media\images\val_batch1_pred_3_acec94ef22bf4ce447e1.jpg
+2023-12-15 19:58:54,001 INFO    Thread-16 :51772 [dir_watcher.py:_on_file_created():271] file/dir created: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\media\images\P_curve_3_ae7fc27220c82b789a65.png
+2023-12-15 19:58:54,002 INFO    Thread-16 :51772 [dir_watcher.py:_on_file_created():271] file/dir created: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\media\images\val_batch0_labels_3_d335c01632943ca3c783.jpg
+2023-12-15 19:58:54,003 INFO    Thread-16 :51772 [dir_watcher.py:_on_file_created():271] file/dir created: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\media\images\PR_curve_3_d45e2aaf02620215689c.png
+2023-12-15 19:58:54,003 INFO    Thread-16 :51772 [dir_watcher.py:_on_file_created():271] file/dir created: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\media\images\R_curve_3_c1d04d3edbde64c8facd.png
+2023-12-15 19:58:54,004 INFO    Thread-16 :51772 [dir_watcher.py:_on_file_created():271] file/dir created: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\media\images\F1_curve_3_86402cd9cb131477a712.png
+2023-12-15 19:58:54,004 INFO    Thread-16 :51772 [dir_watcher.py:_on_file_created():271] file/dir created: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\media\images\val_batch1_labels_3_5cb462951da28d0a79da.jpg
+2023-12-15 19:58:54,006 INFO    Thread-16 :51772 [dir_watcher.py:_on_file_created():271] file/dir created: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\media\images\val_batch2_labels_3_ba8f17154544b79bc207.jpg
+2023-12-15 19:58:54,006 INFO    Thread-16 :51772 [dir_watcher.py:_on_file_modified():288] file/dir modified: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\media\images
+2023-12-15 19:58:54,044 DEBUG   SenderThread:51772 [sender.py:send():379] send: files
+2023-12-15 19:58:54,044 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: partial_history
+2023-12-15 19:58:54,044 INFO    SenderThread:51772 [sender.py:_save_file():1375] saving file media\images\confusion_matrix_normalized_3_7e24c34d9c8ed1f6587c.png with policy now
+2023-12-15 19:58:54,133 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: partial_history
+2023-12-15 19:58:54,133 DEBUG   SenderThread:51772 [sender.py:send():379] send: files
+2023-12-15 19:58:54,133 INFO    SenderThread:51772 [sender.py:_save_file():1375] saving file media\images\confusion_matrix_3_6a0b47660cae1e236b3b.png with policy now
+2023-12-15 19:58:54,468 INFO    wandb-upload_6:51772 [upload_job.py:push():131] Uploaded file C:\Users\bapti\AppData\Local\Temp\tmp119lot44wandb\hba5xagv-media/images/PR_curve_3_d45e2aaf02620215689c.png
+2023-12-15 19:58:54,561 INFO    wandb-upload_0:51772 [upload_job.py:push():131] Uploaded file C:\Users\bapti\AppData\Local\Temp\tmp119lot44wandb\ul3ds0gr-media/images/val_batch0_labels_3_d335c01632943ca3c783.jpg
+2023-12-15 19:58:54,579 INFO    wandb-upload_2:51772 [upload_job.py:push():131] Uploaded file C:\Users\bapti\AppData\Local\Temp\tmp119lot44wandb\erm6gy1z-media/images/val_batch0_pred_3_8a97e9e1d3cad902eacd.jpg
+2023-12-15 19:58:54,586 INFO    wandb-upload_1:51772 [upload_job.py:push():131] Uploaded file C:\Users\bapti\AppData\Local\Temp\tmp119lot44wandb\q6vp48m3-media/images/val_batch1_labels_3_5cb462951da28d0a79da.jpg
+2023-12-15 19:58:54,653 INFO    wandb-upload_3:51772 [upload_job.py:push():131] Uploaded file C:\Users\bapti\AppData\Local\Temp\tmp119lot44wandb\13reffq0-media/images/val_batch1_pred_3_acec94ef22bf4ce447e1.jpg
+2023-12-15 19:58:54,753 INFO    wandb-upload_7:51772 [upload_job.py:push():131] Uploaded file C:\Users\bapti\AppData\Local\Temp\tmp119lot44wandb\jzxf4eu3-media/images/F1_curve_3_86402cd9cb131477a712.png
+2023-12-15 19:58:54,767 INFO    wandb-upload_4:51772 [upload_job.py:push():131] Uploaded file C:\Users\bapti\AppData\Local\Temp\tmp119lot44wandb\xwlckfnl-media/images/val_batch2_labels_3_ba8f17154544b79bc207.jpg
+2023-12-15 19:58:54,768 INFO    wandb-upload_5:51772 [upload_job.py:push():131] Uploaded file C:\Users\bapti\AppData\Local\Temp\tmp119lot44wandb\zvtn9ike-media/images/val_batch2_pred_3_00caaa920cb191fe852b.jpg
+2023-12-15 19:58:54,769 INFO    wandb-upload_8:51772 [upload_job.py:push():131] Uploaded file C:\Users\bapti\AppData\Local\Temp\tmp119lot44wandb\5tqt98rm-media/images/P_curve_3_ae7fc27220c82b789a65.png
+2023-12-15 19:58:54,773 INFO    wandb-upload_9:51772 [upload_job.py:push():131] Uploaded file C:\Users\bapti\AppData\Local\Temp\tmp119lot44wandb\5etj59jf-media/images/R_curve_3_c1d04d3edbde64c8facd.png
+2023-12-15 19:58:54,871 INFO    wandb-upload_11:51772 [upload_job.py:push():131] Uploaded file C:\Users\bapti\AppData\Local\Temp\tmp119lot44wandb\i7wrwefo-media/images/confusion_matrix_3_6a0b47660cae1e236b3b.png
+2023-12-15 19:58:54,885 INFO    wandb-upload_10:51772 [upload_job.py:push():131] Uploaded file C:\Users\bapti\AppData\Local\Temp\tmp119lot44wandb\z4gaiz14-media/images/confusion_matrix_normalized_3_7e24c34d9c8ed1f6587c.png
+2023-12-15 19:58:54,950 DEBUG   SenderThread:51772 [sender.py:send():379] send: files
+2023-12-15 19:58:54,950 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: partial_history
+2023-12-15 19:58:54,950 INFO    SenderThread:51772 [sender.py:_save_file():1375] saving file media\images\results_3_a868dd2c9bb57cc2cec8.png with policy now
+2023-12-15 19:58:55,015 INFO    Thread-16 :51772 [dir_watcher.py:_on_file_modified():288] file/dir modified: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\output.log
+2023-12-15 19:58:55,015 INFO    Thread-16 :51772 [dir_watcher.py:_on_file_created():271] file/dir created: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\media\images\confusion_matrix_normalized_3_7e24c34d9c8ed1f6587c.png
+2023-12-15 19:58:55,016 INFO    Thread-16 :51772 [dir_watcher.py:_on_file_created():271] file/dir created: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\media\images\results_3_a868dd2c9bb57cc2cec8.png
+2023-12-15 19:58:55,016 INFO    Thread-16 :51772 [dir_watcher.py:_on_file_created():271] file/dir created: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\media\images\confusion_matrix_3_6a0b47660cae1e236b3b.png
+2023-12-15 19:58:55,017 INFO    Thread-16 :51772 [dir_watcher.py:_on_file_modified():288] file/dir modified: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\media\images
+2023-12-15 19:58:55,245 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: log_artifact
+2023-12-15 19:58:55,246 DEBUG   SenderThread:51772 [sender.py:send_request():406] send_request: log_artifact
+2023-12-15 19:58:55,514 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: log_artifact
+2023-12-15 19:58:55,541 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: partial_history
+2023-12-15 19:58:55,567 INFO    wandb-upload_2:51772 [upload_job.py:push():131] Uploaded file C:\Users\bapti\AppData\Local\Temp\tmp119lot44wandb\xl0jf2p0-media/images/PR_curve_3_d45e2aaf02620215689c.png
+2023-12-15 19:58:55,614 INFO    wandb-upload_6:51772 [upload_job.py:push():131] Uploaded file C:\Users\bapti\AppData\Local\Temp\tmp119lot44wandb\auj4ruf8-media/images/val_batch0_labels_3_d335c01632943ca3c783.jpg
+2023-12-15 19:58:55,688 INFO    wandb-upload_3:51772 [upload_job.py:push():131] Uploaded file C:\Users\bapti\AppData\Local\Temp\tmp119lot44wandb\py0qoccs-media/images/F1_curve_3_86402cd9cb131477a712.png
+2023-12-15 19:58:55,727 INFO    wandb-upload_7:51772 [upload_job.py:push():131] Uploaded file C:\Users\bapti\AppData\Local\Temp\tmp119lot44wandb\1oar7g8c-media/images/val_batch1_labels_3_5cb462951da28d0a79da.jpg
+2023-12-15 19:58:55,739 INFO    wandb-upload_5:51772 [upload_job.py:push():131] Uploaded file C:\Users\bapti\AppData\Local\Temp\tmp119lot44wandb\4x2h4qaj-media/images/results_3_a868dd2c9bb57cc2cec8.png
+2023-12-15 19:58:55,747 INFO    wandb-upload_8:51772 [upload_job.py:push():131] Uploaded file C:\Users\bapti\AppData\Local\Temp\tmp119lot44wandb\h4njoc81-media/images/confusion_matrix_normalized_3_7e24c34d9c8ed1f6587c.png
+2023-12-15 19:58:55,781 INFO    wandb-upload_4:51772 [upload_job.py:push():131] Uploaded file C:\Users\bapti\AppData\Local\Temp\tmp119lot44wandb\9ush2hsb-media/images/val_batch2_labels_3_ba8f17154544b79bc207.jpg
+2023-12-15 19:58:55,785 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: log_artifact
+2023-12-15 19:58:55,801 INFO    wandb-upload_9:51772 [upload_job.py:push():131] Uploaded file C:\Users\bapti\AppData\Local\Temp\tmp119lot44wandb\c1d8ndup-media/images/confusion_matrix_3_6a0b47660cae1e236b3b.png
+2023-12-15 19:58:55,819 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: partial_history
+2023-12-15 19:58:55,841 INFO    wandb-upload_0:51772 [upload_job.py:push():131] Uploaded file C:\Users\bapti\AppData\Local\Temp\tmp119lot44wandb\f4ajm3to-media/images/val_batch2_pred_3_00caaa920cb191fe852b.jpg
+2023-12-15 19:58:55,883 INFO    wandb-upload_1:51772 [upload_job.py:push():131] Uploaded file C:\Users\bapti\AppData\Local\Temp\tmp119lot44wandb\h7ydpbex-media/images/val_batch0_pred_3_8a97e9e1d3cad902eacd.jpg
+2023-12-15 19:58:56,033 INFO    Thread-16 :51772 [dir_watcher.py:_on_file_created():271] file/dir created: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\media\table\curves\Precision-Recall(B)_table_3_1e5ac24b79d0883d3c95.table.json
+2023-12-15 19:58:56,034 INFO    Thread-16 :51772 [dir_watcher.py:_on_file_created():271] file/dir created: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\media\table\curves\F1-Confidence(B)_table_3_abbfea68ce1d37d789db.table.json
+2023-12-15 19:58:56,035 INFO    Thread-16 :51772 [dir_watcher.py:_on_file_modified():288] file/dir modified: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\media
+2023-12-15 19:58:56,035 INFO    Thread-16 :51772 [dir_watcher.py:_on_file_created():271] file/dir created: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\media\table
+2023-12-15 19:58:56,035 INFO    Thread-16 :51772 [dir_watcher.py:_on_file_created():271] file/dir created: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\media\table\curves
+2023-12-15 19:58:56,088 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: log_artifact
+2023-12-15 19:58:56,122 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: partial_history
+2023-12-15 19:58:56,395 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: log_artifact
+2023-12-15 19:58:56,411 INFO    wandb-upload_7:51772 [upload_job.py:push():131] Uploaded file C:\Users\bapti\AppData\Local\Temp\tmp119lot44wandb\jlj75lgn-media/table/curves/Precision-Recall(B)_table_3_1e5ac24b79d0883d3c95.table.json
+2023-12-15 19:58:56,426 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: partial_history
+2023-12-15 19:58:56,513 INFO    wandb-upload_10:51772 [upload_job.py:push():131] Uploaded file C:\Users\bapti\AppData\Local\Temp\tmp119lot44wandb\b2upuv5h-media/images/val_batch1_pred_3_acec94ef22bf4ce447e1.jpg
+2023-12-15 19:58:56,544 INFO    wandb-upload_11:51772 [upload_job.py:push():131] Uploaded file C:\Users\bapti\AppData\Local\Temp\tmp119lot44wandb\mztv2his-media/table/curves/F1-Confidence(B)_table_3_abbfea68ce1d37d789db.table.json
+2023-12-15 19:58:56,576 INFO    wandb-upload_6:51772 [upload_job.py:push():131] Uploaded file C:\Users\bapti\AppData\Local\Temp\tmp119lot44wandb\7223hq9p-media/images/R_curve_3_c1d04d3edbde64c8facd.png
+2023-12-15 19:58:56,584 INFO    wandb-upload_3:51772 [upload_job.py:push():131] Uploaded file C:\Users\bapti\AppData\Local\Temp\tmp119lot44wandb\up6ywiii-media/images/results_3_a868dd2c9bb57cc2cec8.png
+2023-12-15 19:58:56,604 INFO    wandb-upload_2:51772 [upload_job.py:push():131] Uploaded file C:\Users\bapti\AppData\Local\Temp\tmp119lot44wandb\0dpaxftk-media/images/P_curve_3_ae7fc27220c82b789a65.png
+2023-12-15 19:58:57,044 INFO    Thread-16 :51772 [dir_watcher.py:_on_file_created():271] file/dir created: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\media\table\curves\Recall-Confidence(B)_table_3_3ae183866630d3f67a17.table.json
+2023-12-15 19:58:57,045 INFO    Thread-16 :51772 [dir_watcher.py:_on_file_created():271] file/dir created: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\media\table\curves\Precision-Confidence(B)_table_3_342ea9370dc6237bd3ad.table.json
+2023-12-15 19:58:57,045 INFO    Thread-16 :51772 [dir_watcher.py:_on_file_modified():288] file/dir modified: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\media\table\curves
+2023-12-15 19:58:57,430 INFO    wandb-upload_0:51772 [upload_job.py:push():131] Uploaded file C:\Users\bapti\AppData\Local\Temp\tmp119lot44wandb\8oxpu90l-media/table/curves/Recall-Confidence(B)_table_3_3ae183866630d3f67a17.table.json
+2023-12-15 19:58:57,449 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: poll_exit
+2023-12-15 19:58:57,569 INFO    wandb-upload_5:51772 [upload_job.py:push():131] Uploaded file C:\Users\bapti\AppData\Local\Temp\tmp119lot44wandb\3l0fosw4-media/table/curves/Precision-Confidence(B)_table_3_342ea9370dc6237bd3ad.table.json
+2023-12-15 19:58:58,241 INFO    wandb-upload_4:51772 [upload_job.py:push():89] Uploaded file C:\Users\bapti\AppData\Local\wandb\wandb\artifacts\staging\tmpx3wvotzg
+2023-12-15 19:58:59,068 INFO    SenderThread:51772 [sender.py:send_request_log_artifact():1441] logged artifact run_u7qmjlsd_model - {'id': 'QXJ0aWZhY3Q6NjY3OTU2NDgy', 'digest': '3e5d0de3f5dcead7b7c8d251814b88cb', 'state': 'PENDING', 'aliases': [], 'artifactSequence': {'id': 'QXJ0aWZhY3RDb2xsZWN0aW9uOjEyMzgzNzc5MA==', 'latestArtifact': None}, 'version': 'latest'}
+2023-12-15 19:58:59,068 DEBUG   SenderThread:51772 [sender.py:send():379] send: config
+2023-12-15 19:58:59,068 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: status_report
+2023-12-15 19:58:59,069 DEBUG   SenderThread:51772 [sender.py:send_request():406] send_request: log_artifact
+2023-12-15 19:59:00,225 INFO    wandb-upload_7:51772 [upload_job.py:push():89] Uploaded file C:\Users\bapti\AppData\Local\wandb\wandb\artifacts\staging\tmp1wmxm6s6
+2023-12-15 19:59:00,979 INFO    SenderThread:51772 [sender.py:send_request_log_artifact():1441] logged artifact run-u7qmjlsd-curvesPrecisionRecallB_table - {'id': 'QXJ0aWZhY3Q6NjY3OTU2NTIz', 'digest': '79c8fe51e787c247b93f8feabbbec448', 'state': 'PENDING', 'aliases': [], 'artifactSequence': {'id': 'QXJ0aWZhY3RDb2xsZWN0aW9uOjEyMzgzNzgwNw==', 'latestArtifact': None}, 'version': 'latest'}
+2023-12-15 19:59:00,979 DEBUG   SenderThread:51772 [sender.py:send():379] send: files
+2023-12-15 19:59:00,979 INFO    SenderThread:51772 [sender.py:_save_file():1375] saving file media\table\curves/Precision-Recall(B)_table_3_1e5ac24b79d0883d3c95.table.json with policy now
+2023-12-15 19:59:00,980 DEBUG   SenderThread:51772 [sender.py:send():379] send: config
+2023-12-15 19:59:00,980 DEBUG   SenderThread:51772 [sender.py:send_request():406] send_request: log_artifact
+2023-12-15 19:59:01,430 INFO    wandb-upload_11:51772 [upload_job.py:push():131] Uploaded file C:\Users\bapti\AppData\Local\Temp\tmp119lot44wandb\yi329i0p-media/table/curves/Precision-Recall(B)_table_3_1e5ac24b79d0883d3c95.table.json
+2023-12-15 19:59:02,163 INFO    wandb-upload_3:51772 [upload_job.py:push():89] Uploaded file C:\Users\bapti\AppData\Local\wandb\wandb\artifacts\staging\tmpahvhs99c
+2023-12-15 19:59:02,494 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: keepalive
+2023-12-15 19:59:02,971 INFO    SenderThread:51772 [sender.py:send_request_log_artifact():1441] logged artifact run-u7qmjlsd-curvesF1ConfidenceB_table - {'id': 'QXJ0aWZhY3Q6NjY3OTU2NTQx', 'digest': '0d40b9f02fcb781c47bc4f2cf1db6362', 'state': 'PENDING', 'aliases': [], 'artifactSequence': {'id': 'QXJ0aWZhY3RDb2xsZWN0aW9uOjEyMzgzNzgxMw==', 'latestArtifact': None}, 'version': 'latest'}
+2023-12-15 19:59:02,971 DEBUG   SenderThread:51772 [sender.py:send():379] send: files
+2023-12-15 19:59:02,971 INFO    SenderThread:51772 [sender.py:_save_file():1375] saving file media\table\curves/F1-Confidence(B)_table_3_abbfea68ce1d37d789db.table.json with policy now
+2023-12-15 19:59:02,972 DEBUG   SenderThread:51772 [sender.py:send():379] send: config
+2023-12-15 19:59:02,972 DEBUG   SenderThread:51772 [sender.py:send_request():406] send_request: log_artifact
+2023-12-15 19:59:03,568 INFO    wandb-upload_9:51772 [upload_job.py:push():131] Uploaded file C:\Users\bapti\AppData\Local\Temp\tmp119lot44wandb\7lww28cz-media/table/curves/F1-Confidence(B)_table_3_abbfea68ce1d37d789db.table.json
+2023-12-15 19:59:04,150 INFO    wandb-upload_8:51772 [upload_job.py:push():89] Uploaded file C:\Users\bapti\AppData\Local\wandb\wandb\artifacts\staging\tmpoprgr118
+2023-12-15 19:59:04,910 INFO    SenderThread:51772 [sender.py:send_request_log_artifact():1441] logged artifact run-u7qmjlsd-curvesPrecisionConfidenceB_table - {'id': 'QXJ0aWZhY3Q6NjY3OTU2NTU2', 'digest': 'd3c7dc5df3100c51a4ab5c6ef7ff24b1', 'state': 'PENDING', 'aliases': [], 'artifactSequence': {'id': 'QXJ0aWZhY3RDb2xsZWN0aW9uOjEyMzgzNzgxNg==', 'latestArtifact': None}, 'version': 'latest'}
+2023-12-15 19:59:04,911 DEBUG   SenderThread:51772 [sender.py:send():379] send: files
+2023-12-15 19:59:04,911 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: status_report
+2023-12-15 19:59:04,911 INFO    SenderThread:51772 [sender.py:_save_file():1375] saving file media\table\curves/Precision-Confidence(B)_table_3_342ea9370dc6237bd3ad.table.json with policy now
+2023-12-15 19:59:04,913 DEBUG   SenderThread:51772 [sender.py:send():379] send: config
+2023-12-15 19:59:04,913 DEBUG   SenderThread:51772 [sender.py:send_request():406] send_request: log_artifact
+2023-12-15 19:59:05,368 INFO    wandb-upload_5:51772 [upload_job.py:push():131] Uploaded file C:\Users\bapti\AppData\Local\Temp\tmp119lot44wandb\n2j31pf5-media/table/curves/Precision-Confidence(B)_table_3_342ea9370dc6237bd3ad.table.json
+2023-12-15 19:59:06,305 INFO    wandb-upload_10:51772 [upload_job.py:push():89] Uploaded file C:\Users\bapti\AppData\Local\wandb\wandb\artifacts\staging\tmpn864fmki
+2023-12-15 19:59:07,051 INFO    SenderThread:51772 [sender.py:send_request_log_artifact():1441] logged artifact run-u7qmjlsd-curvesRecallConfidenceB_table - {'id': 'QXJ0aWZhY3Q6NjY3OTU2NTc1', 'digest': '9a007823e6c6d313f08de178aaa4294b', 'state': 'PENDING', 'aliases': [], 'artifactSequence': {'id': 'QXJ0aWZhY3RDb2xsZWN0aW9uOjEyMzgzNzgxOA==', 'latestArtifact': None}, 'version': 'latest'}
+2023-12-15 19:59:07,051 DEBUG   SenderThread:51772 [sender.py:send():379] send: files
+2023-12-15 19:59:07,053 INFO    SenderThread:51772 [sender.py:_save_file():1375] saving file media\table\curves/Recall-Confidence(B)_table_3_3ae183866630d3f67a17.table.json with policy now
+2023-12-15 19:59:07,053 DEBUG   SenderThread:51772 [sender.py:send():379] send: telemetry
+2023-12-15 19:59:07,053 DEBUG   SenderThread:51772 [sender.py:send():379] send: exit
+2023-12-15 19:59:07,053 INFO    SenderThread:51772 [sender.py:send_exit():584] handling exit code: 0
+2023-12-15 19:59:07,054 INFO    SenderThread:51772 [sender.py:send_exit():586] handling runtime: 175
+2023-12-15 19:59:07,055 INFO    SenderThread:51772 [sender.py:_save_file():1375] saving file wandb-summary.json with policy end
+2023-12-15 19:59:07,055 INFO    SenderThread:51772 [sender.py:send_exit():592] send defer
+2023-12-15 19:59:07,055 DEBUG   SenderThread:51772 [sender.py:send_request():406] send_request: poll_exit
+2023-12-15 19:59:07,055 DEBUG   SenderThread:51772 [sender.py:send():379] send: stats
+2023-12-15 19:59:07,055 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: defer
+2023-12-15 19:59:07,056 INFO    HandlerThread:51772 [handler.py:handle_request_defer():170] handle defer: 0
+2023-12-15 19:59:07,056 DEBUG   SenderThread:51772 [sender.py:send_request():406] send_request: defer
+2023-12-15 19:59:07,056 INFO    SenderThread:51772 [sender.py:send_request_defer():608] handle sender defer: 0
+2023-12-15 19:59:07,056 INFO    SenderThread:51772 [sender.py:transition_state():612] send defer: 1
+2023-12-15 19:59:07,057 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: defer
+2023-12-15 19:59:07,057 INFO    HandlerThread:51772 [handler.py:handle_request_defer():170] handle defer: 1
+2023-12-15 19:59:07,057 DEBUG   SenderThread:51772 [sender.py:send_request():406] send_request: defer
+2023-12-15 19:59:07,057 INFO    SenderThread:51772 [sender.py:send_request_defer():608] handle sender defer: 1
+2023-12-15 19:59:07,057 INFO    SenderThread:51772 [sender.py:transition_state():612] send defer: 2
+2023-12-15 19:59:07,057 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: defer
+2023-12-15 19:59:07,057 INFO    HandlerThread:51772 [handler.py:handle_request_defer():170] handle defer: 2
+2023-12-15 19:59:07,057 INFO    HandlerThread:51772 [system_monitor.py:finish():190] Stopping system monitor
+2023-12-15 19:59:07,071 DEBUG   SystemMonitor:51772 [system_monitor.py:_start():166] Finished system metrics aggregation loop
+2023-12-15 19:59:07,072 INFO    HandlerThread:51772 [interfaces.py:finish():202] Joined cpu monitor
+2023-12-15 19:59:07,072 DEBUG   SystemMonitor:51772 [system_monitor.py:_start():170] Publishing last batch of metrics
+2023-12-15 19:59:07,073 INFO    HandlerThread:51772 [interfaces.py:finish():202] Joined disk monitor
+2023-12-15 19:59:07,170 INFO    Thread-16 :51772 [dir_watcher.py:_on_file_modified():288] file/dir modified: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\wandb-summary.json
+2023-12-15 19:59:07,173 INFO    HandlerThread:51772 [interfaces.py:finish():202] Joined gpu monitor
+2023-12-15 19:59:07,173 INFO    HandlerThread:51772 [interfaces.py:finish():202] Joined memory monitor
+2023-12-15 19:59:07,173 INFO    HandlerThread:51772 [interfaces.py:finish():202] Joined network monitor
+2023-12-15 19:59:07,173 DEBUG   SenderThread:51772 [sender.py:send_request():406] send_request: defer
+2023-12-15 19:59:07,174 INFO    SenderThread:51772 [sender.py:send_request_defer():608] handle sender defer: 2
+2023-12-15 19:59:07,174 INFO    SenderThread:51772 [sender.py:transition_state():612] send defer: 3
+2023-12-15 19:59:07,174 DEBUG   SenderThread:51772 [sender.py:send():379] send: stats
+2023-12-15 19:59:07,174 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: defer
+2023-12-15 19:59:07,174 INFO    HandlerThread:51772 [handler.py:handle_request_defer():170] handle defer: 3
+2023-12-15 19:59:07,175 DEBUG   SenderThread:51772 [sender.py:send():379] send: history
+2023-12-15 19:59:07,176 DEBUG   SenderThread:51772 [sender.py:send_request():406] send_request: summary_record
+2023-12-15 19:59:07,177 INFO    SenderThread:51772 [sender.py:_save_file():1375] saving file wandb-summary.json with policy end
+2023-12-15 19:59:07,177 DEBUG   SenderThread:51772 [sender.py:send_request():406] send_request: defer
+2023-12-15 19:59:07,177 INFO    SenderThread:51772 [sender.py:send_request_defer():608] handle sender defer: 3
+2023-12-15 19:59:07,177 INFO    SenderThread:51772 [sender.py:transition_state():612] send defer: 4
+2023-12-15 19:59:07,177 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: defer
+2023-12-15 19:59:07,177 INFO    HandlerThread:51772 [handler.py:handle_request_defer():170] handle defer: 4
+2023-12-15 19:59:07,177 DEBUG   SenderThread:51772 [sender.py:send_request():406] send_request: defer
+2023-12-15 19:59:07,177 INFO    SenderThread:51772 [sender.py:send_request_defer():608] handle sender defer: 4
+2023-12-15 19:59:07,177 INFO    SenderThread:51772 [sender.py:transition_state():612] send defer: 5
+2023-12-15 19:59:07,179 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: defer
+2023-12-15 19:59:07,179 INFO    HandlerThread:51772 [handler.py:handle_request_defer():170] handle defer: 5
+2023-12-15 19:59:07,180 DEBUG   SenderThread:51772 [sender.py:send():379] send: summary
+2023-12-15 19:59:07,181 INFO    SenderThread:51772 [sender.py:_save_file():1375] saving file wandb-summary.json with policy end
+2023-12-15 19:59:07,182 DEBUG   SenderThread:51772 [sender.py:send_request():406] send_request: defer
+2023-12-15 19:59:07,182 INFO    SenderThread:51772 [sender.py:send_request_defer():608] handle sender defer: 5
+2023-12-15 19:59:07,182 INFO    SenderThread:51772 [sender.py:transition_state():612] send defer: 6
+2023-12-15 19:59:07,182 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: defer
+2023-12-15 19:59:07,182 INFO    HandlerThread:51772 [handler.py:handle_request_defer():170] handle defer: 6
+2023-12-15 19:59:07,182 DEBUG   SenderThread:51772 [sender.py:send_request():406] send_request: defer
+2023-12-15 19:59:07,182 INFO    SenderThread:51772 [sender.py:send_request_defer():608] handle sender defer: 6
+2023-12-15 19:59:07,186 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: status_report
+2023-12-15 19:59:07,385 INFO    SenderThread:51772 [sender.py:transition_state():612] send defer: 7
+2023-12-15 19:59:07,385 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: defer
+2023-12-15 19:59:07,385 INFO    HandlerThread:51772 [handler.py:handle_request_defer():170] handle defer: 7
+2023-12-15 19:59:07,386 DEBUG   SenderThread:51772 [sender.py:send_request():406] send_request: defer
+2023-12-15 19:59:07,386 INFO    SenderThread:51772 [sender.py:send_request_defer():608] handle sender defer: 7
+2023-12-15 19:59:07,537 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: keepalive
+2023-12-15 19:59:07,679 INFO    wandb-upload_6:51772 [upload_job.py:push():131] Uploaded file C:\Users\bapti\AppData\Local\Temp\tmp119lot44wandb\e5ozymv0-media/table/curves/Recall-Confidence(B)_table_3_3ae183866630d3f67a17.table.json
+2023-12-15 19:59:08,180 INFO    Thread-16 :51772 [dir_watcher.py:_on_file_modified():288] file/dir modified: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\config.yaml
+2023-12-15 19:59:08,181 INFO    Thread-16 :51772 [dir_watcher.py:_on_file_modified():288] file/dir modified: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\wandb-summary.json
+2023-12-15 19:59:10,622 INFO    SenderThread:51772 [sender.py:transition_state():612] send defer: 8
+2023-12-15 19:59:10,622 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: defer
+2023-12-15 19:59:10,622 INFO    HandlerThread:51772 [handler.py:handle_request_defer():170] handle defer: 8
+2023-12-15 19:59:10,622 DEBUG   SenderThread:51772 [sender.py:send_request():406] send_request: defer
+2023-12-15 19:59:10,622 INFO    SenderThread:51772 [sender.py:send_request_defer():608] handle sender defer: 8
+2023-12-15 19:59:10,622 INFO    SenderThread:51772 [job_builder.py:build():281] Attempting to build job artifact
+2023-12-15 19:59:10,633 INFO    SenderThread:51772 [job_builder.py:_get_source_type():400] is repo sourced job
+2023-12-15 19:59:10,635 INFO    SenderThread:51772 [job_builder.py:build():374] adding wandb-job metadata file
+2023-12-15 19:59:10,667 INFO    SenderThread:51772 [sender.py:transition_state():612] send defer: 9
+2023-12-15 19:59:10,667 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: defer
+2023-12-15 19:59:10,667 DEBUG   SenderThread:51772 [sender.py:send():379] send: artifact
+2023-12-15 19:59:10,667 INFO    HandlerThread:51772 [handler.py:handle_request_defer():170] handle defer: 9
+2023-12-15 19:59:11,200 INFO    Thread-16 :51772 [dir_watcher.py:_on_file_modified():288] file/dir modified: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\output.log
+2023-12-15 19:59:11,805 INFO    wandb-upload_2:51772 [upload_job.py:push():89] Uploaded file C:\Users\bapti\AppData\Local\wandb\wandb\artifacts\staging\tmp1_64iz1q
+2023-12-15 19:59:11,813 INFO    wandb-upload_3:51772 [upload_job.py:push():89] Uploaded file C:\Users\bapti\AppData\Local\wandb\wandb\artifacts\staging\tmp2l_2vid0
+2023-12-15 19:59:12,578 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: keepalive
+2023-12-15 19:59:12,877 INFO    SenderThread:51772 [sender.py:send_artifact():1475] sent artifact job-https___github.com_NicogameFR_Mario-AI.git_YoloV8_train.py - {'id': 'QXJ0aWZhY3Q6NjY3OTU2NjE0', 'digest': '572c2c7e3d3b17cf9a97ad096f8a6663', 'state': 'PENDING', 'aliases': [], 'artifactSequence': {'id': 'QXJ0aWZhY3RDb2xsZWN0aW9uOjEyMzgzNzgyMw==', 'latestArtifact': None}, 'version': 'latest'}
+2023-12-15 19:59:12,877 DEBUG   SenderThread:51772 [sender.py:send_request():406] send_request: defer
+2023-12-15 19:59:12,877 INFO    SenderThread:51772 [sender.py:send_request_defer():608] handle sender defer: 9
+2023-12-15 19:59:12,877 INFO    SenderThread:51772 [dir_watcher.py:finish():358] shutting down directory watcher
+2023-12-15 19:59:13,224 INFO    SenderThread:51772 [dir_watcher.py:finish():388] scan: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files
+2023-12-15 19:59:13,224 INFO    SenderThread:51772 [dir_watcher.py:finish():402] scan save: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\config.yaml config.yaml
+2023-12-15 19:59:13,225 INFO    SenderThread:51772 [dir_watcher.py:finish():402] scan save: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\output.log output.log
+2023-12-15 19:59:13,227 INFO    SenderThread:51772 [dir_watcher.py:finish():402] scan save: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\requirements.txt requirements.txt
+2023-12-15 19:59:13,229 INFO    SenderThread:51772 [dir_watcher.py:finish():402] scan save: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\wandb-metadata.json wandb-metadata.json
+2023-12-15 19:59:13,229 INFO    SenderThread:51772 [dir_watcher.py:finish():402] scan save: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\wandb-summary.json wandb-summary.json
+2023-12-15 19:59:13,234 INFO    SenderThread:51772 [dir_watcher.py:finish():402] scan save: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\media\images\confusion_matrix_3_6a0b47660cae1e236b3b.png media/images/confusion_matrix_3_6a0b47660cae1e236b3b.png
+2023-12-15 19:59:13,235 INFO    SenderThread:51772 [dir_watcher.py:finish():402] scan save: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\media\images\confusion_matrix_normalized_3_7e24c34d9c8ed1f6587c.png media/images/confusion_matrix_normalized_3_7e24c34d9c8ed1f6587c.png
+2023-12-15 19:59:13,235 INFO    SenderThread:51772 [dir_watcher.py:finish():402] scan save: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\media\images\F1_curve_3_86402cd9cb131477a712.png media/images/F1_curve_3_86402cd9cb131477a712.png
+2023-12-15 19:59:13,235 INFO    SenderThread:51772 [dir_watcher.py:finish():402] scan save: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\media\images\labels_1_69f98955b3e96a948804.jpg media/images/labels_1_69f98955b3e96a948804.jpg
+2023-12-15 19:59:13,235 INFO    SenderThread:51772 [dir_watcher.py:finish():402] scan save: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\media\images\PR_curve_3_d45e2aaf02620215689c.png media/images/PR_curve_3_d45e2aaf02620215689c.png
+2023-12-15 19:59:13,235 INFO    SenderThread:51772 [dir_watcher.py:finish():402] scan save: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\media\images\P_curve_3_ae7fc27220c82b789a65.png media/images/P_curve_3_ae7fc27220c82b789a65.png
+2023-12-15 19:59:13,235 INFO    SenderThread:51772 [dir_watcher.py:finish():402] scan save: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\media\images\results_3_a868dd2c9bb57cc2cec8.png media/images/results_3_a868dd2c9bb57cc2cec8.png
+2023-12-15 19:59:13,235 INFO    SenderThread:51772 [dir_watcher.py:finish():402] scan save: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\media\images\R_curve_3_c1d04d3edbde64c8facd.png media/images/R_curve_3_c1d04d3edbde64c8facd.png
+2023-12-15 19:59:13,236 INFO    SenderThread:51772 [dir_watcher.py:finish():402] scan save: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\media\images\train_batch0_1_df6bbc0c7de71bcb6201.jpg media/images/train_batch0_1_df6bbc0c7de71bcb6201.jpg
+2023-12-15 19:59:13,236 INFO    SenderThread:51772 [dir_watcher.py:finish():402] scan save: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\media\images\train_batch1_1_2aae6c051a7009987820.jpg media/images/train_batch1_1_2aae6c051a7009987820.jpg
+2023-12-15 19:59:13,236 INFO    SenderThread:51772 [dir_watcher.py:finish():402] scan save: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\media\images\train_batch2_1_dca261128fa96da45ddb.jpg media/images/train_batch2_1_dca261128fa96da45ddb.jpg
+2023-12-15 19:59:13,236 INFO    SenderThread:51772 [dir_watcher.py:finish():402] scan save: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\media\images\val_batch0_labels_3_d335c01632943ca3c783.jpg media/images/val_batch0_labels_3_d335c01632943ca3c783.jpg
+2023-12-15 19:59:13,236 INFO    SenderThread:51772 [dir_watcher.py:finish():402] scan save: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\media\images\val_batch0_pred_3_8a97e9e1d3cad902eacd.jpg media/images/val_batch0_pred_3_8a97e9e1d3cad902eacd.jpg
+2023-12-15 19:59:13,236 INFO    SenderThread:51772 [dir_watcher.py:finish():402] scan save: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\media\images\val_batch1_labels_3_5cb462951da28d0a79da.jpg media/images/val_batch1_labels_3_5cb462951da28d0a79da.jpg
+2023-12-15 19:59:13,236 INFO    SenderThread:51772 [dir_watcher.py:finish():402] scan save: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\media\images\val_batch1_pred_3_acec94ef22bf4ce447e1.jpg media/images/val_batch1_pred_3_acec94ef22bf4ce447e1.jpg
+2023-12-15 19:59:13,236 INFO    SenderThread:51772 [dir_watcher.py:finish():402] scan save: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\media\images\val_batch2_labels_3_ba8f17154544b79bc207.jpg media/images/val_batch2_labels_3_ba8f17154544b79bc207.jpg
+2023-12-15 19:59:13,236 INFO    SenderThread:51772 [dir_watcher.py:finish():402] scan save: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\media\images\val_batch2_pred_3_00caaa920cb191fe852b.jpg media/images/val_batch2_pred_3_00caaa920cb191fe852b.jpg
+2023-12-15 19:59:13,238 INFO    SenderThread:51772 [dir_watcher.py:finish():402] scan save: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\media\table\curves\F1-Confidence(B)_table_3_abbfea68ce1d37d789db.table.json media/table/curves/F1-Confidence(B)_table_3_abbfea68ce1d37d789db.table.json
+2023-12-15 19:59:13,238 INFO    SenderThread:51772 [dir_watcher.py:finish():402] scan save: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\media\table\curves\Precision-Confidence(B)_table_3_342ea9370dc6237bd3ad.table.json media/table/curves/Precision-Confidence(B)_table_3_342ea9370dc6237bd3ad.table.json
+2023-12-15 19:59:13,238 INFO    SenderThread:51772 [dir_watcher.py:finish():402] scan save: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\media\table\curves\Precision-Recall(B)_table_3_1e5ac24b79d0883d3c95.table.json media/table/curves/Precision-Recall(B)_table_3_1e5ac24b79d0883d3c95.table.json
+2023-12-15 19:59:13,239 INFO    SenderThread:51772 [dir_watcher.py:finish():402] scan save: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\media\table\curves\Recall-Confidence(B)_table_3_3ae183866630d3f67a17.table.json media/table/curves/Recall-Confidence(B)_table_3_3ae183866630d3f67a17.table.json
+2023-12-15 19:59:13,239 INFO    SenderThread:51772 [sender.py:transition_state():612] send defer: 10
+2023-12-15 19:59:13,239 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: defer
+2023-12-15 19:59:13,239 INFO    HandlerThread:51772 [handler.py:handle_request_defer():170] handle defer: 10
+2023-12-15 19:59:13,239 DEBUG   SenderThread:51772 [sender.py:send_request():406] send_request: defer
+2023-12-15 19:59:13,239 INFO    SenderThread:51772 [sender.py:send_request_defer():608] handle sender defer: 10
+2023-12-15 19:59:13,239 INFO    SenderThread:51772 [file_pusher.py:finish():159] shutting down file pusher
+2023-12-15 19:59:13,588 INFO    wandb-upload_5:51772 [upload_job.py:push():131] Uploaded file C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\requirements.txt
+2023-12-15 19:59:13,601 INFO    wandb-upload_0:51772 [upload_job.py:push():131] Uploaded file C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\config.yaml
+2023-12-15 19:59:13,602 INFO    wandb-upload_8:51772 [upload_job.py:push():131] Uploaded file C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\output.log
+2023-12-15 19:59:13,609 INFO    wandb-upload_10:51772 [upload_job.py:push():131] Uploaded file C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\files\wandb-summary.json
+2023-12-15 19:59:13,810 INFO    Thread-15 (_thread_body):51772 [sender.py:transition_state():612] send defer: 11
+2023-12-15 19:59:13,810 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: defer
+2023-12-15 19:59:13,810 INFO    HandlerThread:51772 [handler.py:handle_request_defer():170] handle defer: 11
+2023-12-15 19:59:13,811 DEBUG   SenderThread:51772 [sender.py:send_request():406] send_request: defer
+2023-12-15 19:59:13,811 INFO    SenderThread:51772 [sender.py:send_request_defer():608] handle sender defer: 11
+2023-12-15 19:59:13,811 INFO    SenderThread:51772 [file_pusher.py:join():164] waiting for file pusher
+2023-12-15 19:59:13,811 INFO    SenderThread:51772 [sender.py:transition_state():612] send defer: 12
+2023-12-15 19:59:13,811 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: defer
+2023-12-15 19:59:13,812 INFO    HandlerThread:51772 [handler.py:handle_request_defer():170] handle defer: 12
+2023-12-15 19:59:13,812 DEBUG   SenderThread:51772 [sender.py:send_request():406] send_request: defer
+2023-12-15 19:59:13,812 INFO    SenderThread:51772 [sender.py:send_request_defer():608] handle sender defer: 12
+2023-12-15 19:59:13,812 INFO    SenderThread:51772 [file_stream.py:finish():593] file stream finish called
+2023-12-15 19:59:14,078 INFO    SenderThread:51772 [file_stream.py:finish():597] file stream finish is done
+2023-12-15 19:59:14,078 INFO    SenderThread:51772 [sender.py:transition_state():612] send defer: 13
+2023-12-15 19:59:14,078 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: defer
+2023-12-15 19:59:14,078 INFO    HandlerThread:51772 [handler.py:handle_request_defer():170] handle defer: 13
+2023-12-15 19:59:14,080 DEBUG   SenderThread:51772 [sender.py:send_request():406] send_request: defer
+2023-12-15 19:59:14,080 INFO    SenderThread:51772 [sender.py:send_request_defer():608] handle sender defer: 13
+2023-12-15 19:59:14,080 INFO    SenderThread:51772 [sender.py:transition_state():612] send defer: 14
+2023-12-15 19:59:14,080 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: defer
+2023-12-15 19:59:14,080 DEBUG   SenderThread:51772 [sender.py:send():379] send: final
+2023-12-15 19:59:14,080 INFO    HandlerThread:51772 [handler.py:handle_request_defer():170] handle defer: 14
+2023-12-15 19:59:14,080 DEBUG   SenderThread:51772 [sender.py:send():379] send: footer
+2023-12-15 19:59:14,081 DEBUG   SenderThread:51772 [sender.py:send_request():406] send_request: defer
+2023-12-15 19:59:14,081 INFO    SenderThread:51772 [sender.py:send_request_defer():608] handle sender defer: 14
+2023-12-15 19:59:14,081 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: poll_exit
+2023-12-15 19:59:14,081 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: server_info
+2023-12-15 19:59:14,081 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: get_summary
+2023-12-15 19:59:14,081 DEBUG   SenderThread:51772 [sender.py:send_request():406] send_request: poll_exit
+2023-12-15 19:59:14,082 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: sampled_history
+2023-12-15 19:59:14,082 DEBUG   SenderThread:51772 [sender.py:send_request():406] send_request: server_info
+2023-12-15 19:59:14,082 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: job_info
+2023-12-15 19:59:14,209 DEBUG   SenderThread:51772 [sender.py:send_request():406] send_request: job_info
+2023-12-15 19:59:14,219 DEBUG   HandlerThread:51772 [handler.py:handle_request():144] handle_request: shutdown
+2023-12-15 19:59:14,219 INFO    HandlerThread:51772 [handler.py:finish():857] shutting down handler
+2023-12-15 19:59:15,098 INFO    WriterThread:51772 [datastore.py:close():294] close: C:\Users\bapti\Desktop\Mario-AI\YoloV8\wandb\run-20231215_195600-u7qmjlsd\run-u7qmjlsd.wandb
+2023-12-15 19:59:15,224 INFO    SenderThread:51772 [sender.py:finish():1552] shutting down sender
+2023-12-15 19:59:15,224 INFO    SenderThread:51772 [file_pusher.py:finish():159] shutting down file pusher
+2023-12-15 19:59:15,224 INFO    SenderThread:51772 [file_pusher.py:join():164] waiting for file pusher

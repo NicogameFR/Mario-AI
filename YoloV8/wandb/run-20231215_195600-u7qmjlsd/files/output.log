@@ -1,0 +1,75 @@
+Freezing layer 'model.22.dfl.conv.weight'
+[34m[1mAMP: [39m[22mrunning Automatic Mixed Precision (AMP) checks with YOLOv8n...
+[34m[1mtrain: [39m[22mScanning C:\Users\bapti\Desktop\Mario-AI\YoloV8\train\labels.cache... 1366 images, 0 backgrounds, 0 corrupt: 100%|██████████| 1366/1366 [00:00<?, ?it/s]
+[34m[1mAMP: [39m[22mchecks passed ✅
+[34m[1mval: [39m[22mScanning C:\Users\bapti\Desktop\Mario-AI\YoloV8\valid\labels... 381 images, 0 backgrounds, 0 corrupt: 100%|██████████| 381/381 [00:00<00:00, 595.76it/s]
+[34m[1mval: [39m[22mNew cache created: C:\Users\bapti\Desktop\Mario-AI\YoloV8\valid\labels.cache
+Plotting labels to runs\detect\train3\labels.jpg...
+[34m[1moptimizer:[39m[22m 'optimizer=auto' found, ignoring 'lr0=0.01' and 'momentum=0.937' and determining best 'optimizer', 'lr0' and 'momentum' automatically...
+[34m[1moptimizer:[39m[22m AdamW(lr=0.000667, momentum=0.9) with parameter groups 57 weight(decay=0.0), 64 weight(decay=0.0005), 63 bias(decay=0.0)
+  0%|          | 0/86 [00:00<?, ?it/s]
+Image sizes 640 train, 640 val
+Using 8 dataloader workers
+Logging results to [1mruns\detect\train3
+Starting training for 3 epochs...
+
+
+
+
+
+
+
+
+        1/3       3.9G      1.055      2.473      1.023        307        640: 100%|██████████| 86/86 [00:16<00:00,  5.20it/s]
+
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100%|██████████| 12/12 [00:03<00:00,  3.02it/s]
+        2/3      2.43G     0.5871     0.9102     0.8412        864        640:   1%|          | 1/86 [00:00<00:21,  3.97it/s]
+                   all        381      16104       0.73      0.445      0.473      0.356
+
+
+
+
+
+
+        2/3      3.52G     0.4792     0.6718     0.8264        309        640: 100%|██████████| 86/86 [00:14<00:00,  6.13it/s]
+
+
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100%|██████████| 12/12 [00:03<00:00,  3.06it/s]
+                   all        381      16104      0.912       0.73      0.807      0.645
+        3/3      3.32G     0.4181     0.5438     0.8122        844        640:  13%|█▎        | 11/86 [00:01<00:11,  6.32it/s]
+
+
+
+
+
+        3/3       4.4G      0.396     0.5125     0.8165        255        640: 100%|██████████| 86/86 [00:12<00:00,  6.64it/s]
+
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100%|██████████| 12/12 [00:03<00:00,  3.27it/s]
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95):   0%|          | 0/12 [00:00<?, ?it/s]
+                   all        381      16104      0.906      0.842      0.876      0.723
+3 epochs completed in 0.017 hours.
+Optimizer stripped from runs\detect\train3\weights\last.pt, 6.2MB
+Optimizer stripped from runs\detect\train3\weights\best.pt, 6.2MB
+Validating runs\detect\train3\weights\best.pt...
+Ultralytics YOLOv8.0.227 🚀 Python-3.10.8 torch-2.1.2+cu118 CUDA:0 (NVIDIA GeForce RTX 4060 Laptop GPU, 8188MiB)
+
+
+
+
+
+
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100%|██████████| 12/12 [00:11<00:00,  1.06it/s]
+                   all        381      16104      0.906      0.842      0.876      0.723
+             big_mario        381        113       0.91          1      0.993      0.722
+           brick_block        381       1781      0.755      0.963      0.927      0.821
+           empty_block        381        230      0.922      0.978      0.959      0.915
+                goomba        381        236      0.995      0.888      0.986      0.788
+                 koopa        381         37      0.959      0.634      0.934      0.579
+          little_mario        381        253      0.892      0.982      0.959      0.608
+              mushroom        381         15          1          0     0.0313     0.0214
+         mystery_block        381        506      0.918      0.905      0.915      0.856
+                  pipe        381        466      0.839      0.955      0.966      0.778
+             pipe_head        381        243      0.777      0.971      0.969      0.888
+  undestructible_block        381      12224      0.998      0.983      0.995      0.973
+Speed: 0.2ms preprocess, 2.1ms inference, 0.0ms loss, 5.5ms postprocess per image
+Results saved to [1mruns\detect\train3
