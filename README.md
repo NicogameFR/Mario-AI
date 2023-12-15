@@ -12,7 +12,9 @@
 <a href="https://universe.roboflow.com/baptiste-hustaix-znm0u/mario-ai-database">
     <img src="https://app.roboflow.com/images/download-dataset-badge.svg"></img>
 </a>
-
+<a href="https://universe.roboflow.com/baptiste-hustaix-znm0u/mario-ai-database/model/">
+    <img src="https://app.roboflow.com/images/try-model-badge.svg"></img>
+</a>
 </div>
 
 
