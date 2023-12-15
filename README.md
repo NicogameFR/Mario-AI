@@ -8,11 +8,10 @@
 <div align="center">
 
 [![Status](https://img.shields.io/badge/status-active-success.svg)]()
-![GitHub issues](https://img.shields.io/github/issues/NicogameFR/Mario-AI)
-![GitHub pull requests](https://img.shields.io/github/issues-pr/NicogameFR/Mario-AI)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](/LICENSE)
-![GitHub last commit (branch)](https://img.shields.io/github/last-commit/NicogameFR/Mario-AI/main)
-![GitHub commits since latest release (by SemVer including pre-releases)](https://img.shields.io/github/commits-since/NicogameFR/Mario-AI/1.0.0/main)
+<a href="https://universe.roboflow.com/baptiste-hustaix-znm0u/mario-ai-database">
+    <img src="https://app.roboflow.com/images/download-dataset-badge.svg"></img>
+</a>
 
 </div>
 
