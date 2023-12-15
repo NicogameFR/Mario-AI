@@ -1,18 +1,12 @@
+"""Training the agent"""
 import gymnasium as gym
 
 env = gym.make("Taxi-v3", render_mode="human")
 
+env.reset()
 
-observation, info = env.reset()
+state = env.encode(3, 1, 2, 0) # (taxi row, taxi column, passenger index, destination index)
+print("State:", state)
 
-for _ in range(1000):
-    
-    env.render()
-    action = env.action_space.sample()  # agent policy that uses the observation and info
-    
-    observation, reward, terminated, truncated, info = env.step(action)
-
-    if terminated or truncated:
-        observation, info = env.reset()
-
-env.close()
+env.s = state
+env.P[328]
