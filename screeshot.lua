@@ -1,6 +1,6 @@
 -- racio: 1024:768
 affichage = 0
-nb_image = 9000
+nb_image = 7000
 nb_frame_pass = 10
 
 
