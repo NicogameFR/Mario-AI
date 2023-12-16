@@ -5,7 +5,7 @@ def train():
     model = YOLO('YoloV8/MarioAI.yaml')  # load a pretrained model (recommended for training)
 
     # Train the model
-    results = model.train(data='YoloV8/data.yaml', epochs=20, imgsz=640, device=0)
+    results = model.train(data='YoloV8/data.yaml', epochs=100, imgsz=640, device=0)
     return results
 
 if __name__ == '__main__':
