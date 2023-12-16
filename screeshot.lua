@@ -1,6 +1,8 @@
 -- racio: 1024:768
 affichage = 0
-nb_image = 10
+nb_image = 1
+nb_frame_pass = 100
+
 
 function deleteOldFiles()
     local command_1 = "cd ./database/images/ & del *.png"
@@ -179,7 +181,7 @@ function choix()
             emu.frameadvance()
             saveScreenshot("frame_" .. nb)
             nb = nb + 1
-            frame_pass(100)
+            frame_pass(nb_frame_pass)
         end
     end
 end
@@ -196,6 +198,7 @@ function choix_block(val)
     if val == 84 then
         color = "black"
         num = 10
+        return nil
     end
     if val == 81 or val == 88 or val == 87 or val == 82 or val == 90 or val == 93 then
         color = "blue"
