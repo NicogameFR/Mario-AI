@@ -1,7 +1,7 @@
 -- racio: 1024:768
 affichage = 0
-nb_image = 1
-nb_frame_pass = 100
+nb_image = 9000
+nb_frame_pass = 10
 
 
 function deleteOldFiles()
@@ -198,7 +198,6 @@ function choix_block(val)
     if val == 84 then
         color = "black"
         num = 10
-        return nil
     end
     if val == 81 or val == 88 or val == 87 or val == 82 or val == 90 or val == 93 then
         color = "blue"
@@ -248,17 +247,17 @@ function main()
     local marioType = memory.readbyte(0x0756)
     local marioState = memory.readbyte(0x000E)
 
-    --if marioState == 0 then
-    --    if affichage == 0 then
-    --        local fichier = io.open("./database/labels/frame_" .. nb .. ".txt", "a+")
-    --        fichier:close()
-    --        return
-    --    else
-    --        gui.clearGraphics()
-    --        emu.frameadvance()
-    --        return
-    --    end
-    --end
+    if marioState == 0 then
+        if affichage == 0 then
+            local fichier = io.open("./database/labels/frame_" .. nb .. ".txt", "a+")
+            fichier:close()
+            return
+        else
+            gui.clearGraphics()
+            emu.frameadvance()
+            return
+        end
+    end
     local enemy1
     local enemy2
     local enemy3
