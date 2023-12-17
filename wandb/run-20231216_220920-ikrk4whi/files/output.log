@@ -1,0 +1,122 @@
+Freezing layer 'model.22.dfl.conv.weight'
+[34m[1mAMP: [39m[22mrunning Automatic Mixed Precision (AMP) checks with YOLOv8n...
+Downloading https://github.com/ultralytics/assets/releases/download/v0.0.0/yolov8n.pt to 'yolov8n.pt'...
+100%|████████████████████████████████████████████████████████████████████████████████████| 6.23M/6.23M [00:00<00:00, 16.3MB/s]
+[34m[1mAMP: [39m[22mchecks passed ✅
+[34m[1mtrain: [39m[22mScanning C:\Users\bapti\Desktop\Mario-AI\YoloV8\train\labels... 855 images, 0 backgrounds, 0 corrupt:  78%|███████▊  |
+
+[34m[1mtrain: [39m[22mScanning C:\Users\bapti\Desktop\Mario-AI\YoloV8\train\labels... 1101 images, 0 backgrounds, 0 corrupt: 100%|██████████|
+[34m[1mval: [39m[22mScanning C:\Users\bapti\Desktop\Mario-AI\YoloV8\valid\labels... 42 images, 0 backgrounds, 0 corrupt:  13%|█▎        | 42/
+
+[34m[1mval: [39m[22mScanning C:\Users\bapti\Desktop\Mario-AI\YoloV8\valid\labels... 317 images, 0 backgrounds, 0 corrupt: 100%|██████████| 31
+Plotting labels to runs\detect\train2\labels.jpg...
+[34m[1moptimizer:[39m[22m 'optimizer=auto' found, ignoring 'lr0=0.01' and 'momentum=0.937' and determining best 'optimizer', 'lr0' and 'momentum' automatically...
+[34m[1moptimizer:[39m[22m AdamW(lr=0.000455, momentum=0.9) with parameter groups 57 weight(decay=0.0), 64 weight(decay=0.0005), 63 bias(decay=0.0)
+Image sizes 640 train, 640 val
+Using 8 dataloader workers
+Logging results to [1mruns\detect\train2
+Starting training for 100 epochs...
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+
+
+
+
+
+      1/100      3.17G       5.64      4.382       3.93        845        640: 100%|██████████| 69/69 [00:14<00:00,  4.74it/s]
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95):  20%|██        | 2/10 [00:00<00:01,
+
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100%|██████████| 10/10 [00:01<00:00,
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+
+
+
+
+      2/100       5.7G      3.803      2.908      3.094        671        640: 100%|██████████| 69/69 [00:12<00:00,  5.65it/s]
+
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95):  90%|█████████ | 9/10 [00:02<00:00,
+                   all        317      16898     0.0126     0.0511     0.0285    0.00592
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100%|██████████| 10/10 [00:03<00:00,
+
+
+
+
+      3/100      4.67G      2.677        2.1      2.353        806        640: 100%|██████████| 69/69 [00:11<00:00,  6.00it/s]
+
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95):  60%|██████    | 6/10 [00:01<00:01,
+                   all        317      16898       0.73       0.12      0.158     0.0576
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100%|██████████| 10/10 [00:03<00:00,
+
+
+
+
+
+      4/100      3.85G      2.113      1.576      1.826        778        640: 100%|██████████| 69/69 [00:11<00:00,  6.07it/s]
+
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95):  80%|████████  | 8/10 [00:02<00:00,
+                   all        317      16898       0.34      0.235      0.219      0.129
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100%|██████████| 10/10 [00:03<00:00,
+
+
+
+
+      5/100      4.27G      1.671      1.246       1.59        890        640: 100%|██████████| 69/69 [00:11<00:00,  6.11it/s]
+
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95):  60%|██████    | 6/10 [00:02<00:01,
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100%|██████████| 10/10 [00:03<00:00,
+      6/100      2.99G      1.542      1.143      1.539        950        640:   3%|▎         | 2/69 [00:00<00:11,  5.80it/s]
+
+
+
+
+
+      6/100      4.88G       1.47      1.074      1.434       1077        640: 100%|██████████| 69/69 [00:11<00:00,  5.99it/s]
+
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95):  80%|████████  | 8/10 [00:02<00:00,
+                   all        317      16898      0.639      0.303      0.367      0.252
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100%|██████████| 10/10 [00:03<00:00,
+
+
+
+
+
+      7/100       5.1G      1.253     0.9308      1.324        894        640: 100%|██████████| 69/69 [00:11<00:00,  6.03it/s]
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100%|██████████| 10/10 [00:03<00:00,
+  0%|          | 0/69 [00:00<?, ?it/s]
+                   all        317      16898      0.416      0.422      0.408      0.284
+
+
+
+
+
+      8/100       4.5G      1.121     0.8482      1.245        926        640: 100%|██████████| 69/69 [00:11<00:00,  6.06it/s]
+
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95):  60%|██████    | 6/10 [00:02<00:01,
+                   all        317      16898      0.435      0.454       0.47      0.317
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100%|██████████| 10/10 [00:03<00:00,
+
+
+
+
+
+      9/100       4.3G      1.016     0.7655      1.185        953        640: 100%|██████████| 69/69 [00:12<00:00,  5.75it/s]
+
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95):  60%|██████    | 6/10 [00:02<00:01,
+                   all        317      16898       0.53      0.537      0.543      0.377
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100%|██████████| 10/10 [00:03<00:00,
+
+
+
+
+
+     10/100      3.97G     0.9341     0.7124      1.141        712        640: 100%|██████████| 69/69 [00:11<00:00,  5.76it/s]
+
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95):  70%|███████   | 7/10 [00:02<00:01,
+                   all        317      16898       0.56      0.559      0.569      0.392
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100%|██████████| 10/10 [00:03<00:00,
+
+
+
+
+     11/100      4.78G     0.8913     0.6735      1.126        977        640: 100%|██████████| 69/69 [00:11<00:00,  6.27it/s]
