@@ -1,8 +1,7 @@
--- racio: 1024:768
-affichage = 0
+affichage = 1
 nb_image = 7000
 nb_frame_pass = 10
-
+mode = 2
 
 function deleteOldFiles()
     local command_1 = "cd ./database/images/ & del *.png"
@@ -12,8 +11,7 @@ function deleteOldFiles()
 end
 
 function saveScreenshot(nom)
-    local commande = "nircmd.exe savescreenshot ./database/images/" .. nom ..
-                         ".png 1515 54 809 619 " .. '& exit'
+    local commande = "nircmd.exe savescreenshot ./database/images/" .. nom .. ".png 1515 54 809 619 " .. '& exit'
     os.execute(commande)
     local chemin = "./database/images/" .. nom .. ".png"
     local timeouts = 0
@@ -35,7 +33,7 @@ function ecritureFichier(Type, X, Y, X_width, Y_height)
     local fichier = io.open("./database/labels/frame_" .. nb .. ".txt", "a+")
     fichier:write(Type .. " " .. X .. " " .. Y .. " " .. X_width .. " " .. Y_height .. "\n")
     fichier:close()
-end  
+end
 
 function dessin(x1, y1, x2, y2, color)
     local X_width = (x2 - x1)
@@ -78,8 +76,7 @@ function detection(m1, m2, decalage_niveau, decalage_block)
                         if affichage == 0 then
                             block(color, 256 - (decalage_niveau * 16 + decalage_block) + 16 * y, 216, 15, 7)
                         else
-                            gui.drawRectangle(256 - (decalage_niveau * 16 + decalage_block) + 16 * y, 216, 15, 7,
-                                color)
+                            gui.drawRectangle(256 - (decalage_niveau * 16 + decalage_block) + 16 * y, 216, 15, 7, color)
                         end
                     else
                         if affichage == 0 then
@@ -165,23 +162,36 @@ function choix()
             main()
         end
     elseif affichage == 0 then
-        deleteOldFiles()
-        nb = 0
-        for i = 1, nb_image do
-            local decalage_block = memory.readbyte(0x071C) % 16
-            local decalage_niveau = memory.readbyte(0x071C) // 16
-            local ecran_actuel = memory.readbyte(0x071A)
+        if mode == 1 then
+            deleteOldFiles()
+            nb = 0
+            for i = 1, nb_image do
+                local decalage_block = memory.readbyte(0x071C) % 16
+                local decalage_niveau = memory.readbyte(0x071C) // 16
+                local ecran_actuel = memory.readbyte(0x071A)
 
-            if ecran_actuel % 2 ~= 0 then
-                decalage_niveau = decalage_niveau + 16
+                if ecran_actuel % 2 ~= 0 then
+                    decalage_niveau = decalage_niveau + 16
+                end
+                quadrillage(decalage_block, decalage_niveau)
+                main()
+                emu.frameadvance()
+                emu.frameadvance()
+                saveScreenshot("frame_" .. nb)
+                nb = nb + 1
+                frame_pass(nb_frame_pass)
             end
-            quadrillage(decalage_block, decalage_niveau)
-            main()
+        elseif mode == 2 then
+            deleteOldFiles()
+            nb = 0
+            local marioState = memory.readbyte(0x000E)
             emu.frameadvance()
             emu.frameadvance()
-            saveScreenshot("frame_" .. nb)
-            nb = nb + 1
-            frame_pass(nb_frame_pass)
+            if marioState == 4 or marioState == 5 then
+                saveScreenshot("frame_" .. nb)
+            elseif marioState == 11 then
+                saveScreenshot("frame_" .. nb)
+            end
         end
     end
 end
@@ -371,7 +381,8 @@ function main()
         powerupx1 = memory.readbyte(0x04C4)
         powerupx2 = memory.readbyte(0x04C6)
         powerupy1 = memory.readbyte(0x04C5) - 9
-        if memory.readbyte(0x0023) ~= 128 and memory.readbyte(0x0023) ~= 192 and memory.readbyte(0x0023) ~= 194  and memory.readbyte(0x0023) ~= 130 then
+        if memory.readbyte(0x0023) ~= 128 and memory.readbyte(0x0023) ~= 192 and memory.readbyte(0x0023) ~= 194 and
+            memory.readbyte(0x0023) ~= 130 then
             powerupy2 = powerupy1 + (memory.readbyte(0x0023) - 5)
         else
             powerupy2 = memory.readbyte(0x04C7) - 9
@@ -484,7 +495,7 @@ function koopa(x1, y1, x2, y2, State)
     local infos
     local type
     if State == 132 or State == 4 then
-        infos = coordonees(x1 - 3, y1 +1 , x2 + 2, y2 + 5)
+        infos = coordonees(x1 - 3, y1 + 1, x2 + 2, y2 + 5)
         type = "21"
     else
         infos = coordonees(x1 - 3, y1 - 7, x2 + 2, y2 + 5)
@@ -496,7 +507,7 @@ function koopa(x1, y1, x2, y2, State)
     local Y_height = infos[4]
     if affichage == 1 then
         if State == 132 or State == 4 then
-            dessin(x1 - 3, y1+1, x2 + 2, y2 + 5, "red") --
+            dessin(x1 - 3, y1 + 1, x2 + 2, y2 + 5, "red") --
         else
             dessin(x1 - 3, y1 - 7, x2 + 2, y2 + 5, "red") --
         end
@@ -582,10 +593,10 @@ function powerup(x1, y1, x2, y2)
 end
 
 function block(type, x, y, X_width, Y_height)
-    local X = ((x + X_width / 2)+0.5) / 256
-    local Y = ((y + Y_height / 2)+0.5) / 224
-    local X_width = (X_width+1) / 256
-    local Y_height = (Y_height+1) / 224
+    local X = ((x + X_width / 2) + 0.5) / 256
+    local Y = ((y + Y_height / 2) + 0.5) / 224
+    local X_width = (X_width + 1) / 256
+    local Y_height = (Y_height + 1) / 224
     ecritureFichier(type, X, Y, X_width, Y_height)
 end
 

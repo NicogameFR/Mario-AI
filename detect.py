@@ -1,56 +1,31 @@
 from ultralytics import YOLO
 import pyscreenshot
-import pygame
-
-
-
-
-GRID_WIDTH = 256
-GRID_HEIGHT = 224
-CELL_SIZE = 3
-
+import numpy as np
 
 model = YOLO('YoloV8/best.pt')
-
-pygame.init()
-fenetre = pygame.display.set_mode((GRID_WIDTH * CELL_SIZE, GRID_HEIGHT * CELL_SIZE))
-
-pygame.display.set_caption("Ce que voit l'IA")
+matrice_zeros = np.empty((256, 224), dtype=object)
 
 running = True
 
-
-
 def get_box(results):
-    boxe = results[0].boxes.xywhn.cpu().numpy()
+    boxe = results[0].boxes.xyxyn.cpu().numpy()
     cls = results[0].boxes.cls.cpu().numpy()
     for i in range(len(boxe)):
-        if cls[i] == 17  or cls[i] == 9:
-            color = (0, 0, 0)
-        elif cls[i] == 13:
-            color = (255, 255, 0)
-        elif cls[i] == 11:
-            color = (255, 0, 0)
-        elif cls[i] == 14  or cls[i] == 1:
-            color = (0, 255, 0)
-        elif cls[i] == 8 or cls[i] == 1:
-            color = (153, 79, 0)
-        else:
-            color = (0 , 255, 255)
-        color = (0, 0, 0)
-        pygame.draw.rect(fenetre, color, (boxe[i][0]*GRID_WIDTH * CELL_SIZE, boxe[i][1]*GRID_HEIGHT * CELL_SIZE, boxe[i][2]*GRID_WIDTH * CELL_SIZE, boxe[i][3]*GRID_HEIGHT * CELL_SIZE))
-
+        x1= round(boxe[i][0]*256)
+        y1= round(boxe[i][1]*224)
+        x2= round(boxe[i][2]*256)
+        y2= round(boxe[i][3]*224)
+        x_ecart = x2 - x1
+        y_ecart = y2 - y1
+        for j in range(x_ecart):
+            for k in range(y_ecart):
+                matrice_zeros[x1+j][y1+k] = int(cls[i])
+    return matrice_zeros
 
 while running:
-    image = pyscreenshot.grab(childprocess=False, bbox = (1167, 66, 1712, 483))
-    #image = pyscreenshot.grab(childprocess=False, bbox = (1515, 54, 2324, 673))
+    #image = pyscreenshot.grab(childprocess=False, bbox = (1167, 66, 1712, 483))
+    image = pyscreenshot.grab(childprocess=False, bbox = (1515, 54, 2324, 673))
     img = image.resize((640, 640))
-    results = model(img, show = True, device=0)
-    fenetre.fill((147, 144, 254))
+    results = model(img, show = False, device=0)
     get_box(results)
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
-    pygame.display.flip()
-
-pygame.quit()
+    running = False
