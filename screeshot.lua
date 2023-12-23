@@ -36,7 +36,6 @@ function saveClass(nom)
     local chemin = "./database/class/" .. nom .. "/" .. nb .. ".png"
     local commande = "nircmd.exe savescreenshot " .. chemin .. " 1515 54 809 619 " .. '& exit'
     os.execute(commande)
-
 end
 
 function dessin(x1, y1, x2, y2, color)
@@ -157,7 +156,6 @@ function quadrillage(decalage_block, decalage_niveau)
         local decalage = decalage_niveau - 16
         detection(0x5D0, 0x500, decalage, decalage_block)
     end
-
 end
 
 function choix()
@@ -259,7 +257,6 @@ function choix_block(val)
 end
 
 function main()
-
     local mariox1 = memory.readbyte(0x04AC)
     local mariox2 = memory.readbyte(0x04AE)
     local marioy1 = memory.readbyte(0x04AD) - 9
@@ -328,7 +325,6 @@ function main()
         memory.writebyte(0x04B6, 255)
         memory.writebyte(0x04B5, 255)
         memory.writebyte(0x04B7, 255)
-
     end
 
     if enemy3 == 1 then
