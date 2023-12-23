@@ -1,0 +1,50 @@
+{
+    "os": "Windows-10-10.0.22621-SP0",
+    "python": "3.10.8",
+    "heartbeatAt": "2023-12-23T01:32:02.620510",
+    "startedAt": "2023-12-23T01:32:01.461074",
+    "docker": null,
+    "cuda": null,
+    "args": [],
+    "state": "running",
+    "program": "c:\\Users\\bapti\\Desktop\\Mario-AI\\YoloV8\\class\\train.py",
+    "codePath": "YoloV8\\class\\train.py",
+    "git": {
+        "remote": "https://github.com/NicogameFR/Mario-AI.git",
+        "commit": "380eddae77fcfa2d3ccfcb8f209341eb043909ba"
+    },
+    "email": "baptiste.hustaix@gmail.com",
+    "root": "C:/Users/bapti/Desktop/Mario-AI",
+    "host": "Portable-BH",
+    "username": "bapti",
+    "executable": "C:\\Users\\bapti\\AppData\\Local\\Programs\\Python\\Python310\\python.exe",
+    "cpu_count": 6,
+    "cpu_count_logical": 12,
+    "cpu_freq": {
+        "current": 2022.0,
+        "min": 0.0,
+        "max": 4301.0
+    },
+    "cpu_freq_per_core": [
+        {
+            "current": 2022.0,
+            "min": 0.0,
+            "max": 4301.0
+        }
+    ],
+    "disk": {
+        "total": 476.03319931030273,
+        "used": 322.9820022583008
+    },
+    "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU",
+    "gpu_count": 1,
+    "gpu_devices": [
+        {
+            "name": "NVIDIA GeForce RTX 4060 Laptop GPU",
+            "memory_total": 8585740288
+        }
+    ],
+    "memory": {
+        "total": 15.287952423095703
+    }
+}
