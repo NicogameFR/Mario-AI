@@ -1,23 +1,11 @@
-import birdseyelib as bird
-import time
-HOST = "127.0.0.1"
-PORT = 8080
-if __name__ == "__main__":
+class MaClasse:
+    def __init__(self, valeur):
+        self.valeur = valeur
     
-    
-    client = bird.Client(HOST, PORT)
-    memory = bird.Memory()
-    controller_input = bird.ControllerInput()
-    emulation = bird.Emulation()
-    external_tool = bird.ExternalTool()
+    def __str__(self):
+        return f"MaClasse avec la valeur : {self.valeur}"
 
-
-    client.connect()
-    print("Connecting to server at {} on port {}.".format(HOST, PORT))
-   
-    
-    while client.is_connected():
-        controller_input.set_controller_input(right=True)
-        client.send_requests([memory, controller_input, emulation])
-        print(client.get_responses())
-    print("Could not connect to external tool :[")
+# Exemple d'utilisation
+objet = MaClasse(42)
+print(objet)  # Cela affichera : MaClasse avec la valeur : 42
+del objet  # Cela supprimera l'objet de la mémoire
