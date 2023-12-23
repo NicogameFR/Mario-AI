@@ -1,19 +1,10 @@
 affichage = 0
-nb_image = 1000
-nb_frame_pass = 5
+nb_image = 8000
+nb_frame_pass = 3
 mode = 2
 
 function deleteOldFiles()
-    local command_1 = "cd ./database/detect/images/ & del *.png"
-    os.execute(command_1)
-    local command_2 = "cd ./database/detect/labels/ & del *.txt"
-    os.execute(command_2)
-    local command_3 = "cd ./database/class/fin/ & del *.png"
-    os.execute(command_3)
-    local command_4 = "cd ./database/class/mort/ & del *.png"
-    os.execute(command_4)
-    local command_5 = "cd ./database/class/vie/ & del *.png"
-    os.execute(command_5)
+    os.execute("reset.cmd")
 end
 
 function saveScreenshot(nom)
@@ -196,14 +187,14 @@ function choix()
             end
         elseif mode == 2 then
             nb = 0
+            deleteOldFiles()
             for i = 1, nb_image do
-                deleteOldFiles()
                 local marioState = memory.readbyte(0x000E)
                 emu.frameadvance()
                 emu.frameadvance()
                 if marioState == 4 or marioState == 5 then
                     saveClass("fin")
-                elseif marioState == 11 then
+                elseif marioState == 11 or marioState == 6 then
                     saveClass("mort")
                 elseif marioState ~= 0 then
                     saveClass("vie")
