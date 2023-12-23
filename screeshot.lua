@@ -1,4 +1,4 @@
-affichage = 1
+affichage = 0
 nb_image = 8000
 nb_frame_pass = 3
 mode = 2
