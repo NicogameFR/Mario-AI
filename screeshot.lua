@@ -1,4 +1,4 @@
-affichage = 0
+affichage = 1
 nb_image = 8000
 nb_frame_pass = 3
 mode = 2
@@ -194,9 +194,9 @@ function choix()
                 emu.frameadvance()
                 if marioState == 4 or marioState == 5 then
                     saveClass("fin")
-                elseif marioState == 11 or marioState == 6 then
+                elseif marioState == 11 then
                     saveClass("mort")
-                elseif marioState ~= 0 then
+                elseif marioState ~= 0  or marioState ~= 6 then
                     saveClass("vie")
                 end
                 nb = nb + 1
