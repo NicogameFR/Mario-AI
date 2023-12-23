@@ -1,19 +1,25 @@
-affichage = 1
-nb_image = 7000
-nb_frame_pass = 10
+affichage = 0
+nb_image = 1000
+nb_frame_pass = 5
 mode = 2
 
 function deleteOldFiles()
-    local command_1 = "cd ./database/images/ & del *.png"
+    local command_1 = "cd ./database/detect/images/ & del *.png"
     os.execute(command_1)
-    local command_2 = "cd ./database/labels/ & del *.txt"
+    local command_2 = "cd ./database/detect/labels/ & del *.txt"
     os.execute(command_2)
+    local command_3 = "cd ./database/class/fin/ & del *.png"
+    os.execute(command_3)
+    local command_4 = "cd ./database/class/mort/ & del *.png"
+    os.execute(command_4)
+    local command_5 = "cd ./database/class/vie/ & del *.png"
+    os.execute(command_5)
 end
 
 function saveScreenshot(nom)
-    local commande = "nircmd.exe savescreenshot ./database/images/" .. nom .. ".png 1515 54 809 619 " .. '& exit'
+    local commande = "nircmd.exe savescreenshot ./database/detect/images/" .. nom .. ".png 1515 54 809 619 " .. '& exit'
     os.execute(commande)
-    local chemin = "./database/images/" .. nom .. ".png"
+    local chemin = "./database/detect/images/" .. nom .. ".png"
     local timeouts = 0
     while not io.open(chemin, "r") do
         timeouts = timeouts + 1
@@ -26,13 +32,20 @@ end
 
 function ecritureFichier(Type, X, Y, X_width, Y_height)
     if X_width == 0 or Y_height == 0 then
-        local fichier = io.open("./database/labels/frame_" .. nb .. ".txt", "a+")
+        local fichier = io.open("./database/detect/labels/frame_" .. nb .. ".txt", "a+")
         fichier:close()
         return
     end
-    local fichier = io.open("./database/labels/frame_" .. nb .. ".txt", "a+")
+    local fichier = io.open("./database/detect/labels/frame_" .. nb .. ".txt", "a+")
     fichier:write(Type .. " " .. X .. " " .. Y .. " " .. X_width .. " " .. Y_height .. "\n")
     fichier:close()
+end
+
+function saveClass(nom)
+    local chemin = "./database/class/" .. nom .. "/" .. nb .. ".png"
+    local commande = "nircmd.exe savescreenshot " .. chemin .. " 1515 54 809 619 " .. '& exit'
+    os.execute(commande)
+
 end
 
 function dessin(x1, y1, x2, y2, color)
@@ -182,15 +195,21 @@ function choix()
                 frame_pass(nb_frame_pass)
             end
         elseif mode == 2 then
-            deleteOldFiles()
             nb = 0
-            local marioState = memory.readbyte(0x000E)
-            emu.frameadvance()
-            emu.frameadvance()
-            if marioState == 4 or marioState == 5 then
-                saveScreenshot("frame_" .. nb)
-            elseif marioState == 11 then
-                saveScreenshot("frame_" .. nb)
+            for i = 1, nb_image do
+                deleteOldFiles()
+                local marioState = memory.readbyte(0x000E)
+                emu.frameadvance()
+                emu.frameadvance()
+                if marioState == 4 or marioState == 5 then
+                    saveClass("fin")
+                elseif marioState == 11 then
+                    saveClass("mort")
+                elseif marioState ~= 0 then
+                    saveClass("vie")
+                end
+                nb = nb + 1
+                frame_pass(nb_frame_pass)
             end
         end
     end
