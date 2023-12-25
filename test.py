@@ -1,11 +1,15 @@
-class MaClasse:
-    def __init__(self, valeur):
-        self.valeur = valeur
-    
-    def __str__(self):
-        return f"MaClasse avec la valeur : {self.valeur}"
+from PIL import Image
+from ultralytics import YOLO
 
-# Exemple d'utilisation
-objet = MaClasse(42)
-print(objet)  # Cela affichera : MaClasse avec la valeur : 42
-del objet  # Cela supprimera l'objet de la mémoire
+# Load a pretrained YOLOv8n model
+model = YOLO('yolov8n.pt')
+
+# Run inference on 'bus.jpg'
+results = model('bus.jpg')  # results list
+
+# Show the results
+for r in results:
+    im_array = r.plot()  # plot a BGR numpy array of predictions
+    im = Image.fromarray(im_array[..., ::-1])  # RGB PIL image
+    im.show()  # show image
+    im.save('results.jpg')  # save image
