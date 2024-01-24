@@ -94,8 +94,8 @@ while start:
     #    bh.client.advance_frame()
     # if bh.memory.get_memory()['0xe'] == 11 or bh.memory.get_memory()['0xe'] == 6 or bh.memory.get_memory()['0xe'] == 0:
     #    keyboard.press_and_release('f4')
-    image = pyscreenshot.grab(childprocess=False, bbox=(1167, 66, 1712, 483))
-    # image = pyscreenshot.grab(childprocess=False, bbox=(1515, 54, 2324, 673))
+    #image = pyscreenshot.grab(childprocess=False, bbox=(1167, 66, 1712, 483))
+    image = pyscreenshot.grab(childprocess=False, bbox=(1515, 54, 2324, 673))
     img = image.resize((640, 640))
     results = model_detect(img, show=False, device=0)
     results = get_box(results)
