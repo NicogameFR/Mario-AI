@@ -76,25 +76,25 @@ def input():
         return True
 
 
-# actions = []
+actions = []
 start = True
 time_in_life = 0
-# while bh.client.is_connected():
-while start:
-    # a = input()
-    # b = input()
-    # up = input()
-    # down = input()
-    # right = input()
-    # left = input()
-    # actions.append([a, b, up, down, right, left])
-    # bh.memory.request_memory()
-    # for i in range(10):
-    #    bh.controller_input.set_controller_input(a, b, up, down, right, left)
-    #    bh.client.advance_frame()
-    # if bh.memory.get_memory()['0xe'] == 11 or bh.memory.get_memory()['0xe'] == 6 or bh.memory.get_memory()['0xe'] == 0:
-    #    keyboard.press_and_release('f4')
-    #image = pyscreenshot.grab(childprocess=False, bbox=(1167, 66, 1712, 483))
+while bh.client.is_connected():
+    # while start:
+    a = input()
+    b = input()
+    up = input()
+    down = input()
+    right = input()
+    left = input()
+    actions.append([a, b, up, down, right, left])
+    bh.memory.request_memory()
+    for i in range(10):
+        bh.controller_input.set_controller_input(a, b, up, down, right, left)
+        bh.client.advance_frame()
+    if bh.memory.get_memory()['0xe'] == 11 or bh.memory.get_memory()['0xe'] == 6 or bh.memory.get_memory()['0xe'] == 0:
+        keyboard.press_and_release('f4')
+    # image = pyscreenshot.grab(childprocess=False, bbox=(1167, 66, 1712, 483))
     image = pyscreenshot.grab(childprocess=False, bbox=(1515, 54, 2324, 673))
     img = image.resize((640, 640))
     results = model_detect(img, show=False, device=0)
