@@ -196,7 +196,7 @@ function choix()
                     saveClass("fin")
                 elseif marioState == 11 then
                     saveClass("mort")
-                elseif marioState ~= 0  or marioState ~= 6 then
+                elseif marioState ~= 0 or marioState ~= 6 then
                     saveClass("vie")
                 end
                 nb = nb + 1

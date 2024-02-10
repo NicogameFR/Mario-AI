@@ -5,3 +5,7 @@ birds-eye-lib
 keyboard
 jupyter
 matplotlib
+torch 
+torchvision 
+torchaudio 
+--index-url https://download.pytorch.org/whl/cu121
