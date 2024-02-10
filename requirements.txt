@@ -1,0 +1,5 @@
+ultralytics
+pyscreenshot
+numpy
+birds-eye-lib
+keyboard
