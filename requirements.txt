@@ -3,7 +3,6 @@ pyscreenshot
 numpy
 birds-eye-lib
 keyboard
-jupyter
 matplotlib
 torch 
 torchvision 
