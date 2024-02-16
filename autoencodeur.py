@@ -19,6 +19,11 @@ import matplotlib.pyplot as plt
 import os
 import random
 
+import tkinter as tk
+from tkinter import ttk
+import matplotlib.pyplot as plt
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+
 # Checking is CUDA available on current machine
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 print("Project running on device: ", DEVICE)
@@ -26,7 +31,7 @@ print("Project running on device: ", DEVICE)
 # configurations for the task
 config = {
     "batch_size": 64,
-    "epochs": 3,
+    "epochs": 10,
     "lr": 5e-4,  # learning rate
 }
 
@@ -49,22 +54,10 @@ def collate_fn(batch):
 # %%
 
 
-labels = [
-    "T-shirt/top",
-    "Trouser",
-    "Pullover",
-    "Dress",
-    "Coat",
-    "Sandla",
-    "Shirt",
-    "Sneaker",
-    "Bag",
-    "Ankle boot",
-]
 
 # download/load dataset
-train_data = datasets.MNIST(".data", train=True, download=True)
-valid_data = datasets.MNIST(".data", train=False, download=True)
+train_data = datasets.FashionMNIST(".data", train=True, download=True)
+valid_data = datasets.FashionMNIST(".data", train=False, download=True)
 
 # put datasets into dataloaders
 train_loader = DataLoader(
@@ -76,19 +69,6 @@ valid_loader = DataLoader(
 
 
 # %%
-print("Inspecting train data: ")
-for _, data in enumerate(train_loader):
-   print("Batch shape: ", data[0].shape)
-   fig, ax = plt.subplots(1, 4, figsize=(10, 4))
-   for i in range(4):
-       # Ture 3D tensor to 2D tensor due to image's single channel
-       ax[i].imshow(data[0][i].squeeze(), cmap="gray")
-       ax[i].axis("off")
-       ax[i].set_title(labels[data[1][i]])
-   plt.show()
-   # And don't forget to break
-   break
-# %%
 
 # Paramètres du modèle :
 LAYERS = 3
@@ -99,8 +79,6 @@ LINEAR_DIM = 2048
 
 
 # %%
-
-
 class Encoder(nn.Module):
 
     def __init__(self, output_dim=2, use_batchnorm=True, use_dropout=True):
@@ -175,7 +153,7 @@ class Encoder(nn.Module):
 # %%
 encoder = Encoder()
 encoder = encoder.to(DEVICE)
-summary(encoder, (1, 28, 28))
+# summary(encoder, (1, 28, 28))
 
 
 # %%
@@ -253,11 +231,10 @@ class Decoder(nn.Module):
 # %%
 decoder = Decoder()
 decoder = decoder.to(DEVICE)
-summary(decoder, (2,))
+# summary(decoder, (2,))
+
 
 # %%
-
-
 class AutoEncoder(nn.Module):
 
     def __init__(self):
@@ -285,7 +262,7 @@ def plotting(step: int = 0, show=False):
     if not os.path.exists(path):
         os.mkdir(path)
 
-    for i, data in enumerate(valid_loader):
+    for i, data in enumerate(train_loader):
         img, label = [d.to(DEVICE) for d in data]
         # We only need to encode the validation images
         proj = model.encoder(img)
@@ -312,12 +289,22 @@ def plotting(step: int = 0, show=False):
 
     if show:
         ax.grid(True, color="lightgray", alpha=1.0, zorder=0)
+        ax.set_title("Latent Space Visualization")
+        ax.set_xlabel("X")
+        ax.set_ylabel("Y")
+        cid = fig.canvas.mpl_connect('button_press_event', onclick)
         plt.show()
     else:
         # Do not show but only save the plot in training
+        plt.axis("off")
         plt.savefig(f"{path}/Step_{step:03d}.png", bbox_inches="tight")
         plt.close()  # don't forget to close the plot, or it is always in memory
         model.train()
+
+def onclick(event):
+    x = event.xdata
+    y = event.ydata
+    affichage_image(x,y)
 
 
 # convert image sequence to a gif file
@@ -385,8 +372,8 @@ def train(model, dataloader, criterion, optimizer, save_distrib=False):
         batch_bar.update()
 
         # Saving latent space plots
-        if steps % 10 == 0 and save_distrib and steps <= 400:
-            plotting(steps)
+        # if steps % 10 == 0 and save_distrib and steps <= 400:
+        #    plotting(steps)
         steps += 1
 
         # remove unnecessary cache in CUDA memory
@@ -400,8 +387,6 @@ def train(model, dataloader, criterion, optimizer, save_distrib=False):
 
 
 # %%
-
-
 def validate(model, dataloader, criterion):
 
     model.eval()  # Don't forget to turn the model to eval mode
@@ -440,7 +425,6 @@ def validate(model, dataloader, criterion):
 
 
 # %%
-
 for i in range(config["epochs"]):
     curr_lr = float(optimizer.param_groups[0]["lr"])
     train_loss = train(model, train_loader, criterion, optimizer, save_distrib=True)
@@ -448,32 +432,28 @@ for i in range(config["epochs"]):
     print(
         f"Epoch {i+1}/{config['epochs']}\nTrain loss: {train_loss:.4f}\t Validation loss: {valid_loss:.4f}\tlr: {curr_lr:.4f}"
     )
-plotting(step=450 , show=True)
 # %%
-# randomly sample x and y values
-xs = [random.uniform(-6.0, 8.0) for i in range(8)]
-ys = [random.uniform(-7.5, 10.0) for i in range(8)]
+def affichage_image(xs, ys):
+    xs , ys = [float(xs)], [float(ys)]
+    points = points = list(zip(xs, ys))
+    coords = torch.tensor(points).unsqueeze(1).to(DEVICE)
 
-points = list(zip(xs, ys))
-coords = torch.tensor(points).unsqueeze(1).to(DEVICE)
+    fig1, axes1 = plt.subplots(nrows=1, ncols=1, figsize=(5, 5))
 
-nrows, ncols = 2, 4
-fig, axes = plt.subplots(nrows, ncols, figsize=(10, 5))
+    model.eval()
+    with torch.no_grad():
+        generates = [model.decoder(coord) for coord in coords]
 
-model.eval()
-with torch.no_grad():
-    generates = [model.decoder(coord) for coord in coords]
+    # plot points
+    im = generates[0].squeeze().detach().cpu()
+    axes1.imshow(im, cmap="gray")
+    axes1.axis("off")
+    coord = coords[0].detach().cpu().numpy()[0]
+    axes1.set_title(f"({coord[0]:.3f}, {coord[1]:.3f})")
 
-# plot points
-idx = 0
-for row in range(0, nrows):
-    for col in range(0, ncols):
-        ax = axes[row, col]
-        im = generates[idx].squeeze().detach().cpu()
-        ax.imshow(im, cmap="gray")
-        ax.axis("off")
-        coord = coords[idx].detach().cpu().numpy()[0]
-        ax.set_title(f"({coord[0]:.3f}, {coord[1]:.3f})")
-        idx += 1
+    plt.show()
 
-plt.show()
+
+plotting(450)
+torch.save(model.state_dict(),'autoencoder2.pth')
+plotting(500, show=True)
