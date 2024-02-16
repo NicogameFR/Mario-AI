@@ -120,6 +120,9 @@ class Encoder(nn.Module):
         x = self.flatten(x)
         return self.linear(x)
 
+enccoder = Encoder()
+enccoder = enccoder.to(DEVICE)
+summary(enccoder, (1, 28, 28))
 
 class Decoder(nn.Module):
 
@@ -191,6 +194,9 @@ class Decoder(nn.Module):
         x = self.conv(x)
         return self.output(x)
 
+decoder = Decoder()
+decoder = decoder.to(DEVICE)
+summary(decoder, (2,))
 
 class AutoEncoder(nn.Module):
 
@@ -202,6 +208,9 @@ class AutoEncoder(nn.Module):
     def forward(self, x):
         return self.decoder(self.encoder(x))
 
+autoencoder = AutoEncoder()
+autoencoder = autoencoder.to(DEVICE)
+summary(autoencoder, (1, 28, 28))
 
 def plotting(step: int = 0, show=False):
 
