@@ -5,6 +5,7 @@ import torch
 from torch import nn
 from torch.nn import functional as F
 
+from torchsummary import summary
 
 from torchvision import datasets, transforms
 
@@ -48,20 +49,6 @@ test_loader = torch.utils.data.DataLoader(
     batch_size=32,
     shuffle=True,
 )
-
-# for data_batch, label_batch in train_loader:
-#    fig = plt.figure()
-#    for i in range(1, 31):
-#        data = data_batch[i][0]
-#        label = label_batch[i]
-#        plt.subplot(5, 6, i)
-#        plt.axis("off")
-#        plt.title(label.item())
-#        plt.imshow(data, cmap="gray_r")
-#
-#    break
-# plt.show()
-
 
 # %%
 N_EPOCH = 13
@@ -135,7 +122,7 @@ for epoch in range(N_EPOCH):
 
 # %%
 
-N_EPOCH = 13
+N_EPOCH = 1
 
 
 x_axis , y_axis1 = list(range(1, N_EPOCH+1)) , []
@@ -214,12 +201,12 @@ for epoch in range(N_EPOCH):
     y_axis1.append(acc)
     print(f"validation loss = {loss : .3} \nvalidation acc = {acc : .3}")
 
-fig = plt.figure()
-ax = plt.gca()
-ax.set_ylim(0.94,1.0)
-plt.title("Validation accuracy")
-plt.plot(x_axis, y_axis1, label="CNN")
-plt.legend(loc = "upper left")
-
-plt.show()
+#fig = plt.figure()
+#ax = plt.gca()
+#ax.set_ylim(0.94,1.0)
+#plt.title("Validation accuracy")
+#plt.plot(x_axis, y_axis1, label="CNN")
+#plt.legend(loc = "upper left")
+#
+#plt.show()
 
