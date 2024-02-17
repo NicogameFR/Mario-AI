@@ -1,40 +1,39 @@
 <p align="center">
   <a href="" rel="noopener">
- <img width=200px height=200px src="https://i.imgur.com/6wj0hh6.jpg" alt="Project logo"></a>
+ <img width=200px height=200px src="avatar.png" alt="Project logo"></a>
 </p>
 
-<h3 align="center">Project Title</h3>
+<h3 align="center">Mario AI</h3>
 
 <div align="center">
 
 [![Status](https://img.shields.io/badge/status-active-success.svg)]()
-[![GitHub Issues](https://img.shields.io/github/issues/kylelobo/The-Documentation-Compendium.svg)](https://github.com/kylelobo/The-Documentation-Compendium/issues)
-[![GitHub Pull Requests](https://img.shields.io/github/issues-pr/kylelobo/The-Documentation-Compendium.svg)](https://github.com/kylelobo/The-Documentation-Compendium/pulls)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](/LICENSE)
-
+<a href="https://universe.roboflow.com/baptiste-hustaix-znm0u/mario-ai-database">
+    <img src="https://app.roboflow.com/images/download-dataset-badge.svg"></img>
+</a>
+<a href="https://universe.roboflow.com/baptiste-hustaix-znm0u/mario-ai-database/model/">
+    <img src="https://app.roboflow.com/images/try-model-badge.svg"></img>
+</a>
 </div>
 
----
 
-<p align="center"> Few lines describing your project.
-    <br> 
-</p>
+## 📝 Table des matières
 
-## 📝 Table of Contents
-
-- [About](#about)
+<!--
 - [Getting Started](#getting_started)
-- [Deployment](#deployment)
-- [Usage](#usage)
-- [Built Using](#built_using)
-- [TODO](../TODO.md)
-- [Contributing](../CONTRIBUTING.md)
-- [Authors](#authors)
-- [Acknowledgments](#acknowledgement)
+-->
+- [À propos](#about)
+- [Déploiement](#deployment)
+- [Créé en utilisant](#built_using)
+- [Auteur](#authors)
+- [Remerciements](#acknowledgement)
 
-## 🧐 About <a name = "about"></a>
+## 🧐 À propos <a name = "about"></a>
 
-Write about 1-2 paragraphs describing the purpose of your project.
+Ce projet est une intelligence artificielle capable de jouer à Super Mario Bros. de manière autonome. Cette IA est capable de détecter des objets sur l'écran, de les interpréter et d'en extraire les données nécessaires pour informer un modèle d'apprentissage par renforcement. Ce projet comprend donc deux intelligences artificielles, l'une pour la détection des objets et l'autre pour la prise de décision. À terme, l'IA devrait être capable de jouer au jeu en utilisant uniquement des données visuelles (flux vidéo). Cela lui permettra d'être utilisée avec la seule contrainte de filmer l'écran de jeu et de la connecter sous forme de manette à la console.
+
+<!--
 
 ## 🏁 Getting Started <a name = "getting_started"></a>
 
@@ -85,30 +84,20 @@ Explain what these tests test and why
 ```
 Give an example
 ```
+-->
 
-## 🎈 Usage <a name="usage"></a>
+## 🚀 Déploiement <a name = "deployment"></a>
 
-Add notes about how to use the system.
+- Pas encore déployé (en cours de développement)
 
-## 🚀 Deployment <a name = "deployment"></a>
+## ⛏️ Créé en utilisant <a name = "built_using"></a>
 
-Add additional notes about how to deploy this on a live system.
+- [YoloV8](https://yolov8.com/) - Model de détéction des objets
 
-## ⛏️ Built Using <a name = "built_using"></a>
+## ✍️ Auteur <a name = "authors"></a>
 
-- [MongoDB](https://www.mongodb.com/) - Database
-- [Express](https://expressjs.com/) - Server Framework
-- [VueJs](https://vuejs.org/) - Web Framework
-- [NodeJs](https://nodejs.org/en/) - Server Environment
+- [@NicogameFR](https://github.com/NicogameFR) - Créateur du projet
 
-## ✍️ Authors <a name = "authors"></a>
+## 🎉 Remerciements <a name = "acknowledgement"></a>
 
-- [@kylelobo](https://github.com/kylelobo) - Idea & Initial work
-
-See also the list of [contributors](https://github.com/kylelobo/The-Documentation-Compendium/contributors) who participated in this project.
-
-## 🎉 Acknowledgements <a name = "acknowledgement"></a>
-
-- Hat tip to anyone whose code was used
-- Inspiration
-- References
+- Moi 😎

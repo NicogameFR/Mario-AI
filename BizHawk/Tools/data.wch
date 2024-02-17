@@ -1,4 +1,5 @@
 SystemID NES
+071A	b	u	0	RAM	
 079E	b	u	0	RAM	Invincibilité
 075A	b	u	0	RAM	Vie
 07FA	b	u	0	RAM	Timer
