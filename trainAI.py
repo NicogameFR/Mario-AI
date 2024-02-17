@@ -86,7 +86,7 @@ def get_box(results):
     return object_list
 
 
-def input():
+def input_():
     x = random.randint(0, 1)
     if x == 0:
         return False
@@ -99,12 +99,12 @@ start = True
 time_in_life = 0
 while bh.client.is_connected():
     # while start:
-    a = input()
-    b = input()
-    up = input()
-    down = input()
-    right = input()
-    left = input()
+    a = input_()
+    b = input_()
+    up = input_()
+    down = input_()
+    right = input_()
+    left = input_()
     actions.append([a, b, up, down, right, left])
     bh.memory.request_memory()
     for i in range(10):
@@ -125,5 +125,5 @@ while bh.client.is_connected():
     for result in results:
         if result.classe in [0, 4, 11]:
             time_in_life += 1
-    print(time_in_life, end="\r")
+    print(time_in_life+"\r", end="")
     start = True
