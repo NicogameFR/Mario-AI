@@ -79,9 +79,10 @@ while bh.client.is_connected() and i < TOTAL_FRAMES:
     y = (y1 + y2) / 2
     decalage = d1 * 256 + d2
     print(
-        f"Nombre de captures: {i}/{TOTAL_FRAMES} - Décalage: {decalage} - x: {x} - y: {y}\r", end=""
+        f"Nombre de captures: {i+1}/{TOTAL_FRAMES} - Décalage: {decalage} - x: {x} - y: {y}\r",
+        end="",
     )
-    new_data = {"decalage": decalage, "x": x, "y": y}
+    new_data = [decalage, x, y]
     image = pyscreenshot.grab(childprocess=False, bbox=(1167, 66, 1712, 483))
     image = image.resize((64, 64))
     # image = image.convert("L")  # '1' pour carré noir et blanc

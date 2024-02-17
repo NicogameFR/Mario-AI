@@ -17,12 +17,8 @@ from tqdm.notebook import tqdm
 import numpy as np
 import matplotlib.pyplot as plt
 import os
-import random
 
-import tkinter as tk
-from tkinter import ttk
 import matplotlib.pyplot as plt
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
 # Checking is CUDA available on current machine
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
