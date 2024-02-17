@@ -14,7 +14,10 @@ from tqdm.notebook import tqdm
 import numpy as np
 import matplotlib.pyplot as plt
 import os
+import sys
 
+
+import time
 import matplotlib.pyplot as plt
 
 # Checking is CUDA available on current machine
@@ -122,7 +125,7 @@ class Encoder(nn.Module):
 
 enccoder = Encoder()
 enccoder = enccoder.to(DEVICE)
-summary(enccoder, (1, 28, 28))
+#summary(enccoder, (1, 28, 28))
 
 class Decoder(nn.Module):
 
@@ -196,7 +199,7 @@ class Decoder(nn.Module):
 
 decoder = Decoder()
 decoder = decoder.to(DEVICE)
-summary(decoder, (2,))
+#summary(decoder, (2,))
 
 class AutoEncoder(nn.Module):
 
@@ -210,9 +213,9 @@ class AutoEncoder(nn.Module):
 
 autoencoder = AutoEncoder()
 autoencoder = autoencoder.to(DEVICE)
-summary(autoencoder, (1, 28, 28))
+#summary(autoencoder, (1, 28, 28))
 
-def plotting(step: int = 0, show=False):
+def plotting(step: int = 0, show=False, train_loader=None):
 
     model.eval()  # Switch the model to evaluation mode
 
@@ -293,31 +296,51 @@ def affichage_image(xs, ys):
 model = AutoEncoder()
 model = model.to(DEVICE)
 
-if input("Do you want to load the model? (y/n): ") == "y":
-    if input("1 or 2? ") == "1":
+
+def start(train_data,valid_data):
+# put datasets into dataloaders
+    train_loader = DataLoader(
+        train_data, batch_size=config["batch_size"], shuffle=True, collate_fn=collate_fn
+    )
+
+    criterion = nn.MSELoss()
+    optimizer = torch.optim.AdamW(model.parameters(), lr=config["lr"], weight_decay=1e-5)
+
+    # For mixed precision training
+    scaler = torch.cuda.amp.GradScaler()
+    steps = 0  # tracking the training steps
+    plotting(0, show=True, train_loader=train_loader)
+
+
+while True:
+    input_model = input("Choose the model to load : 1 or 2 ?\n ----->>>   ")
+    if input_model == "1":
+        print('Processing .\r', end='')
+        time.sleep(0.3)
+        print('Processing ..\r', end='')
+        time.sleep(0.3)
+        print('Processing ...\r', end='')
+        time.sleep(0.3)     
         model.load_state_dict(torch.load("autoencoder.pth"))
         train_data = datasets.MNIST(".data", train=True, download=True)
         valid_data = datasets.MNIST(".data", train=False, download=True)
-
-    else:
+        try:
+            start(train_data,valid_data)
+        except :
+            continue
+    elif input_model == "2":
+        print('Processing .\r', end='')
+        time.sleep(0.3)
+        print('Processing ..\r', end='')
+        time.sleep(0.3)
+        print('Processing ...\r', end='')
+        time.sleep(0.3)  
         model.load_state_dict(torch.load("autoencoder2.pth"))
         train_data = datasets.FashionMNIST(".data", train=True, download=True)
         valid_data = datasets.FashionMNIST(".data", train=False, download=True)
-
-
-# put datasets into dataloaders
-train_loader = DataLoader(
-    train_data, batch_size=config["batch_size"], shuffle=True, collate_fn=collate_fn
-)
-valid_loader = DataLoader(
-    valid_data, batch_size=config["batch_size"], shuffle=False, collate_fn=collate_fn
-)
-
-criterion = nn.MSELoss()
-optimizer = torch.optim.AdamW(model.parameters(), lr=config["lr"], weight_decay=1e-5)
-
-# For mixed precision training
-scaler = torch.cuda.amp.GradScaler()
-steps = 0  # tracking the training steps
-
-plotting(0, show=True)
+        try:
+            start(train_data,valid_data)
+        except :
+            continue
+    else:
+        print("Invalid input\n")
