@@ -25,13 +25,17 @@ class BizHawk:
 HOST = "127.0.0.1"
 PORT = 8080
 bh = BizHawk(HOST, PORT)
+PATH_JSON = "./mario_data/labels/Mario_World.json"
+PATH_PNG = "./mario_data/screenshots/"
+TOTAL_FRAMES = 8478
+
 
 # %%
 
-if os.path.exists("Mario_World.json"):
-    os.remove("Mario_World.json")
-if os.path.exists("./worlds/0.png"):
-    os.system("cd ./worlds/ & del /f *.png")
+if os.path.exists(PATH_JSON):
+    os.remove(PATH_JSON)
+if os.path.exists(PATH_PNG + "0.png"):
+    os.system(f"cd {PATH_PNG} & del /f *.png")
 
 
 # %%
@@ -49,9 +53,7 @@ def data_json(fichier_json, new_data):
 
 
 # %%
-PATH_JSON = "Mario_World.json"
-PATH_PNG = "./worlds"
-TOTAL_FRAMES = 1000
+
 
 if not os.path.exists(PATH_PNG):
     os.mkdir(PATH_PNG)
@@ -75,18 +77,19 @@ while bh.client.is_connected() and i < TOTAL_FRAMES:
     y2 = bh.memory.get_memory()["0x4af"]
     d1 = bh.memory.get_memory()["0x71a"]
     d2 = bh.memory.get_memory()["0x71c"]
-    x = (x1 + x2) / 2
-    y = (y1 + y2) / 2
-    decalage = d1 * 256 + d2
-    print(
-        f"Nombre de captures: {i+1}/{TOTAL_FRAMES} - Décalage: {decalage} - x: {x} - y: {y}\r",
-        end="",
-    )
-    new_data = [decalage, x, y]
-    image = pyscreenshot.grab(childprocess=False, bbox=(1167, 66, 1712, 483))
-    image = image.resize((64, 64))
-    # image = image.convert("L")  # '1' pour carré noir et blanc
-    image.save(f"./{PATH_PNG}/{i}.png")
-    data_json(PATH_JSON, new_data)
-    bh.client.advance_frame()
-    i += 1
+    if [x1, y1, x2, y2] != [0, 0, 0, 0] or [x1, y1, x2, y2] != [-1, -1, -1, -1]:
+        x = (x1 + x2) / 2
+        y = (y1 + y2) / 2
+        decalage = d1 * 256 + d2
+        print(
+            f"Nombre de captures: {i+1}/{TOTAL_FRAMES} - Décalage: {decalage} - x: {x} - y: {y}\r",
+            end="",
+        )
+        new_data = [decalage, x, y]
+        image = pyscreenshot.grab(childprocess=False, bbox=(1167, 66, 1712, 483))
+        image = image.resize((64, 64))
+        # image = image.convert("L")  # '1' pour carré noir et blanc
+        image.save(f"./{PATH_PNG}/{i}.png")
+        data_json(PATH_JSON, new_data)
+        bh.client.advance_frame()
+        i += 1

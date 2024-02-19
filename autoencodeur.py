@@ -50,7 +50,6 @@ def collate_fn(batch):
 # %%
 
 
-
 # download/load dataset
 train_data = datasets.FashionMNIST(".data", train=True, download=True)
 valid_data = datasets.FashionMNIST(".data", train=False, download=True)
@@ -62,7 +61,6 @@ train_loader = DataLoader(
 valid_loader = DataLoader(
     valid_data, batch_size=config["batch_size"], shuffle=False, collate_fn=collate_fn
 )
-
 
 # %%
 
@@ -108,15 +106,11 @@ class Encoder(nn.Module):
         for i in range(self.layers):
             # The input channel of the first layer is 1
             if i == 0:
-                conv_layers.append(
-                    nn.Conv2d(
-                        1,
+                conv_layers.append(nn.Conv2d(1,
                         self.channels[i],
                         kernel_size=self.kernels[i],
                         stride=self.strides[i],
-                        padding=1,
-                    )
-                )
+                        padding=1,))
 
             else:
                 conv_layers.append(
@@ -149,7 +143,7 @@ class Encoder(nn.Module):
 # %%
 encoder = Encoder()
 encoder = encoder.to(DEVICE)
-# summary(encoder, (1, 28, 28))
+summary(encoder, (1, 28, 28))
 
 
 # %%
@@ -288,7 +282,7 @@ def plotting(step: int = 0, show=False):
         ax.set_title("Latent Space Visualization")
         ax.set_xlabel("X")
         ax.set_ylabel("Y")
-        cid = fig.canvas.mpl_connect('button_press_event', onclick)
+        cid = fig.canvas.mpl_connect("button_press_event", onclick)
         plt.show()
     else:
         # Do not show but only save the plot in training
@@ -297,10 +291,11 @@ def plotting(step: int = 0, show=False):
         plt.close()  # don't forget to close the plot, or it is always in memory
         model.train()
 
+
 def onclick(event):
     x = event.xdata
     y = event.ydata
-    affichage_image(x,y)
+    affichage_image(x, y)
 
 
 # convert image sequence to a gif file
@@ -428,9 +423,11 @@ for i in range(config["epochs"]):
     print(
         f"Epoch {i+1}/{config['epochs']}\nTrain loss: {train_loss:.4f}\t Validation loss: {valid_loss:.4f}\tlr: {curr_lr:.4f}"
     )
+
+
 # %%
 def affichage_image(xs, ys):
-    xs , ys = [float(xs)], [float(ys)]
+    xs, ys = [float(xs)], [float(ys)]
     points = points = list(zip(xs, ys))
     coords = torch.tensor(points).unsqueeze(1).to(DEVICE)
 
@@ -451,5 +448,5 @@ def affichage_image(xs, ys):
 
 
 plotting(450)
-torch.save(model.state_dict(),'autoencoder2.pth')
+torch.save(model.state_dict(), "autoencoder2.pth")
 plotting(500, show=True)
