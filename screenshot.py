@@ -25,10 +25,10 @@ class BizHawk:
 HOST = "127.0.0.1"
 PORT = 8080
 bh = BizHawk(HOST, PORT)
-PATH_JSON = "./mario_data/labels/Mario_World.json"
-PATH_PNG = "./mario_data/screenshots/"
-TOTAL_FRAMES = 8478
-
+PATH_JSON = "./.data/mario_data/labels/Mario_World.json"
+PATH_PNG = "./.data/mario_data/screenshots/"
+TOTAL_FRAMES = 100
+SIZE = 64
 
 # %%
 
@@ -87,9 +87,10 @@ while bh.client.is_connected() and i < TOTAL_FRAMES:
         )
         new_data = [decalage, x, y]
         image = pyscreenshot.grab(childprocess=False, bbox=(1167, 66, 1712, 483))
-        image = image.resize((64, 64))
+        image = image.resize((SIZE, SIZE))
         # image = image.convert("L")  # '1' pour carré noir et blanc
         image.save(f"./{PATH_PNG}/{i}.png")
         data_json(PATH_JSON, new_data)
         bh.client.advance_frame()
         i += 1
+print("\nFin de la capture")
