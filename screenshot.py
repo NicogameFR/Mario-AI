@@ -4,7 +4,7 @@ import pyscreenshot
 import birdseyelib as bird
 import os
 import json
-
+import random
 # %%
 
 
@@ -25,17 +25,24 @@ class BizHawk:
 HOST = "127.0.0.1"
 PORT = 8080
 bh = BizHawk(HOST, PORT)
-PATH_JSON = "./.data/mario_data/labels/Mario_World.json"
-PATH_PNG = "./.data/mario_data/screenshots/"
-TOTAL_FRAMES = 100
+PATH_TRAIN_JSON = "./.data/Mario_data/Train/labels/Mario_World.json"
+PATH_TRAIN_PNG = "./.data/Mario_data/Train/screenshots/"
+PATH_VALID_JSON = "./.data/Mario_data/Valid/labels/Mario_World.json"
+PATH_VALID_PNG = "./.data/Mario_data/Valid/screenshots/"
+
+TOTAL_FRAMES = 5000
 SIZE = 64
 
 # %%
 
-if os.path.exists(PATH_JSON):
-    os.remove(PATH_JSON)
-if os.path.exists(PATH_PNG + "0.png"):
-    os.system(f"cd {PATH_PNG} & del /f *.png")
+if os.path.exists(PATH_TRAIN_JSON):
+    os.remove(PATH_TRAIN_JSON)
+if os.path.exists(PATH_TRAIN_PNG + "0.png"):
+    os.system(f"cd {PATH_TRAIN_PNG} & del /f *.png")
+if os.path.exists(PATH_VALID_JSON):
+    os.remove(PATH_VALID_JSON)
+if os.path.exists(PATH_VALID_PNG + "0.png"):
+    os.system(f"cd {PATH_VALID_PNG} & del /f *.png")
 
 
 # %%
@@ -54,9 +61,6 @@ def data_json(fichier_json, new_data):
 
 # %%
 
-
-if not os.path.exists(PATH_PNG):
-    os.mkdir(PATH_PNG)
 i = 0
 
 bh.memory.add_address(0x04AC)  # Mario's x1 position
@@ -88,9 +92,13 @@ while bh.client.is_connected() and i < TOTAL_FRAMES:
         new_data = [decalage, x, y]
         image = pyscreenshot.grab(childprocess=False, bbox=(1167, 66, 1712, 483))
         image = image.resize((SIZE, SIZE))
-        # image = image.convert("L")  # '1' pour carré noir et blanc
-        image.save(f"./{PATH_PNG}/{i}.png")
-        data_json(PATH_JSON, new_data)
+        x = random.randint(1, 10)
+        if x == 1:
+            image.save(f"./{PATH_VALID_PNG}/{i}.png")
+            data_json(PATH_VALID_JSON, new_data)
+        else:
+            image.save(f"./{PATH_TRAIN_PNG}/{i}.png")
+            data_json(PATH_TRAIN_JSON, new_data)
         bh.client.advance_frame()
         i += 1
 print("\nFin de la capture")

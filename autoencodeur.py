@@ -106,11 +106,15 @@ class Encoder(nn.Module):
         for i in range(self.layers):
             # The input channel of the first layer is 1
             if i == 0:
-                conv_layers.append(nn.Conv2d(1,
+                conv_layers.append(
+                    nn.Conv2d(
+                        1,
                         self.channels[i],
                         kernel_size=self.kernels[i],
                         stride=self.strides[i],
-                        padding=1,))
+                        padding=1,
+                    )
+                )
 
             else:
                 conv_layers.append(
@@ -221,7 +225,7 @@ class Decoder(nn.Module):
 # %%
 decoder = Decoder()
 decoder = decoder.to(DEVICE)
-# summary(decoder, (2,))
+summary(decoder, (2,1,1))
 
 
 # %%
