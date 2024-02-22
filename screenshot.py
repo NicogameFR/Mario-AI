@@ -8,6 +8,18 @@ import random
 
 # %%
 
+HOST = "127.0.0.1"
+PORT = 8080
+
+PATH_TRAIN_JSON = "./.data/Mario_data/Train/labels/Mario_World.json"
+PATH_TRAIN_PNG = "./.data/Mario_data/Train/screenshots/"
+PATH_VALID_JSON = "./.data/Mario_data/Valid/labels/Mario_World.json"
+PATH_VALID_PNG = "./.data/Mario_data/Valid/screenshots/"
+
+TOTAL_FRAMES = 100
+SIZE = 64
+
+#%%
 
 class BizHawk:
 
@@ -23,16 +35,10 @@ class BizHawk:
         return f"BizHawk Client: {self.client}"
 
 
-HOST = "127.0.0.1"
-PORT = 8080
-bh = BizHawk(HOST, PORT)
-PATH_TRAIN_JSON = "./.data/Mario_data/Train/labels/Mario_World.json"
-PATH_TRAIN_PNG = "./.data/Mario_data/Train/screenshots/"
-PATH_VALID_JSON = "./.data/Mario_data/Valid/labels/Mario_World.json"
-PATH_VALID_PNG = "./.data/Mario_data/Valid/screenshots/"
 
-TOTAL_FRAMES = 5000
-SIZE = 64
+
+bh = BizHawk(HOST, PORT)
+
 
 # %%
 

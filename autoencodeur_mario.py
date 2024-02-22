@@ -24,45 +24,55 @@ config = {
 }
 
 SIZE = 64
-PATH_JSON = "./.data/mario_data/labels/Mario_World.json"
-PATH_PNG = "./.data/mario_data/screenshots/"
+
+PATH_TRAIN_JSON = "./.data/Mario_data/Train/labels/Mario_World.json"
+PATH_TRAIN_PNG = "./.data/Mario_data/Train/screenshots/"
+PATH_VALID_JSON = "./.data/Mario_data/Valid/labels/Mario_World.json"
+PATH_VALID_PNG = "./.data/Mario_data/Valid/screenshots/"
 
 
 # %%
-with open(PATH_JSON, "r") as f:
-    labels = json.load(f)
-    labels = [[label[1], label[2]] for label in labels]
+
+def load_data(PATH_JSON, PATH_PNG):
+    with open(PATH_TRAIN_JSON, "r") as f:
+        labels = json.load(f)
+        labels = [[label[1], label[2]] for label in labels]
 
 
-transform = transforms.Compose(
-    [
-        transforms.Resize((SIZE, SIZE)),
-        transforms.ToTensor(),
-    ]
-)
+    transform = transforms.Compose(
+        [
+            transforms.Resize((SIZE, SIZE)),
+            transforms.ToTensor(),
+        ]
+    )
 
-images = []
-target = []
+    images = []
+    target = []
 
-for i, filename in enumerate(os.listdir(PATH_PNG)):
+    for i, filename in enumerate(os.listdir(PATH_TRAIN_PNG)):
 
-    if filename.endswith(".png"):
-        print(f"Chargement de {filename} {i+1}/{len(labels)}", end="\r")
-        img = Image.open(os.path.join(PATH_PNG, filename))
-        img = transform(img)
-        images.append(img)
-        label = labels[i]
-        target.append(label)
+        if filename.endswith(".png"):
+            print(f"Chargement de {filename} {i+1}/{len(labels)}", end="\r")
+            img = Image.open(os.path.join(PATH_TRAIN_PNG, filename))
+            img = transform(img)
+            images.append(img)
+            label = labels[i]
+            target.append(label)
 
 
-images_tensor = torch.stack(images)
-target_tensor = torch.tensor(target)
-dataset = TensorDataset(images_tensor, target_tensor)
+    images_tensor = torch.stack(images)
+    target_tensor = torch.tensor(target)
+    dataset = TensorDataset(images_tensor, target_tensor)
 
-data_loader = DataLoader(
-    dataset, batch_size=config["batch_size"], shuffle=True, drop_last=True
-)
+    data_loader = DataLoader(
+        dataset, batch_size=config["batch_size"], shuffle=True, drop_last=True
+    )
 
+    return data_loader
+    
+train_loader = load_data(PATH_TRAIN_JSON, PATH_TRAIN_PNG)
+valid_loader = load_data(PATH_VALID_JSON, PATH_VALID_PNG)
+ 
 LAYERS = 3
 KERNELS = [3, 3, 3]
 CHANNELS = [3, 32, 64, 128]
@@ -72,18 +82,21 @@ LINEAR_DIM = 8 * 8 * 128
 LATENT_DIM = 2
 
 # %%
+def affichage(data_loader):
+    print("Taille du dataset :", len(data_loader.dataset))
+    print("Taille du batch :", data_loader.batch_size)
+    print("Nombre total de batches :", len(data_loader))
 
-print("Taille du dataset :", len(data_loader.dataset))
-print("Taille du batch :", data_loader.batch_size)
-print("Nombre total de batches :", len(data_loader))
-
-# Afficher les caractéristiques de chaque batch
-for i, batch in enumerate(data_loader, 1):
-    if i == 1:
-        print("Caractéristiques du batch", i, ":")
-        images, labels = batch
-        print("Taille des images :", images.size())
-        print("Taille des étiquettes :", labels.size())
+    # Afficher les caractéristiques de chaque batch
+    for i, batch in enumerate(data_loader, 1):
+        if i == 1:
+            print("Caractéristiques du batch", i, ":")
+            images, labels = batch
+            print("Taille des images :", images.size())
+            print("Taille des étiquettes :", labels.size())
+            
+affichage(train_loader)
+affichage(valid_loader)
 
 # %%
 
