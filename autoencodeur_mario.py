@@ -68,13 +68,14 @@ def load_data(PATH_JSON, PATH_PNG):
             images.append(img)
             label = labels[i]
             target.append(label)
+    print("\n")
 
     images_tensor = torch.stack(images)
     target_tensor = torch.tensor(target)
     dataset = TensorDataset(images_tensor, target_tensor)
 
     data_loader = DataLoader(
-        dataset, batch_size=config["batch_size"], shuffle=True, drop_last=True
+        dataset, batch_size=config["batch_size"], shuffle=False, drop_last=True
     )
 
     return data_loader
@@ -102,9 +103,6 @@ def affichage(data_loader):
             print("Taille des étiquettes :", labels.size())
     print("\n")
 
-
-affichage(train_loader)
-affichage(valid_loader)
 
 # %% [markdown]
 # Encoder
@@ -234,7 +232,7 @@ class AutoEncoder(nn.Module):
 autoencoder = AutoEncoder().to(DEVICE)
 # %% [markdown]
 # Summary of autoencoder
-summary(autoencoder, (3, 64, 64))
+# summary(autoencoder, (3, 64, 64))
 
 # %% [markdown]
 # Training function
@@ -296,48 +294,61 @@ def affichage_image(xs, ys):
         generates = [autoencoder.decoder(coord) for coord in coords]
 
     # plot points
-    im = generates[0].squeeze().detach().cpu()
+    im = generates[0].squeeze().detach().cpu().numpy().transpose(1, 2, 0)
+    print(im.shape)
     axes1.imshow(im, cmap="gray")
     axes1.axis("off")
     coord = coords[0].detach().cpu().numpy()[0]
     axes1.set_title(f"({coord[0]:.3f}, {coord[1]:.3f})")
 
     plt.show()
-
-
-def plotting(model=autoencoder, show=False):
-    model.eval()
-    points = []
-    label_idcs = []
-    if not os.path.exists(PATH):
-        os.mkdir(PATH)
-    for i, data in enumerate(train_loader):
-        img, label = [d.to(DEVICE) for d in data]
-        # We only need to encode the validation images
-        proj = model.encoder(img)
-        points.extend(proj.detach().cpu().numpy())
-        label_idcs.extend(label.detach().cpu().numpy())
-        del img, label
-    print("Points shape:", np.array(points).shape)
-    points = np.array(points)
+def hex_to_rgb(hex_valeur):
+    # Supprimer le préfixe '0x' si présent
+    hex_valeur = hex_valeur.lstrip('0x')
     
-    fig, ax = plt.subplots(figsize=(10, 10) if not show else (8, 8))
-    ax.spines["right"].set_visible(False)
-    ax.spines["top"].set_visible(False)
+    # Remplir avec des zéros à gauche si la longueur est inférieure à 6 (valeur minimale attendue pour une couleur hexadécimale)
+    hex_valeur = hex_valeur.zfill(6)
+    
+    # Extraire les composantes R, G et B
+    r = int(hex_valeur[0:2], 16)
+    g = int(hex_valeur[2:4], 16)
+    b = int(hex_valeur[4:6], 16)
+    
+    return (r, g, b)
 
-    if show:
-        ax.grid(True, color="lightgray", alpha=1.0, zorder=0)
-        ax.set_title("Latent Space Visualization")
-        ax.set_xlabel("X")
-        ax.set_ylabel("Y")
-        cid = fig.canvas.mpl_connect("button_press_event", onclick)
-        plt.show()
-    else:
-        # Do not show but only save the plot in training
-        plt.axis("off")
-        plt.savefig(f"{PATH}/frame.png", bbox_inches="tight")
-        plt.close()  # don't forget to close the plot, or it is always in memory
-        model.train()
+def plotting(model=autoencoder, data_loader=valid_loader, show=False):
+    model.eval()
+
+    labels = []
+
+    for i, batch in enumerate(data_loader):
+        x = batch[0].to(DEVICE)
+        with torch.no_grad():
+            y_recons = model.encoder(x)
+            labels.append(y_recons.cpu().numpy().tolist())
+    fig, ax = plt.subplots(figsize=(8, 8))
+    for i in range(len(labels)):
+        for j in range(len(labels[i])):
+            x, y = labels[i][j]
+            couleur_hex = hex(i*config['batch_size']+j)
+            couleur_rgb = hex_to_rgb(couleur_hex)
+            plt.scatter(x, y, color=couleur_rgb, s=10, alpha=0.5)
+            print(
+                f"Point {i*config['batch_size']+j}/{len(labels)*config['batch_size']}\r",
+                end="",
+            )
+    print("\n")
+    ax.grid(True, color="lightgray", alpha=1.0, zorder=0)
+    ax.set_title("Latent Space Visualization")
+    ax.set_xlabel("X")
+    ax.set_ylabel("Y")
+    fig.canvas.mpl_connect("button_press_event", onclick)
+    print("Plotting ...")
+    plt.show()
+    plt.savefig(f"{PATH}/frame.png")
+    plt.close()
+
+    model.train()
 
 
 def onclick(event):
@@ -352,6 +363,8 @@ loop = True
 while loop:
     loop = False
     ask = input("Do you want to train the model? (y/n) ")
+    ask = ask.lower()
+    ask = ask.strip()
     if ask == "y":
         for i in range(config["epochs"]):
             curr_lr = float(optimizer.param_groups[0]["lr"])
@@ -367,8 +380,7 @@ while loop:
         )
     elif ask == "n":
         autoencoder.load_state_dict(torch.load(".data\Mario_data\encoder_0.0107.pth"))
-        plotting(autoencoder, show=True)
+        plotting(autoencoder, train_loader, show=True)
     else:
         print("Invalid input")
-
-# %%
+        loop = True
