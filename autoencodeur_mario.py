@@ -1,4 +1,5 @@
-# %%
+# %% [markdown]
+# Librairies
 from torchvision import transforms
 import torch
 import torch.nn as nn
@@ -9,35 +10,44 @@ from PIL import Image
 from torch.utils.data import DataLoader, TensorDataset
 import torch.nn.functional as F
 from torch.utils.data import DataLoader
-
-# torchsummary for easy checking and debugging
 from torchsummary import summary
+import numpy as np
 
-DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
-print("Project running on device: ", DEVICE)
-
-# configurations for the task
+# %% [markdown]
+# Parameters
 config = {
     "batch_size": 32,
     "epochs": 100,
-    "lr": 1e-4,  # learning rate
+    "lr": 1e-4,
 }
 
 SIZE = 64
 
+PATH = ".data\Mario_data"
 PATH_TRAIN_JSON = "./.data/Mario_data/Train/labels/Mario_World.json"
 PATH_TRAIN_PNG = "./.data/Mario_data/Train/screenshots/"
 PATH_VALID_JSON = "./.data/Mario_data/Valid/labels/Mario_World.json"
 PATH_VALID_PNG = "./.data/Mario_data/Valid/screenshots/"
 
+LAYERS = 3
+KERNELS = [3, 3, 3]
+CHANNELS = [3, 32, 64, 128]
+STRIDES = [2, 2, 2]
+PADDING = [1, 1, 1]
+LINEAR_DIM = 8 * 8 * 128
+LATENT_DIM = 2
 
-# %%
+DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
+
+
+# %% [markdown]
+# Load data
+
 
 def load_data(PATH_JSON, PATH_PNG):
-    with open(PATH_TRAIN_JSON, "r") as f:
+    with open(PATH_JSON, "r") as f:
         labels = json.load(f)
         labels = [[label[1], label[2]] for label in labels]
-
 
     transform = transforms.Compose(
         [
@@ -49,16 +59,15 @@ def load_data(PATH_JSON, PATH_PNG):
     images = []
     target = []
 
-    for i, filename in enumerate(os.listdir(PATH_TRAIN_PNG)):
+    for i, filename in enumerate(os.listdir(PATH_PNG)):
 
         if filename.endswith(".png"):
-            print(f"Chargement de {filename} {i+1}/{len(labels)}", end="\r")
-            img = Image.open(os.path.join(PATH_TRAIN_PNG, filename))
+            print(f"Chargement de {filename} {i+1: 4d}/{len(labels)}\r", end="")
+            img = Image.open(os.path.join(PATH_PNG, filename))
             img = transform(img)
             images.append(img)
             label = labels[i]
             target.append(label)
-
 
     images_tensor = torch.stack(images)
     target_tensor = torch.tensor(target)
@@ -69,19 +78,16 @@ def load_data(PATH_JSON, PATH_PNG):
     )
 
     return data_loader
-    
+
+
 train_loader = load_data(PATH_TRAIN_JSON, PATH_TRAIN_PNG)
 valid_loader = load_data(PATH_VALID_JSON, PATH_VALID_PNG)
- 
-LAYERS = 3
-KERNELS = [3, 3, 3]
-CHANNELS = [3, 32, 64, 128]
-STRIDES = [2, 2, 2]
-PADDING = [1, 1, 1]
-LINEAR_DIM = 8 * 8 * 128
-LATENT_DIM = 2
 
-# %%
+
+# %% [markdown]
+# Display data
+
+
 def affichage(data_loader):
     print("Taille du dataset :", len(data_loader.dataset))
     print("Taille du batch :", data_loader.batch_size)
@@ -94,11 +100,14 @@ def affichage(data_loader):
             images, labels = batch
             print("Taille des images :", images.size())
             print("Taille des étiquettes :", labels.size())
-            
+    print("\n")
+
+
 affichage(train_loader)
 affichage(valid_loader)
 
-# %%
+# %% [markdown]
+# Encoder
 
 
 class Encoder(nn.Module):
@@ -148,7 +157,8 @@ class Encoder(nn.Module):
 encodeur = Encoder(use_batchnorm=True, use_dropout=True).to(DEVICE)
 
 
-# %%
+# %% [markdown]
+# Decoder
 class Decoder(nn.Module):
 
     def __init__(self, use_batchnorm=False, use_dropout=False):
@@ -198,24 +208,18 @@ class Decoder(nn.Module):
 
 
 decoder = Decoder(use_batchnorm=True, use_dropout=True).to(DEVICE)
-# %%
-summary(decoder, (2,))
-summary(encodeur, (3, 64, 64))
+# %% [markdown]
+# Summary of encoder
 
-img = torch.rand(
-    2,
-).to(DEVICE)
-reslut = decoder(img).to(DEVICE)
-reslut = reslut.detach().cpu().numpy()
-print(reslut.shape)
+# summary(encodeur, (3, 64, 64))
+# %% [markdown]
+# Summary of decoder
 
-img = torch.rand(1, 3, 64, 64).to(DEVICE)
-reslut = encodeur(img).to(DEVICE)
-reslut = reslut.detach().cpu().numpy()
-print(reslut.shape)
+# summary(decoder, (2,))
 
 
-# %%
+# %% [markdown]
+# Autoencoder
 class AutoEncoder(nn.Module):
 
     def __init__(self):
@@ -228,9 +232,12 @@ class AutoEncoder(nn.Module):
 
 
 autoencoder = AutoEncoder().to(DEVICE)
+# %% [markdown]
+# Summary of autoencoder
 summary(autoencoder, (3, 64, 64))
 
-# %%
+# %% [markdown]
+# Training function
 criterion = nn.MSELoss()
 optimizer = torch.optim.AdamW(
     autoencoder.parameters(), lr=config["lr"], weight_decay=1e-5
@@ -238,7 +245,6 @@ optimizer = torch.optim.AdamW(
 scaler = torch.cuda.amp.GradScaler()
 
 
-# %%
 def train(model, dataloader, criterion, optimizer, save_distrib=False):
     model.train()
     train_loss = 0.0
@@ -259,7 +265,8 @@ def train(model, dataloader, criterion, optimizer, save_distrib=False):
     return train_loss
 
 
-# %%
+# %% [markdown]
+# Validation function
 def validate(model, dataloader, criterion):
     model.eval()
     valid_loss = 0.0
@@ -275,9 +282,93 @@ def validate(model, dataloader, criterion):
     return valid_loss
 
 
-# %%
-for epoch in range(config["epochs"]):
-    train_loss = train(autoencoder, data_loader, criterion, optimizer)
-    print(f"Epoch {epoch+1}/{config['epochs']}, Loss: {train_loss:.4f}")
+# %% [markdown]
+# Affichage de l'image
+def affichage_image(xs, ys):
+    xs, ys = [float(xs)], [float(ys)]
+    points = points = list(zip(xs, ys))
+    coords = torch.tensor(points).unsqueeze(1).to(DEVICE)
 
-torch.save(autoencoder.state_dict(), f"./.data/mario_data/encoder_{train_loss:.4f}.pth")
+    fig1, axes1 = plt.subplots(nrows=1, ncols=1, figsize=(5, 5))
+
+    autoencoder.eval()
+    with torch.no_grad():
+        generates = [autoencoder.decoder(coord) for coord in coords]
+
+    # plot points
+    im = generates[0].squeeze().detach().cpu()
+    axes1.imshow(im, cmap="gray")
+    axes1.axis("off")
+    coord = coords[0].detach().cpu().numpy()[0]
+    axes1.set_title(f"({coord[0]:.3f}, {coord[1]:.3f})")
+
+    plt.show()
+
+
+def plotting(model=autoencoder, show=False):
+    model.eval()
+    points = []
+    label_idcs = []
+    if not os.path.exists(PATH):
+        os.mkdir(PATH)
+    for i, data in enumerate(train_loader):
+        img, label = [d.to(DEVICE) for d in data]
+        # We only need to encode the validation images
+        proj = model.encoder(img)
+        points.extend(proj.detach().cpu().numpy())
+        label_idcs.extend(label.detach().cpu().numpy())
+        del img, label
+    print("Points shape:", np.array(points).shape)
+    points = np.array(points)
+    
+    fig, ax = plt.subplots(figsize=(10, 10) if not show else (8, 8))
+    ax.spines["right"].set_visible(False)
+    ax.spines["top"].set_visible(False)
+
+    if show:
+        ax.grid(True, color="lightgray", alpha=1.0, zorder=0)
+        ax.set_title("Latent Space Visualization")
+        ax.set_xlabel("X")
+        ax.set_ylabel("Y")
+        cid = fig.canvas.mpl_connect("button_press_event", onclick)
+        plt.show()
+    else:
+        # Do not show but only save the plot in training
+        plt.axis("off")
+        plt.savefig(f"{PATH}/frame.png", bbox_inches="tight")
+        plt.close()  # don't forget to close the plot, or it is always in memory
+        model.train()
+
+
+def onclick(event):
+    x = event.xdata
+    y = event.ydata
+    affichage_image(x, y)
+
+
+# %% [markdown]
+# Training loop
+loop = True
+while loop:
+    loop = False
+    ask = input("Do you want to train the model? (y/n) ")
+    if ask == "y":
+        for i in range(config["epochs"]):
+            curr_lr = float(optimizer.param_groups[0]["lr"])
+            train_loss = train(autoencoder, train_loader, criterion, optimizer)
+            valid_loss = validate(autoencoder, valid_loader, criterion)
+            print(
+                f"Epoch {i+1}/{config['epochs']} Train loss: {train_loss:.4f} Validation loss: {valid_loss:.4f}\r",
+                end="",
+            )
+
+        torch.save(
+            autoencoder.state_dict(), f"./.data/mario_data/encoder_{valid_loss:.4f}.pth"
+        )
+    elif ask == "n":
+        autoencoder.load_state_dict(torch.load(".data\Mario_data\encoder_0.0107.pth"))
+        plotting(autoencoder, show=True)
+    else:
+        print("Invalid input")
+
+# %%

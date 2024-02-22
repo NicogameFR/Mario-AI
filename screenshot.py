@@ -16,7 +16,7 @@ PATH_TRAIN_PNG = "./.data/Mario_data/Train/screenshots/"
 PATH_VALID_JSON = "./.data/Mario_data/Valid/labels/Mario_World.json"
 PATH_VALID_PNG = "./.data/Mario_data/Valid/screenshots/"
 
-TOTAL_FRAMES = 100
+TOTAL_FRAMES = 5000
 SIZE = 64
 
 #%%
@@ -42,13 +42,16 @@ bh = BizHawk(HOST, PORT)
 
 # %%
 
+
+
 if os.path.exists(PATH_TRAIN_JSON):
     os.remove(PATH_TRAIN_JSON)
-if os.path.exists(PATH_TRAIN_PNG + "0.png"):
+if os.listdir(PATH_TRAIN_PNG):
     os.system(f"cd {PATH_TRAIN_PNG} & del /f *.png")
 if os.path.exists(PATH_VALID_JSON):
     os.remove(PATH_VALID_JSON)
-if os.path.exists(PATH_VALID_PNG + "0.png"):
+if os.listdir(PATH_VALID_PNG):
+    print("Suppression des fichiers")
     os.system(f"cd {PATH_VALID_PNG} & del /f *.png")
 
 
@@ -69,7 +72,7 @@ def data_json(fichier_json, new_data):
 # %%
 
 i = 0
-
+print("Début de la capture")
 bh.memory.add_address(0x04AC)  # Mario's x1 position
 bh.memory.add_address(0x04AD)  # Mario's y1 position
 bh.memory.add_address(0x04AE)  # Mario's x2 position
@@ -78,7 +81,6 @@ bh.memory.add_address(0x071A)  # Décalage niveau
 bh.memory.add_address(0x071C)  # Décalage écran
 bh.memory.request_memory()
 bh.client.advance_frame()
-
 
 while bh.client.is_connected() and i < TOTAL_FRAMES:
     bh.memory.request_memory()
@@ -101,10 +103,10 @@ while bh.client.is_connected() and i < TOTAL_FRAMES:
         image = image.resize((SIZE, SIZE))
         x = random.randint(1, 10)
         if x == 1:
-            image.save(f"./{PATH_VALID_PNG}/{i}.png")
+            image.save(f"{PATH_VALID_PNG}/{i:04d}.png")
             data_json(PATH_VALID_JSON, new_data)
         else:
-            image.save(f"./{PATH_TRAIN_PNG}/{i}.png")
+            image.save(f"{PATH_TRAIN_PNG}/{i:04d}.png")
             data_json(PATH_TRAIN_JSON, new_data)
         bh.client.advance_frame()
         i += 1

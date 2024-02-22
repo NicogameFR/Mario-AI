@@ -225,7 +225,7 @@ class Decoder(nn.Module):
 # %%
 decoder = Decoder()
 decoder = decoder.to(DEVICE)
-summary(decoder, (2,1,1))
+summary(decoder, (2, 1, 1))
 
 
 # %%
@@ -245,7 +245,7 @@ model = model.to(DEVICE)
 
 
 # %%
-def plotting(step: int = 0, show=False):
+def plotting(step=0, show=False):
 
     model.eval()  # Switch the model to evaluation mode
 
