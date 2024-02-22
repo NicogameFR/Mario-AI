@@ -293,48 +293,36 @@ def affichage_image(xs, ys):
     with torch.no_grad():
         generates = [autoencoder.decoder(coord) for coord in coords]
 
-    # plot points
     im = generates[0].squeeze().detach().cpu().numpy().transpose(1, 2, 0)
-    print(im.shape)
-    axes1.imshow(im, cmap="gray")
+
+    # Normalizing the image to be in the range [0, 1]
+    im_normalized = (im - im.min()) / (im.max() - im.min())
+    
+    # Display the normalized image
+    axes1.imshow(im_normalized, cmap="gray")
     axes1.axis("off")
     coord = coords[0].detach().cpu().numpy()[0]
     axes1.set_title(f"({coord[0]:.3f}, {coord[1]:.3f})")
 
     plt.show()
-def hex_to_rgb(hex_valeur):
-    # Supprimer le préfixe '0x' si présent
-    hex_valeur = hex_valeur.lstrip('0x')
-    
-    # Remplir avec des zéros à gauche si la longueur est inférieure à 6 (valeur minimale attendue pour une couleur hexadécimale)
-    hex_valeur = hex_valeur.zfill(6)
-    
-    # Extraire les composantes R, G et B
-    r = int(hex_valeur[0:2], 16)
-    g = int(hex_valeur[2:4], 16)
-    b = int(hex_valeur[4:6], 16)
-    
-    return (r, g, b)
 
-def plotting(model=autoencoder, data_loader=valid_loader, show=False):
+
+def plotting(model=autoencoder, data_loader=valid_loader):
     model.eval()
-
     labels = []
-
     for i, batch in enumerate(data_loader):
         x = batch[0].to(DEVICE)
         with torch.no_grad():
             y_recons = model.encoder(x)
             labels.append(y_recons.cpu().numpy().tolist())
-    fig, ax = plt.subplots(figsize=(8, 8))
+    fig, ax = plt.subplots(figsize=(6, 6))
     for i in range(len(labels)):
         for j in range(len(labels[i])):
             x, y = labels[i][j]
-            couleur_hex = hex(i*config['batch_size']+j)
-            couleur_rgb = hex_to_rgb(couleur_hex)
-            plt.scatter(x, y, color=couleur_rgb, s=10, alpha=0.5)
+            color = 'green'
+            plt.scatter(x, y, c=color, s=10, alpha=0.5)
             print(
-                f"Point {i*config['batch_size']+j}/{len(labels)*config['batch_size']}\r",
+                f"Point {i*config['batch_size']+j+1}/{len(labels)*config['batch_size']}\r",
                 end="",
             )
     print("\n")
@@ -343,11 +331,9 @@ def plotting(model=autoencoder, data_loader=valid_loader, show=False):
     ax.set_xlabel("X")
     ax.set_ylabel("Y")
     fig.canvas.mpl_connect("button_press_event", onclick)
-    print("Plotting ...")
-    plt.show()
-    plt.savefig(f"{PATH}/frame.png")
+    plt.savefig(f"{PATH}/frame.png")  # Sauvegarde de l'image avant l'affichage
+    plt.show()  # Affichage de la figure à l'écran
     plt.close()
-
     model.train()
 
 
@@ -362,7 +348,8 @@ def onclick(event):
 loop = True
 while loop:
     loop = False
-    ask = input("Do you want to train the model? (y/n) ")
+    ask = "n"
+    #ask = input("Do you want to train the model? (y/n) ")
     ask = ask.lower()
     ask = ask.strip()
     if ask == "y":
@@ -380,7 +367,9 @@ while loop:
         )
     elif ask == "n":
         autoencoder.load_state_dict(torch.load(".data\Mario_data\encoder_0.0107.pth"))
-        plotting(autoencoder, train_loader, show=True)
+        plotting(autoencoder, valid_loader)
     else:
         print("Invalid input")
         loop = True
+
+# %%
