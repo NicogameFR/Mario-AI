@@ -17,7 +17,7 @@ PATH_VALID_JSON = "./.data/Mario_data/Valid/labels/Mario_World.json"
 PATH_VALID_PNG = "./.data/Mario_data/Valid/screenshots/"
 
 TOTAL_FRAMES = 5000
-SIZE = 64
+SIZE = 640
 
 #%%
 
@@ -100,7 +100,7 @@ while bh.client.is_connected() and i < TOTAL_FRAMES:
         )
         new_data = [decalage, x, y]
         image = pyscreenshot.grab(childprocess=False, bbox=(1167, 66, 1712, 483))
-        image = image.resize((SIZE, SIZE))
+        #image = image.resize((SIZE, SIZE))
         x = random.randint(1, 10)
         if x == 1:
             image.save(f"{PATH_VALID_PNG}/{i:04d}.png")
