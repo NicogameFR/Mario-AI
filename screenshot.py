@@ -5,6 +5,7 @@ import birdseyelib as bird
 import os
 import json
 import random
+
 # %%
 
 
@@ -18,7 +19,7 @@ class BizHawk:
         self.external_tool = bird.ExternalTool(self.client)
         self.client.connect()
 
-    def __str__(self) -> str:
+    def __str__(self):
         return f"BizHawk Client: {self.client}"
 
 
