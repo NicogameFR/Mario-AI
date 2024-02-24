@@ -37,7 +37,7 @@ def variables(SIZE, LAYERS, LATENT_DIM):
 def load_data(PATH_JSON, PATH_PNG):
     with open(PATH_JSON, "r") as f:
         labels = json.load(f)
-        #labels = [[label[1], label[2]] for label in labels]
+        # labels = [[label[1], label[2]] for label in labels]
 
     transform = transforms.Compose(
         [
@@ -198,16 +198,16 @@ class AutoEncoder(nn.Module):
         return self.decoder(self.encoder(x))
 
 
-def train(model, dataloader, criterion, optimizer, state = 'encoder'):
+def train(model, dataloader, criterion, optimizer, state="encoder"):
     model.train()
     train_loss = 0.0
     for i, batch in enumerate(dataloader):
         optimizer.zero_grad()
         with torch.cuda.amp.autocast():
-            if state == 'encoder':
+            if state == "encoder":
                 a = 0
                 b = 1
-            elif state == 'decoder':
+            elif state == "decoder":
                 a = 1
                 b = 0
             x = batch[a].to(DEVICE)
@@ -231,10 +231,10 @@ def validate(model, dataloader, criterion, state):
     valid_loss = 0.0
     for i, batch in enumerate(dataloader):
         with torch.no_grad():
-            if state == 'encoder':
+            if state == "encoder":
                 a = 0
                 b = 1
-            elif state == 'decoder':
+            elif state == "decoder":
                 a = 1
                 b = 0
             x = batch[a].to(DEVICE)
@@ -328,33 +328,51 @@ SIZE, LAYERS, LATENT_DIM, config["epochs"] = (
     int(input("Size of input images :")),
     int(input("Number of layers :")),
     int(input("Dimension of latent space :")),
-    int(input("Number of epochs :")),)
-
+    int(input("Number of epochs :")),
+)
 
 
 variables(SIZE, LAYERS, LATENT_DIM)
 encoder = Encoder().to(DEVICE)
 decoder = Decoder().to(DEVICE)
 criterion = nn.MSELoss()
-optimizer_encoder = torch.optim.AdamW(encoder.parameters(), lr=config["lr"], weight_decay=1e-5)
-optimizer_decoder = torch.optim.AdamW(decoder.parameters(), lr=config["lr"], weight_decay=1e-5)
+optimizer_encoder = torch.optim.AdamW(
+    encoder.parameters(), lr=config["lr"], weight_decay=1e-5
+)
+optimizer_decoder = torch.optim.AdamW(
+    decoder.parameters(), lr=config["lr"], weight_decay=1e-5
+)
 scaler = torch.cuda.amp.GradScaler()
 print(" Loading data...")
 train_loader = load_data(PATH_TRAIN_JSON, PATH_TRAIN_PNG)
 print("Training Data loaded")
 valid_loader = load_data(PATH_VALID_JSON, PATH_VALID_PNG)
 print("Validation Data loaded")
-print('Training...')
+print("Training...")
 print(f"Size: {SIZE} Layers: {LAYERS} Latent dim: {LATENT_DIM}")
-print('\n')
+print("\n")
 for i in range(config["epochs"]):
-    train_loss_encoder = train(encoder, train_loader, criterion, optimizer_encoder, state = 'encoder')
-    valid_loss_encoder = validate(encoder, valid_loader, criterion, state = 'encoder')
-    train_loss_decoder = train(decoder, train_loader, criterion, optimizer_decoder, state = 'decoder')
-    valid_loss_decoder = validate(decoder, valid_loader, criterion, state = 'decoder')
+    train_loss_encoder = train(
+        encoder, train_loader, criterion, optimizer_encoder, state="encoder"
+    )
+    valid_loss_encoder = validate(encoder, valid_loader, criterion, state="encoder")
+    train_loss_decoder = train(
+        decoder, train_loader, criterion, optimizer_decoder, state="decoder"
+    )
+    valid_loss_decoder = validate(decoder, valid_loader, criterion, state="decoder")
     print(f"Epoch {i+1}/{config['epochs']}")
-    print(f"Train loss: {train_loss_encoder:.4f} Validation loss: {valid_loss_encoder:.4f}")
-    print(f"Train loss: {train_loss_decoder:.4f} Validation loss: {valid_loss_decoder:.4f}")
-torch.save(encoder.state_dict(),f".data/Mario_data/Models/SIZE_{SIZE}_LAYERS_{LAYERS}_ENCODER.pth")
-torch.save(decoder.state_dict(),f".data/Mario_data/Models/SIZE_{SIZE}_LAYERS_{LAYERS}_DECODER.pth")
+    print(
+        f"Train loss: {train_loss_encoder:.4f} Validation loss: {valid_loss_encoder:.4f}"
+    )
+    print(
+        f"Train loss: {train_loss_decoder:.4f} Validation loss: {valid_loss_decoder:.4f}"
+    )
+torch.save(
+    encoder.state_dict(),
+    f".data/Mario_data/Models/SIZE_{SIZE}_LAYERS_{LAYERS}_ENCODER.pth",
+)
+torch.save(
+    decoder.state_dict(),
+    f".data/Mario_data/Models/SIZE_{SIZE}_LAYERS_{LAYERS}_DECODER.pth",
+)
 autoencoder = AutoEncoder().to(DEVICE)

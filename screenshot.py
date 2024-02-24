@@ -19,7 +19,8 @@ PATH_VALID_PNG = "./.data/Mario_data/Valid/screenshots/"
 TOTAL_FRAMES = 5000
 SIZE = 640
 
-#%%
+# %%
+
 
 class BizHawk:
 
@@ -35,13 +36,10 @@ class BizHawk:
         return f"BizHawk Client: {self.client}"
 
 
-
-
 bh = BizHawk(HOST, PORT)
 
 
 # %%
-
 
 
 if os.path.exists(PATH_TRAIN_JSON):
@@ -100,7 +98,7 @@ while bh.client.is_connected() and i < TOTAL_FRAMES:
         )
         new_data = [decalage, x, y]
         image = pyscreenshot.grab(childprocess=False, bbox=(1167, 66, 1712, 483))
-        #image = image.resize((SIZE, SIZE))
+        # image = image.resize((SIZE, SIZE))
         x = random.randint(1, 10)
         if x == 1:
             image.save(f"{PATH_VALID_PNG}/{i:04d}.png")

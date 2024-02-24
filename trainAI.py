@@ -125,5 +125,5 @@ while bh.client.is_connected():
     for result in results:
         if result.classe in [0, 4, 11]:
             time_in_life += 1
-    print(time_in_life+"\r", end="")
+    print(time_in_life + "\r", end="")
     start = True

@@ -36,7 +36,6 @@ function saveClass(nom)
     local chemin = "./database/class/" .. nom .. "/" .. nb .. ".png"
     local commande = "nircmd.exe savescreenshot " .. chemin .. " 1515 54 809 619 " .. '& exit'
     os.execute(commande)
-
 end
 
 function dessin(x1, y1, x2, y2, color)
@@ -157,7 +156,6 @@ function quadrillage(decalage_block, decalage_niveau)
         local decalage = decalage_niveau - 16
         detection(0x5D0, 0x500, decalage, decalage_block)
     end
-
 end
 
 function choix()
@@ -259,7 +257,6 @@ function choix_block(val)
 end
 
 function main()
-
     local mariox1 = memory.readbyte(0x04AC)
     local mariox2 = memory.readbyte(0x04AE)
     local marioy1 = memory.readbyte(0x04AD) - 9
@@ -328,7 +325,6 @@ function main()
         memory.writebyte(0x04B6, 255)
         memory.writebyte(0x04B5, 255)
         memory.writebyte(0x04B7, 255)
-
     end
 
     if enemy3 == 1 then
@@ -467,7 +463,7 @@ function coordonees(x1, y1, x2, y2)
     local Y = ((y1 + y2) / 2) / 224
     local X_width = (x2 - x1) / 256
     local Y_height = (y2 - y1) / 224
-    return {X, Y, X_width, Y_height}
+    return { X, Y, X_width, Y_height }
 end
 
 function Mario(Type, x1, y1, x2, y2)
@@ -480,7 +476,7 @@ function Mario(Type, x1, y1, x2, y2)
         if affichage == 1 then
             dessin(x1 - 4, y1 - 3, x2 + 3, y2 + 2, "black") --
         else
-            ecritureFichier(Type, X, Y, X_width, Y_height) --
+            ecritureFichier(Type, X, Y, X_width, Y_height)  --
         end
     end
     if Type ~= 0 then
@@ -494,7 +490,7 @@ function Mario(Type, x1, y1, x2, y2)
                 dessin(x1 - 3, y1 - 7, x2 + 2, y2 + 2, "blue") --
             else
                 dessin(x1 - 3, y1 - 7, x2 + 2, y2 + 2, "red")
-            end --
+            end                                            --
         else
             ecritureFichier(Type, X, Y, X_width, Y_height) --
         end
@@ -535,7 +531,7 @@ function goomba(x1, y1, x2, y2)
     if affichage == 1 then
         dessin(x1 - 4, y1 - 5, x2 + 3, y2 + 6, "pink") --
     else
-        ecritureFichier(3, X, Y, X_width, Y_height) --
+        ecritureFichier(3, X, Y, X_width, Y_height)    --
     end
 end
 
@@ -561,7 +557,7 @@ function piranha(x1, y1, x2, y2)
     if affichage == 1 then
         dessin(x1 - 5, y1 - 13, x2 + 4, y2 + 5, "pink") --
     else
-        ecritureFichier(6, X, Y, X_width, Y_height) --
+        ecritureFichier(6, X, Y, X_width, Y_height)     --
     end
 end
 
@@ -574,7 +570,7 @@ function plateforme(x1, y1, x2, y2)
     if affichage == 1 then
         dessin(x1 - 2, y1 - 2, x2 + 1, y2 - 1, "red") --
     else
-        ecritureFichier(7, X, Y, X_width, Y_height) --
+        ecritureFichier(7, X, Y, X_width, Y_height)   --
     end
 end
 
@@ -596,7 +592,7 @@ function powerup(x1, y1, x2, y2)
     end
 
     if affichage == 1 then
-        dessin(x1 - 3, y1, x2 + 2, y2 + 5, "pink") --
+        dessin(x1 - 3, y1, x2 + 2, y2 + 5, "pink")     --
     else
         ecritureFichier(type, X, Y, X_width, Y_height) --
     end
