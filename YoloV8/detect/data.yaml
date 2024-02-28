@@ -3,7 +3,27 @@ val: ../valid/images
 test: ../test/images
 
 nc: 18
-names: ['big_mario', 'brick_block', 'coin', 'empty_block', 'fire_mario', 'fireball', 'flower', 'goal_pole', 'goomba', 'hard_block', 'koopa', 'little_mario', 'mushroom', 'mystery_block', 'pipe', 'pipe_head', 'shell', 'undestructible_block']
+names:
+  [
+    "big_mario",
+    "brick_block",
+    "coin",
+    "empty_block",
+    "fire_mario",
+    "fireball",
+    "flower",
+    "goal_pole",
+    "goomba",
+    "hard_block",
+    "koopa",
+    "little_mario",
+    "mushroom",
+    "mystery_block",
+    "pipe",
+    "pipe_head",
+    "shell",
+    "undestructible_block",
+  ]
 
 roboflow:
   workspace: baptiste-hustaix-znm0u
