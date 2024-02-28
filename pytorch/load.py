@@ -328,13 +328,7 @@ while True:
             start(train_data,valid_data)
         except :
             continue
-    elif input_model == "2":
-        print('Processing .\r', end='')
-        time.sleep(0.3)
-        print('Processing ..\r', end='')
-        time.sleep(0.3)
-        print('Processing ...\r', end='')
-        time.sleep(0.3)  
+    elif input_model == "2": 
         model.load_state_dict(torch.load("autoencoder2.pth"))
         train_data = datasets.FashionMNIST(".data", train=True, download=True)
         valid_data = datasets.FashionMNIST(".data", train=False, download=True)

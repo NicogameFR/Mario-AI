@@ -59,7 +59,7 @@ CLASSES = [
     "shell",
     "undestructible_block",
 ]
-model_detect = YOLO("YoloV8/detect/best.pt")
+model_detect = YOLO("Models\\best.pt")
 
 HOST = "127.0.0.1"
 PORT = 8080
