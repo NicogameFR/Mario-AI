@@ -14,6 +14,7 @@ from torch.utils.data import TensorDataset
 import matplotlib.pyplot as plt
 import torchsummary
 import time
+import torch.nn.functional as F
 
 # %%
 
@@ -119,15 +120,15 @@ def validation(model, vali_loader, criterion) -> list[float, float]:
         return running_loss, echec
 
 
-
 # %%
 
 BATCH_SIZE = 32
 IMAGE_SIZE = 128
 CHANNELS = 3
 epochs = 1000
-learning_rate = 0.0001
+learning_rate = 5e4
 
+# %%
 # Charger les données d'entraînement et de test
 
 transform = transforms.Compose(
@@ -181,54 +182,46 @@ class CNN(nn.Module):
         self.batch4 = nn.BatchNorm2d(128)
 
         # Defining the Linear layer
-        self.fc1 = nn.Linear(3200, 256)
-        self.dropout = nn.Dropout(p=0.15)
-        self.relu = nn.ReLU()
-        self.fc2 = nn.Linear(256, 2)
+        self.fc1 = nn.Linear(3200, 1600)
+        self.fc2 = nn.Linear(1600, 256)
+        self.fc3 = nn.Linear(256, 2)
 
         self.pool = nn.MaxPool2d(kernel_size=2, stride=2)
 
+        self.X = X
     # defining the network flow
-    def forward(self, out):
-        
-        # Conv 1
-        
-        out = self.conv1(out)
-        out = self.batch1(out)
-        out = self.relu(out)
-        out = self.pool(out)
-        # Conv 2
-        
-        out = self.conv2(out)
-        out = self.batch2(out)
-        out = self.relu(out)
-        out = self.pool(out)
-        # Conv 3
-        
-        out = self.conv3(out)
-        out = self.batch3(out)
-        out = self.relu(out)
-        out = self.pool(out)
-        # Conv 4
-        
-        out = self.conv4(out)
-        out = self.batch4(out)
-        out = self.relu(out)
-        out = self.pool(out)
+    def forward(self, x):
+        global X
+        x = F.relu(self.conv1(x))
+        x = self.batch1(x)
+        x = self.pool(x)
 
-        out = out.view(out.size(0), -1)
+        x = F.relu(self.conv2(x))
+        x = self.batch2(x)
+        x = self.pool(x)
+
+        x = F.relu(self.conv3(x))
+        x = self.batch3(x)
+        x = self.pool(x)
+
+        x = F.relu(self.conv4(x))
+        x = self.batch4(x)
+        x = self.pool(x)
+        x = x.view(x.size(0), -1)
+
         
-        #out = self.dropout(out)
-        out = self.fc1(out)
+        if self.X:
+                    print(x.size())
+                    self.X = False
 
-        out = self.relu(out)
-        out = self.fc2(out)
-        return out
+        x = self.fc1(x)
+        x = self.fc2(x)
+        x = self.fc3(x)
 
-
+        return x
 
 # %%
-
+X = True
 # Initialiser le modèle
 cnn = CNN().to("cuda")
 try:
@@ -249,14 +242,23 @@ except Exception as e:
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.AdamW(cnn.parameters(), lr=learning_rate)
 
-best_loss : int = None
+best_loss: int = None
 
 
 for i in range(epochs):
     running_loss_train = train_model(cnn, train_loader, criterion, optimizer)
     running_loss_valid, echec_valid = validation(cnn, vali_loader, criterion)
     os.system("cls")
-    print('Epoch :', i+1, 'Train Loss :', round(running_loss_train,5), 'Valid Loss :', round(running_loss_valid,5), 'Echec :', echec_valid)
+    print(
+        "Epoch :",
+        i + 1,
+        "Train Loss :",
+        round(running_loss_train, 5),
+        "Valid Loss :",
+        round(running_loss_valid, 5),
+        "Echec :",
+        echec_valid,
+    )
 
     # if running_loss_valid < best_loss:
     #    best_loss = running_loss_valid
