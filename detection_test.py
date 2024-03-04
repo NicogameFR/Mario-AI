@@ -4,7 +4,8 @@ import pyscreenshot
 import torch
 from torch import nn
 from torchvision import transforms
-
+import matplotlib.pyplot as plt
+import numpy as np
 
 # %%
 
@@ -78,6 +79,7 @@ class CNN(nn.Module):
 # %%
 
 cnn = CNN().to("cuda")
+cnn.eval()
 params = []
 for name, param in cnn.named_parameters():
     if param.requires_grad:
@@ -92,25 +94,46 @@ params = params.replace(".weight", "")
 params = params.replace(".bias", "")
 
 try:
-    cnn.load_state_dict(torch.load(f"..\Models\\best(CNN)_{params}.pth"))
+    cnn.load_state_dict(torch.load(f"beta_models\\best(CNN)_{params}.pth"))
     print("Model loaded")
 except Exception as e:
     print("No model found")
 # %%
 
+import time
 
-transform = transforms.Compose(
-    [
-        transforms.Resize((128, 128)),
-        transforms.ToTensor(),
-    ]
-)
-image = pyscreenshot.grab(childprocess=False, bbox=(1514, 66, 2324, 672))
+while True:
+    with torch.no_grad():
+        transform = transforms.Compose(
+            [
+                transforms.Resize((128, 128)),
+                transforms.ToTensor(),
+            ]
+        )
+        image = pyscreenshot.grab(childprocess=False, bbox=(1514, 66, 2324, 672))
+        image_tensor = transform(image).to("cuda")
+        output = cnn(image_tensor.unsqueeze(0))
+        output_list = output.squeeze().tolist()
 
+        # Convertir le tenseur d'image en numpy array et transposer les dimensions pour matplotlib
+        image_array = image_tensor.cpu().numpy().transpose(1, 2, 0)
 
-# Convertir l'image en tenseur
-image_tensor = transform(image).to("cuda")
-output = cnn(image_tensor.unsqueeze(0))
-print(output.squeeze().tolist())
+        # Créer la figure et les axes
+        fig, ax = plt.subplots()
+
+        # Effacer l'axe
+        ax.cla()
+
+        # Afficher l'image
+        ax.imshow(image_array)
+
+        # Dessiner une croix rouge aux coordonnées fournies par le tenseur
+        ax.plot(output_list[0] / 2, output_list[1] / 2, "rx")
+
+        # Afficher la figure
+        plt.show()
+
+        # Pause pour 1 seconde
+        time.sleep(0.1)
 
 # %%

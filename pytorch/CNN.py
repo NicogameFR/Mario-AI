@@ -82,6 +82,7 @@ def affichage(data_loader):
 # Définir les hyperparamètres
 
 # Charger les données d'entraînement et de test
+
 train_loader = load_data(
     PATH_PNG="..\.data\Mario_data\Train\screenshots",
     PATH_JSON="..\.data\Mario_data\Train\labels\Mario_World.json",
@@ -192,7 +193,7 @@ except Exception as e:
 
 # Définir la fonction de perte et l'optimiseur
 criterion = nn.MSELoss()
-optimizer = optim.Adam(model.parameters(), lr=learning_rate)
+optimizer = optim.AdamW(model.parameters(), lr=learning_rate)
 
 best_loss = 10e10
 # Entraînement du modèle
