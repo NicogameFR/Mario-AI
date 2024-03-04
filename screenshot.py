@@ -98,6 +98,7 @@ while bh.client.is_connected() and i < TOTAL_FRAMES:
         )
         new_data = [decalage, x, y]
         image = pyscreenshot.grab(childprocess=False, bbox=(1167, 66, 1712, 483))
+        # image = pyscreenshot.grab(childprocess=False, bbox=(1515, 54, 809, 619))
         # image = image.resize((SIZE, SIZE))
         x = random.randint(1, 10)
         if x == 1:

@@ -1,5 +1,3 @@
-# %%
-
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -14,14 +12,21 @@ from torch.utils.data import TensorDataset
 import matplotlib.pyplot as plt
 import torchsummary
 import time
-import torch.nn.functional as F
+
+DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 
 # %%
 
 # Charger les données et les transformer en tenseurs
+transform = transforms.Compose(
+    [
+        transforms.ToTensor(),
+        transforms.Resize((128, 128)),
+    ]
+)
 
 
-def load_data(PATH_JSON, PATH_PNG, transform):
+def load_data(PATH_JSON, PATH_PNG, transform=transform):
     with open(PATH_JSON, "r") as f:
         labels = json.load(f)
     labels = [[label[1], label[2]] for label in labels]
@@ -38,11 +43,8 @@ def load_data(PATH_JSON, PATH_PNG, transform):
     images_tensor = torch.stack(images)
     target_tensor = torch.tensor(target)
     dataset = TensorDataset(images_tensor, target_tensor)
-    data_loader = DataLoader(
-        dataset, batch_size=BATCH_SIZE, shuffle=True, drop_last=True
-    )
-    # affichage(data_loader)
-    os.system("cls")
+    data_loader = DataLoader(dataset, batch_size=32, shuffle=True, drop_last=True)
+    affichage(data_loader)
     return data_loader
 
 
@@ -51,117 +53,51 @@ def affichage(data_loader):
     print("Taille du dataset :", len(data_loader.dataset))
     print("Taille du batch :", data_loader.batch_size)
     print("Nombre total de batches :", len(data_loader))
-    batch = data_loader.dataset[0]
-    print("Caractéristiques du batch", 1, ":")
-    images, labels = batch
-    print("Taille des images :", images.size())
-    print("Taille des étiquettes :", labels.size())
-    print("Affichage des images du batch")
-    grid = make_grid(images, nrow=8)
-    plt.figure(figsize=(15, 15))
-    # add labels
-    for i, (img, lbl) in enumerate(zip(images, labels)):
-        plt.text(
-            (i % 8) * 128,
-            (i // 8) * 128,
-            str(lbl.numpy()),
-            fontsize=12,
-            color="black",
-        )
-    plt.imshow(np.transpose(grid, (1, 2, 0)))
-    plt.show()
+
+    # Afficher les caractéristiques de chaque batch
+    for i, batch in enumerate(data_loader, 1):
+        if i == 2:
+            print("Caractéristiques du batch", i, ":")
+            images, labels = batch
+            print("Taille des images :", images.size())
+            print("Taille des étiquettes :", labels.size())
+            print("Affichage des images du batch")
+            grid = make_grid(images, nrow=8)
+            plt.figure(figsize=(15, 15))
+            # add labels
+            for i, (img, lbl) in enumerate(zip(images, labels)):
+                plt.text(
+                    (i % 8) * 128,
+                    (i // 8) * 128,
+                    str(lbl.numpy()),
+                    fontsize=12,
+                    color="black",
+                )
+            plt.imshow(np.transpose(grid, (1, 2, 0)))
+            plt.show()
     print("\n")
 
 
 # %%
-# Entraînement du modèle
-def train_model(model, train_loader, criterion, optimizer) -> float:
-    running_loss = 0.0
-    model.train()
-    for i, [images, labels] in enumerate(train_loader):
-        images, labels = images.to("cuda"), labels.to("cuda")
-        optimizer.zero_grad()
-        outputs = model(images)
-        loss = criterion(outputs, labels)
-        loss.backward()
-        optimizer.step()
-        running_loss += loss.item()
-    running_loss = running_loss / len(train_loader)
-    return running_loss
+# Définir les hyperparamètres
 
-
-# %%
-# Validation du modèle
-def validation(model, vali_loader, criterion) -> list[float, float]:
-    running_loss = 0.0
-    diff_x = 0.0
-    diff_y = 0.0
-    diff_z = 0.0
-    model.eval()
-    with torch.no_grad():
-        for i, [images, labels] in enumerate(vali_loader):
-            images, labels = images.to("cuda"), labels.to("cuda")
-            outputs = model(images)
-            loss = criterion(outputs, labels)
-            running_loss += loss.item()
-            for i in range(BATCH_SIZE):
-                x = outputs[i].squeeze().tolist()[0] - labels[i].squeeze().tolist()[0]
-                y = outputs[i].squeeze().tolist()[1] - labels[i].squeeze().tolist()[1]
-                # z = outputs[i].squeeze().tolist()[2] - labels[i].squeeze().tolist()[2]
-                diff_x += abs(x)
-                diff_y += abs(y)
-                # diff_z += abs(z)
-        echec = [
-            round(diff_x / (32 * len(vali_loader)), 4),
-            round(diff_y / (32 * len(vali_loader)), 4),
-            # round(diff_z / (32 * len(vali_loader)), 4),
-        ]
-        running_loss = running_loss / len(vali_loader)
-        return running_loss, echec
-
-
-# %%
-
-BATCH_SIZE = 32
-IMAGE_SIZE = 128
-CHANNELS = 3
-epochs = 1000
-learning_rate = 5e4
-
-# %%
 # Charger les données d'entraînement et de test
-
-transform = transforms.Compose(
-    [
-        transforms.ToTensor(),
-        # transforms.Grayscale(num_output_channels=1),
-        transforms.Resize((IMAGE_SIZE, IMAGE_SIZE)),
-    ]
-)
-
-
 train_loader = load_data(
     PATH_PNG="..\.data\Mario_data\Train\screenshots",
     PATH_JSON="..\.data\Mario_data\Train\labels\Mario_World.json",
     transform=transform,
 )
-vali_loader = load_data(
-    PATH_PNG="..\.data\Mario_data\Valid\screenshots",
-    PATH_JSON="..\.data\Mario_data\Valid\labels\Mario_World.json",
-    transform=transform,
-)
+
 
 # %%
 # Définir l'architecture du réseau CNN
-
-
 class CNN(nn.Module):
     def __init__(self):
         super(CNN, self).__init__()
 
         # Constraints for layer 1
         self.conv1 = nn.Conv2d(
-            in_channels=CHANNELS, out_channels=16, kernel_size=3, stride=1, padding=1
+            in_channels=3, out_channels=16, kernel_size=3, stride=1, padding=1
         )
         self.batch1 = nn.BatchNorm2d(16)
 
@@ -182,88 +118,118 @@ class CNN(nn.Module):
         self.batch4 = nn.BatchNorm2d(128)
 
         # Defining the Linear layer
-        self.fc1 = nn.Linear(3200, 1600)
-        self.fc2 = nn.Linear(1600, 256)
-        self.fc3 = nn.Linear(256, 2)
+        self.fc1 = nn.Linear(3200, 1280)
+        self.dropout = nn.Dropout(p=0.25)
+        self.relu = nn.ReLU()
+        self.fc2 = nn.Linear(1280, 2)
 
         self.pool = nn.MaxPool2d(kernel_size=2, stride=2)
 
-        self.X = X
     # defining the network flow
-    def forward(self, x):
-        global X
-        x = F.relu(self.conv1(x))
-        x = self.batch1(x)
-        x = self.pool(x)
+    def forward(self, out):
+        # Conv 1
+        out = self.conv1(out)
+        out = self.batch1(out)
+        out = self.relu(out)
+        out = self.pool(out)
+        # Conv 2
+        out = self.conv2(out)
+        out = self.batch2(out)
+        out = self.relu(out)
+        out = self.pool(out)
+        # Conv 3
+        out = self.conv3(out)
+        out = self.batch3(out)
+        out = self.relu(out)
+        out = self.pool(out)
+        # Conv 4
+        out = self.conv4(out)
+        out = self.batch4(out)
+        out = self.relu(out)
+        out = self.pool(out)
 
-        x = F.relu(self.conv2(x))
-        x = self.batch2(x)
-        x = self.pool(x)
+        out = out.view(out.size(0), -1)
+        # Linear Layer
+        out = self.fc1(out)
+        # out = self.dropout(out)
+        out = self.relu(out)
+        out = self.fc2(out)
+        return out
 
-        x = F.relu(self.conv3(x))
-        x = self.batch3(x)
-        x = self.pool(x)
 
-        x = F.relu(self.conv4(x))
-        x = self.batch4(x)
-        x = self.pool(x)
-        x = x.view(x.size(0), -1)
+batch_size = 32
+num_epochs = 1000
+learning_rate = 0.001
 
-        
-        if self.X:
-                    print(x.size())
-                    self.X = False
-
-        x = self.fc1(x)
-        x = self.fc2(x)
-        x = self.fc3(x)
-
-        return x
-
-# %%
-X = True
 # Initialiser le modèle
-cnn = CNN().to("cuda")
+model = CNN().to("cuda")
+params = []
+for name, param in model.named_parameters():
+    if param.requires_grad:
+        params.append(name)
+        params.append(str(param.data.shape))
+params = "_".join(params)
+params = params.replace(" ", "")
+params = params.replace("_torch.Size(", "")
+params = params.replace(")", "")
+params = params.replace("_", "")
+params = params.replace(".weight", "")
+params = params.replace(".bias", "")
+print(params)
 try:
-    torchsummary.summary(cnn, (CHANNELS, IMAGE_SIZE, IMAGE_SIZE))
+    torchsummary.summary(model, (3, 128, 128))
 except Exception as e:
     print(e)
 try:
-    cnn.load_state_dict(torch.load("best(CNN).pth"))
-    print("\nModel loaded :")
-    for name, param in cnn.named_parameters():
-        if param.requires_grad:
-            print(f"{name}\t{param.data.size()}")
+    model.load_state_dict(torch.load(f"..\\beta_models\\best(CNN)_{params}.pth"))
+    print("Model loaded")
 except Exception as e:
+    print(e)
     print("No model found / Switching to new model")
 
 # %%
+
+
 # Définir la fonction de perte et l'optimiseur
-criterion = nn.CrossEntropyLoss()
-optimizer = optim.AdamW(cnn.parameters(), lr=learning_rate)
+criterion = nn.MSELoss()
+optimizer = optim.Adam(model.parameters(), lr=learning_rate)
 
-best_loss: int = None
+best_loss = 10e10
+# Entraînement du modèle
+for epoch in range(num_epochs):
+    max_loss = []
+    running_loss = 0.0
+    diff_x = 0.0
+    diff_y = 0.0
+    diff_z = 0.0
+    model.train()
+    for y, [images, labels] in enumerate(train_loader):
+        images, labels = images.to(DEVICE), labels.to(DEVICE)
+        optimizer.zero_grad()
+        outputs = model(images)
+        loss = criterion(outputs, labels)
+        loss.backward()
+        optimizer.step()
+        running_loss += loss.item()
+        max_loss.append(loss.item())
+        for i in range(batch_size):
+            x = outputs[i].squeeze().tolist()[0] - labels[i].squeeze().tolist()[0]
+            y = outputs[i].squeeze().tolist()[1] - labels[i].squeeze().tolist()[1]
+            diff_x += abs(x)
+            diff_y += abs(y)
+    echec = [
+        round(diff_x / (batch_size * len(train_loader)), 4),
+        round(diff_y / (batch_size * len(train_loader)), 4),
+    ]
+    average_loss = running_loss / len(train_loader)
+    max_loss = max(max_loss)
+    print(f"Epoch [{epoch+1:0004d}/{num_epochs}]\r", end="")
+    if average_loss < best_loss:
+        best_loss = average_loss
+        print(f"\nLoss: {average_loss:.4f}, Max Loss: {max_loss:.4f}, Diff: {echec}")
+        torch.save(
+           model.state_dict(),
+           f"..\\beta_models\\best(CNN)_{params}.pth",
+        )
 
-
-for i in range(epochs):
-    running_loss_train = train_model(cnn, train_loader, criterion, optimizer)
-    running_loss_valid, echec_valid = validation(cnn, vali_loader, criterion)
-    os.system("cls")
-    print(
-        "Epoch :",
-        i + 1,
-        "Train Loss :",
-        round(running_loss_train, 5),
-        "Valid Loss :",
-        round(running_loss_valid, 5),
-        "Echec :",
-        echec_valid,
-    )
-
-    # if running_loss_valid < best_loss:
-    #    best_loss = running_loss_valid
-    #    torch.save(
-    #        cnn.state_dict(),
-    #        f"best(CNN).pth",
-    #    )
 # %%

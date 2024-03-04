@@ -21,5 +21,5 @@ for i in range(1000):
     # Enregistrement de l'image
     image.save(f".data/gererate/{i}.png")
 
-with open(".data/labels.json", "w") as f:
+with open(".data/gererate/labels.json", "w") as f:
     json.dump(data, f)
