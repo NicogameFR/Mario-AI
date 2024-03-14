@@ -94,7 +94,7 @@ params = params.replace(".weight", "")
 params = params.replace(".bias", "")
 
 try:
-    cnn.load_state_dict(torch.load(f"beta_models\\best(CNN)_{params}.pth"))
+    cnn.load_state_dict(torch.load(f"..\\beta_models\\best(CNN)_{params}.pth"))
     print("Model loaded")
 except Exception as e:
     print("No model found")
@@ -111,29 +111,12 @@ while True:
             ]
         )
         image = pyscreenshot.grab(childprocess=False, bbox=(1514, 66, 2324, 672))
-        image_tensor = transform(image).to("cuda")
-        output = cnn(image_tensor.unsqueeze(0))
+        image = transform(image)
+        mean, std = image.mean([1, 2]), image.std([1, 2])
+        normalize = transforms.Normalize(mean, std)
+        image = normalize(image).to("cuda")
+        output = cnn(image.unsqueeze(0))
         output_list = output.squeeze().tolist()
-
-        # Convertir le tenseur d'image en numpy array et transposer les dimensions pour matplotlib
-        image_array = image_tensor.cpu().numpy().transpose(1, 2, 0)
-
-        # Créer la figure et les axes
-        fig, ax = plt.subplots()
-
-        # Effacer l'axe
-        ax.cla()
-
-        # Afficher l'image
-        ax.imshow(image_array)
-
-        # Dessiner une croix rouge aux coordonnées fournies par le tenseur
-        ax.plot(output_list[0] / 2, output_list[1] / 2, "rx")
-
-        # Afficher la figure
-        plt.show()
-
-        # Pause pour 1 seconde
-        time.sleep(0.1)
-
+        output_list = [round(i, 0) for i in output_list]
+        print(f'{output_list}\r', end='')
 # %%

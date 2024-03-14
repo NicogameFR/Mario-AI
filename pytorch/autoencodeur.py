@@ -22,7 +22,6 @@ import matplotlib.pyplot as plt
 
 # Checking is CUDA available on current machine
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
-print("Project running on device: ", DEVICE)
 
 # configurations for the task
 config = {
@@ -35,7 +34,7 @@ config = {
 
 
 def collate_fn(batch):
-    process = transforms.Compose([transforms.ToTensor(), transforms.Pad([2])])
+    process = transforms.Compose([transforms.ToTensor()])
 
     # x - images; we process each image in the batch
     x = [process(data[0]) for data in batch]

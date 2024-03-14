@@ -1,14 +1,14 @@
+# %%
 import torch
 import torch.nn as nn
 import torch.optim as optim
 import torchvision.transforms as transforms
-from torch.utils.data import DataLoader
 from torchvision.utils import make_grid
 import numpy as np
 import json
 from PIL import Image
 import os
-from torch.utils.data import TensorDataset
+from torch.utils.data import TensorDataset, DataLoader, Dataset, random_split
 import matplotlib.pyplot as plt
 import torchsummary
 import time
@@ -24,7 +24,8 @@ transform = transforms.Compose(
         transforms.Resize((128, 128)),
     ]
 )
-
+taille = 2500
+output_size = 2
 
 def load_data(PATH_JSON, PATH_PNG, transform=transform):
     with open(PATH_JSON, "r") as f:
@@ -32,20 +33,30 @@ def load_data(PATH_JSON, PATH_PNG, transform=transform):
     labels = [[label[1], label[2]] for label in labels]
     target = []
     images = []
-
+    mean, std = 0, 0
     for i, filename in enumerate(os.listdir(PATH_PNG)):
-        print(f"Loading image {i+1}/{len(os.listdir(PATH_PNG))}\r", end="")
+        if i == taille:
+            break
+        print(f"Loading image {i+1}/{taille}\r", end="")
         img = Image.open(os.path.join(PATH_PNG, filename))
         img = transform(img)
+        mean, std = img.mean([1, 2]), img.std([1, 2])
+        normalize = transforms.Normalize(mean, std)
+        img = normalize(img)
         images.append(img)
         target.append([float(labels[i][0]), float(labels[i][1])])
+        #target.append([float(labels[i][0]), float(labels[i][1]), float(labels[i][2])])
 
     images_tensor = torch.stack(images)
     target_tensor = torch.tensor(target)
+
     dataset = TensorDataset(images_tensor, target_tensor)
-    data_loader = DataLoader(dataset, batch_size=32, shuffle=True, drop_last=True)
-    affichage(data_loader)
-    return data_loader
+    train_size = int(0.8 * len(dataset))
+    test_size = len(dataset) - train_size
+    train_dataset, test_dataset = random_split(dataset, [train_size, test_size])
+    train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
+    test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
+    return train_loader, test_loader
 
 
 # %%
@@ -53,41 +64,38 @@ def affichage(data_loader):
     print("Taille du dataset :", len(data_loader.dataset))
     print("Taille du batch :", data_loader.batch_size)
     print("Nombre total de batches :", len(data_loader))
-
-    # Afficher les caractéristiques de chaque batch
     for i, batch in enumerate(data_loader, 1):
-        if i == 2:
+        if i == 1:
             print("Caractéristiques du batch", i, ":")
             images, labels = batch
             print("Taille des images :", images.size())
             print("Taille des étiquettes :", labels.size())
-            print("Affichage des images du batch")
-            grid = make_grid(images, nrow=8)
-            plt.figure(figsize=(15, 15))
-            # add labels
-            for i, (img, lbl) in enumerate(zip(images, labels)):
-                plt.text(
-                    (i % 8) * 128,
-                    (i // 8) * 128,
-                    str(lbl.numpy()),
-                    fontsize=12,
-                    color="black",
-                )
-            plt.imshow(np.transpose(grid, (1, 2, 0)))
-            plt.show()
+            # grid = make_grid(images, nrow=8)
+            # plt.figure(figsize=(15, 15))
+            # for i, (img, lbl) in enumerate(zip(images, labels)):
+            #    plt.text(
+            #        (i % 8) * 128,
+            #        (i // 8) * 128,
+            #        str(lbl.numpy()),
+            #        fontsize=12,
+            #        color="black",
+            #    )
+            # plt.imshow(np.transpose(grid, (1, 2, 0)))
+            # plt.show()
     print("\n")
 
 
 # %%
-# Définir les hyperparamètres
+batch_size = 32
 
-# Charger les données d'entraînement et de test
-
-train_loader = load_data(
+train_loader, validation_loader = load_data(
     PATH_PNG="..\.data\Mario_data\Train\screenshots",
     PATH_JSON="..\.data\Mario_data\Train\labels\Mario_World.json",
     transform=transform,
 )
+
+affichage(train_loader)
+affichage(validation_loader)
 
 
 # %%
@@ -120,9 +128,9 @@ class CNN(nn.Module):
 
         # Defining the Linear layer
         self.fc1 = nn.Linear(3200, 1280)
-        self.dropout = nn.Dropout(p=0.25)
+        self.dropout = nn.Dropout(p=0.15)
         self.relu = nn.ReLU()
-        self.fc2 = nn.Linear(1280, 2)
+        self.fc2 = nn.Linear(1280, output_size)
 
         self.pool = nn.MaxPool2d(kernel_size=2, stride=2)
 
@@ -152,18 +160,17 @@ class CNN(nn.Module):
         out = out.view(out.size(0), -1)
         # Linear Layer
         out = self.fc1(out)
-        # out = self.dropout(out)
+        out = self.dropout(out)
         out = self.relu(out)
         out = self.fc2(out)
         return out
 
 
-batch_size = 32
 num_epochs = 1000
-learning_rate = 0.001
+learning_rate = 5e-4
 
 # Initialiser le modèle
-model = CNN().to("cuda")
+model = CNN().to(DEVICE)
 params = []
 for name, param in model.named_parameters():
     if param.requires_grad:
@@ -171,17 +178,13 @@ for name, param in model.named_parameters():
         params.append(str(param.data.shape))
 params = "_".join(params)
 params = params.replace(" ", "")
-params = params.replace("_torch.Size(", "")
+params = params.replace("torch.Size(", "")
 params = params.replace(")", "")
 params = params.replace("_", "")
 params = params.replace(".weight", "")
 params = params.replace(".bias", "")
-print(params)
 try:
-    torchsummary.summary(model, (3, 128, 128))
-except Exception as e:
-    print(e)
-try:
+    print(1 / 0)
     model.load_state_dict(torch.load(f"..\\beta_models\\best(CNN)_{params}.pth"))
     print("Model loaded")
 except Exception as e:
@@ -190,19 +193,15 @@ except Exception as e:
 
 # %%
 
-
-# Définir la fonction de perte et l'optimiseur
 criterion = nn.MSELoss()
 optimizer = optim.AdamW(model.parameters(), lr=learning_rate)
-
 best_loss = 10e10
-# Entraînement du modèle
-for epoch in range(num_epochs):
+
+
+# %%
+def train_model(model, train_loader):
     max_loss = []
     running_loss = 0.0
-    diff_x = 0.0
-    diff_y = 0.0
-    diff_z = 0.0
     model.train()
     for y, [images, labels] in enumerate(train_loader):
         images, labels = images.to(DEVICE), labels.to(DEVICE)
@@ -213,24 +212,58 @@ for epoch in range(num_epochs):
         optimizer.step()
         running_loss += loss.item()
         max_loss.append(loss.item())
-        for i in range(batch_size):
+
+    average_loss = running_loss / len(train_loader)
+    max_loss = max(max_loss)
+    return average_loss, max_loss
+
+
+# %%
+
+
+def validation_model(model, test_loader):
+    model.eval()
+    max_loss = []
+    running_loss = 0.0
+    diff_x = 0.0
+    diff_y = 0.0
+    diff_z = 0.0
+    for y, [images, labels] in enumerate(train_loader):
+        with torch.no_grad():
+            images, labels = images.to(DEVICE), labels.to(DEVICE)
+            outputs = model(images)
+            loss = criterion(outputs, labels)
+        running_loss += loss.item()
+        max_loss.append(loss.item())
+        for i in range(len(outputs)):
             x = outputs[i].squeeze().tolist()[0] - labels[i].squeeze().tolist()[0]
             y = outputs[i].squeeze().tolist()[1] - labels[i].squeeze().tolist()[1]
+            #z = outputs[i].squeeze().tolist()[2] - labels[i].squeeze().tolist()[2]
             diff_x += abs(x)
             diff_y += abs(y)
+            #diff_y += abs(z)
     echec = [
-        round(diff_x / (batch_size * len(train_loader)), 4),
-        round(diff_y / (batch_size * len(train_loader)), 4),
+        round(diff_x / (len(outputs) * len(train_loader)), 4),
+        round(diff_y / (len(outputs) * len(train_loader)), 4),
+        #round(diff_z / (batch_size * len(train_loader)), 4),
     ]
     average_loss = running_loss / len(train_loader)
     max_loss = max(max_loss)
-    print(f"Epoch [{epoch+1:0004d}/{num_epochs}]\r", end="")
-    if average_loss < best_loss:
-        best_loss = average_loss
-        print(f"\nLoss: {average_loss:.4f}, Max Loss: {max_loss:.4f}, Diff: {echec}")
-        torch.save(
-           model.state_dict(),
-           f"..\\beta_models\\best(CNN)_{params}.pth",
-        )
+    return average_loss, max_loss, echec
+
 
 # %%
+diff = 0
+for epoch in range(num_epochs):
+
+    average_loss_train, _ = train_model(model, train_loader)
+    average_loss_valid, max_loss_valid, echec = validation_model(
+        model, validation_loader
+    )
+    print(f"Epoch [{epoch+1:0004d}/{num_epochs}] +{diff: 4d}\r", end="")
+    diff += 1
+    if average_loss_valid < best_loss:
+        diff = 0
+        best_loss = average_loss_valid
+        print(f"\nLoss: {average_loss_valid:.4f}, Max Loss: {max_loss_valid:.4f}, Diff: {echec}")
+
