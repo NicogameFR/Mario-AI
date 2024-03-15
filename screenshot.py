@@ -11,10 +11,8 @@ import random
 HOST = "127.0.0.1"
 PORT = 8080
 
-PATH_TRAIN_JSON = "./.data/Mario_data/Train/labels/Mario_World.json"
-PATH_TRAIN_PNG = "./.data/Mario_data/Train/screenshots/"
-PATH_VALID_JSON = "./.data/Mario_data/Valid/labels/Mario_World.json"
-PATH_VALID_PNG = "./.data/Mario_data/Valid/screenshots/"
+PATH_JSON = "./.data/Mario_data/Train/labels/Mario_World.json"
+PATH_PNG = "./.data/Mario_data/Train/screenshots/"
 
 TOTAL_FRAMES = 5000
 SIZE = 640
@@ -42,15 +40,10 @@ bh = BizHawk(HOST, PORT)
 # %%
 
 
-if os.path.exists(PATH_TRAIN_JSON):
-    os.remove(PATH_TRAIN_JSON)
-if os.listdir(PATH_TRAIN_PNG):
-    os.system(f"cd {PATH_TRAIN_PNG} & del /f *.png")
-if os.path.exists(PATH_VALID_JSON):
-    os.remove(PATH_VALID_JSON)
-if os.listdir(PATH_VALID_PNG):
-    print("Suppression des fichiers")
-    os.system(f"cd {PATH_VALID_PNG} & del /f *.png")
+if os.path.exists(PATH_JSON):
+    os.remove(PATH_JSON)
+if os.listdir(PATH_PNG):
+    os.system(f"cd {PATH_PNG} & del /f *.png")
 
 
 # %%
@@ -100,13 +93,8 @@ while bh.client.is_connected() and i < TOTAL_FRAMES:
         image = pyscreenshot.grab(childprocess=False, bbox=(1167, 66, 1712, 483))
         # image = pyscreenshot.grab(childprocess=False, bbox=(1515, 54, 809, 619))
         # image = image.resize((SIZE, SIZE))
-        x = random.randint(1, 10)
-        if x == 1:
-            image.save(f"{PATH_VALID_PNG}/{i:04d}.png")
-            data_json(PATH_VALID_JSON, new_data)
-        else:
-            image.save(f"{PATH_TRAIN_PNG}/{i:04d}.png")
-            data_json(PATH_TRAIN_JSON, new_data)
+        image.save(f"{PATH_PNG}/{i:04d}.png")
+        data_json(PATH_JSON, new_data)
         bh.client.advance_frame()
         i += 1
 print("\nFin de la capture")
