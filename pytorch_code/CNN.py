@@ -70,18 +70,18 @@ def affichage(data_loader):
             images, labels = batch
             print("Taille des images :", images.size())
             print("Taille des étiquettes :", labels.size())
-            # grid = make_grid(images, nrow=8)
-            # plt.figure(figsize=(15, 15))
-            # for i, (img, lbl) in enumerate(zip(images, labels)):
-            #    plt.text(
-            #        (i % 8) * 128,
-            #        (i // 8) * 128,
-            #        str(lbl.numpy()),
-            #        fontsize=12,
-            #        color="black",
-            #    )
-            # plt.imshow(np.transpose(grid, (1, 2, 0)))
-            # plt.show()
+            grid = make_grid(images, nrow=8)
+            plt.figure(figsize=(15, 15))
+            for i, (img, lbl) in enumerate(zip(images, labels)):
+               plt.text(
+                   (i % 8) * 128,
+                   (i // 8) * 128,
+                   str(lbl.numpy()),
+                   fontsize=12,
+                   color="black",
+               )
+            plt.imshow(np.transpose(grid, (1, 2, 0)))
+            plt.show()
     print("\n")
 
 
@@ -193,7 +193,7 @@ except Exception as e:
 
 # %%
 
-criterion = nn.MSELoss()
+criterion = nn.BCELoss()
 optimizer = optim.AdamW(model.parameters(), lr=learning_rate)
 best_loss = 10e10
 
