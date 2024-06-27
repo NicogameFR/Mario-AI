@@ -6,6 +6,6 @@ from torch.autograd import Variable
 from torchvision import datasets, transforms
 import numpy as np
 
-from VAE import VAE
+from VAE.modules import VAE
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 

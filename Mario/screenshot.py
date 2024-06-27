@@ -1,18 +1,14 @@
 # %%
-
 import pyscreenshot
 import birdseyelib as bird
 import os
-import json
-import random
 
 # %%
 
 HOST = "127.0.0.1"
 PORT = 8080
 
-PATH_JSON = "./.data/Mario_data/Train/labels/Mario_World.json"
-PATH_PNG = "./.data/Mario_data/Train/screenshots/"
+PATH_PNG = "../.data/Mario_data/"
 
 TOTAL_FRAMES = 5000
 SIZE = 640
@@ -29,72 +25,39 @@ class BizHawk:
         self.emulation = bird.Emulation(self.client)
         self.external_tool = bird.ExternalTool(self.client)
         self.client.connect()
-
+        self.external_tool.set_commandeer(True)
     def __str__(self):
         return f"BizHawk Client: {self.client}"
 
 
 bh = BizHawk(HOST, PORT)
+print("Connecting to server at {} on port {}.".format(HOST, PORT))
 
 
 # %%
-
-
-if os.path.exists(PATH_JSON):
-    os.remove(PATH_JSON)
-if os.listdir(PATH_PNG):
-    os.system(f"cd {PATH_PNG} & del /f *.png")
-
-
+try:
+    if os.listdir(PATH_PNG):
+        os.system(f"cd {PATH_PNG} & del /f *.png")
+        print("Suppression des anciennes captures")
+except FileNotFoundError:
+    PATH_PNG = ".data/Mario_data/"
+    if os.listdir(PATH_PNG):
+        os.system(f"cd {PATH_PNG} & del /f *.png")
+        print("Suppression des anciennes captures")
 # %%
 
+i = 1
 
-def data_json(fichier_json, new_data):
-    if os.path.exists(fichier_json):
-        with open(fichier_json, "r") as f:
-            data = json.load(f)
-    else:
-        data = []
-    data.append(new_data)
-    with open(fichier_json, "w") as f:
-        json.dump(data, f)
-
-
-# %%
-
-i = 0
-print("Début de la capture")
-bh.memory.add_address(0x04AC)  # Mario's x1 position
-bh.memory.add_address(0x04AD)  # Mario's y1 position
-bh.memory.add_address(0x04AE)  # Mario's x2 position
-bh.memory.add_address(0x04AF)  # Mario's y2 position
-bh.memory.add_address(0x071A)  # Décalage niveau
-bh.memory.add_address(0x071C)  # Décalage écran
-bh.memory.request_memory()
-bh.client.advance_frame()
-
-while bh.client.is_connected() and i < TOTAL_FRAMES:
-    bh.memory.request_memory()
-    x1 = bh.memory.get_memory()["0x4ac"]
-    y1 = bh.memory.get_memory()["0x4ad"]
-    x2 = bh.memory.get_memory()["0x4ae"]
-    y2 = bh.memory.get_memory()["0x4af"]
-    d1 = bh.memory.get_memory()["0x71a"]
-    d2 = bh.memory.get_memory()["0x71c"]
-    if [x1, y1, x2, y2] != [0, 0, 0, 0] or [x1, y1, x2, y2] != [-1, -1, -1, -1]:
-        x = (x1 + x2) / 2
-        y = (y1 + y2) / 2
-        decalage = d1 * 256 + d2
-        print(
-            f"Nombre de captures: {i+1}/{TOTAL_FRAMES} - Décalage: {decalage} - x: {x} - y: {y}\r",
-            end="",
-        )
-        new_data = [decalage, x, y]
-        image = pyscreenshot.grab(childprocess=False, bbox=(1167, 66, 1712, 483))
-        # image = pyscreenshot.grab(childprocess=False, bbox=(1515, 54, 809, 619))
-        # image = image.resize((SIZE, SIZE))
-        image.save(f"{PATH_PNG}/{i:04d}.png")
-        data_json(PATH_JSON, new_data)
-        bh.client.advance_frame()
-        i += 1
+while bh.client.is_connected() and i <= TOTAL_FRAMES:
+    print(
+        f"Nombre de captures: {i}/{TOTAL_FRAMES}\r",
+        end="",
+    )
+    image = pyscreenshot.grab(childprocess=False, bbox=(1167, 66, 1712, 483))
+    #image = pyscreenshot.grab(childprocess=False, bbox=(1515, 54, 809, 619))
+    image = image.resize((SIZE, SIZE))
+    image.save(f"{PATH_PNG}/{i:04d}.png")
+    i += 1
+    bh.emulation.request_framecount()
+    bh.client.advance_frame()
 print("\nFin de la capture")

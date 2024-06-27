@@ -22,6 +22,7 @@ transform = transforms.Compose(
     [
         transforms.ToTensor(),
         transforms.Resize((128, 128)),
+        transforms.Grayscale(num_output_channels=1)
     ]
 )
 taille = 2500
@@ -40,9 +41,9 @@ def load_data(PATH_JSON, PATH_PNG, transform=transform):
         print(f"Loading image {i+1}/{taille}\r", end="")
         img = Image.open(os.path.join(PATH_PNG, filename))
         img = transform(img)
-        mean, std = img.mean([1, 2]), img.std([1, 2])
-        normalize = transforms.Normalize(mean, std)
-        img = normalize(img)
+        #mean, std = img.mean([1, 2]), img.std([1, 2])
+        #normalize = transforms.Normalize(mean, std)
+        #img = normalize(img)
         images.append(img)
         target.append([float(labels[i][0]), float(labels[i][1])])
         #target.append([float(labels[i][0]), float(labels[i][1]), float(labels[i][2])])
@@ -89,11 +90,11 @@ def affichage(data_loader):
 batch_size = 32
 
 train_loader, validation_loader = load_data(
-    PATH_PNG="..\.data\Mario_data\Train\screenshots",
-    PATH_JSON="..\.data\Mario_data\Train\labels\Mario_World.json",
+    PATH_PNG="..\.data\Mario_data\Train",
+    PATH_JSON="..\.data\Mario_data\Mario_World.json",
     transform=transform,
 )
-
+#%%
 affichage(train_loader)
 affichage(validation_loader)
 
