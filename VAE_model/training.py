@@ -112,7 +112,12 @@ config = {
 }
 
 PNG_PATH = "..\.data\Mario_data"
-dataset = CustomImageDataset(PNG_PATH, transform=transform)
+try:
+    dataset = CustomImageDataset(PNG_PATH, transform=transform)
+
+except:
+    PNG_PATH = ".data\\Mario_data"
+    dataset = CustomImageDataset(PNG_PATH, transform=transform)
 dataloader = DataLoader(
     dataset, batch_size=config["batch_size"], shuffle=True, drop_last=True
 )
