@@ -14,6 +14,13 @@ class VariationalLossLayer(nn.Module):
         k2 = self.k2
 
         x, z_mean, z_log_var, y = inputs
+        assert (y >= 0).all() and (
+            y <= 1
+        ).all(), f"Les valeurs de y doivent être entre 0 et 1, mais y min: {y.min()}, y max: {y.max()}"
+        assert (x >= 0).all() and (
+            x <= 1
+        ).all(), f"Les valeurs de x doivent être entre 0 et 1, mais x min: {x.min()}, x max: {x.max()}"
+        
         r_loss = F.binary_cross_entropy(y, x, reduction="sum")
 
         kl_loss = -torch.sum(1 + z_log_var - z_mean.pow(2) - z_log_var.exp())

@@ -23,16 +23,13 @@ DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 
 # %%
 # mise en place de la fonction d'entrainement
-def train(model, dataloader, criterion, optimizer, pbar):
+def train(model, dataloader, criterion, optimizer):
     model.train()
     running_loss = 0.0
     num_batches = 1
     for inputs in dataloader:
+        print(f"Batch {num_batches}/{len(dataloader)}\r", end='')
         inputs = inputs[0].to(DEVICE)
-        # if torch.any(torch.isnan(inputs)):
-        #   print(f"Skipping batch {num_batches}/{len(dataloader)}\n")
-        #   num_batches += 1
-        #   continue
 
         optimizer.zero_grad()
         outputs = model(inputs)
@@ -42,11 +39,8 @@ def train(model, dataloader, criterion, optimizer, pbar):
         loss.backward()
         optimizer.step()
         running_loss = running_loss + loss.item()
-        pbar.update(1)
-    pbar.set_postfix(
-        loss=f"{running_loss/num_batches:.4f}",
-    )
-    return running_loss
+        adv_loss = running_loss / num_batches
+    return adv_loss
 
 
 # mise en place de la fonction de traitement des données
@@ -54,7 +48,8 @@ def train(model, dataloader, criterion, optimizer, pbar):
 
 transform = transforms.Compose(
     [
-        transforms.Resize((128, 128)),
+        transforms.Resize((64, 64)),
+        transforms.Grayscale(num_output_channels=1),
         transforms.ToTensor(),
     ]
 )
@@ -92,9 +87,8 @@ def affichage_image(dataloader):
     for i in range(len(batch_images)):
         plt.subplot(
             int(sqrt(config["batch_size"])), int(sqrt(config["batch_size"])), i + 1
-        )  # Assuming batch_size = 16, adjust according to your batch size
-        print(batch_images[i].shape)
-        plt.imshow(batch_images[i][0])
+        )
+        plt.imshow(batch_images[i][0], cmap="gray")
         plt.title(batch_filenames[i])
         plt.axis("off")
 
@@ -105,13 +99,13 @@ def affichage_image(dataloader):
 # %%
 
 config = {
-    "batch_size": 32,
-    "epochs": 10,
+    "batch_size": 64,
+    "epochs": 5,
     "lr": 0.001,
-    "latent_dim": 8,
+    "latent_dim": 16,
 }
-
 PNG_PATH = "..\.data\Mario_data"
+# image en couleur de 128*128 pixels
 try:
     dataset = CustomImageDataset(PNG_PATH, transform=transform)
 
@@ -121,27 +115,9 @@ except:
 dataloader = DataLoader(
     dataset, batch_size=config["batch_size"], shuffle=True, drop_last=True
 )
-# %%
-# Initialiser les accumulateurs pour les sommes et les carrés des sommes
-# mean = 0.
-# std = 0.
-# nb_samples = 0.
-#
-# for data in dataloader:
-#    data = data[0]
-#    batch_samples = data.size(0)
-#    data = data.view(batch_samples, data.size(1), -1)
-#    mean += data.mean(2).sum(0)
-#    std += data.std(2).sum(0)
-#    nb_samples += batch_samples
-#
-# mean /= nb_samples
-# std /= nb_samples
-#
-# print(f'Mean: {mean}')
-# print(f'Std: {std}')
-#
-# affichage_image(dataloader)
+
+affichage_image(dataloader)
+
 # %%
 
 vae = VAE(config["latent_dim"]).to(DEVICE)
@@ -153,8 +129,23 @@ optimizer = torch.optim.Adam(vae.parameters(), lr=config["lr"])
 # %%
 
 
-for i in range(config["epochs"]):
-    with tqdm.tqdm(
-        total=len(dataloader), desc="Entrainement", unit="Batch", ncols=75
-    ) as pbar:
-        train(vae, dataloader, criterion, optimizer, pbar)
+r_loss = []
+criterion = VariationalLossLayer(loss_weights=[1, 0.05])
+vae = VAE(config["latent_dim"]).to(DEVICE)
+for epoch in range(config["epochs"]):
+    loss = train(vae, dataloader, criterion, optimizer)
+    r_loss.append(loss)
+    print(f"Epoch {epoch+1}/{config['epochs']}, Loss: {loss}\n")
+# %%
+
+
+x = dataloader.dataset[0][0].unsqueeze(0).to(DEVICE)
+x, z_mean, z_log_var, output = vae(x)
+
+plt.figure(figsize=(10, 5))
+plt.subplot(1, 2, 1)
+plt.imshow(output[0][0].cpu().detach().numpy(), cmap="gray")
+plt.title("Original Image")
+plt.axis("off")
+
+# %%
