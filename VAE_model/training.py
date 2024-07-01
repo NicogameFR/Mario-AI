@@ -135,7 +135,7 @@ vae = VAE(config["latent_dim"]).to(DEVICE)
 for epoch in range(config["epochs"]):
     loss = train(vae, dataloader, criterion, optimizer)
     r_loss.append(loss)
-    print(f"Epoch {epoch+1}/{config['epochs']}, Loss: {loss}\n")
+    print(f"Epoch {epoch+1}/{config['epochs']}, Loss: {loss}")
 # %%
 
 
@@ -144,8 +144,14 @@ x, z_mean, z_log_var, output = vae(x)
 
 plt.figure(figsize=(10, 5))
 plt.subplot(1, 2, 1)
-plt.imshow(output[0][0].cpu().detach().numpy(), cmap="gray")
+plt.imshow(x[0][0].cpu().detach().numpy(), cmap="gray")
 plt.title("Original Image")
+plt.axis("off")
+# %%
+plt.figure(figsize=(10, 5))
+plt.subplot(1, 2, 1)
+plt.imshow(output[0][0].cpu().detach().numpy(), cmap="gray")
+plt.title("Reconstructed Image")
 plt.axis("off")
 
 # %%
