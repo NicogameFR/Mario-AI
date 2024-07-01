@@ -14,13 +14,10 @@ class VariationalLossLayer(nn.Module):
         k2 = self.k2
 
         x, z_mean, z_log_var, y = inputs
-
-        
-        
         r_loss = F.binary_cross_entropy(y, x, reduction="sum")
 
         kl_loss = -torch.sum(1 + z_log_var - z_mean.pow(2) - z_log_var.exp())
 
         loss = k1 * r_loss + k2 * kl_loss
 
-        return loss
+        return loss, r_loss, kl_loss

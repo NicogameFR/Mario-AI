@@ -1,41 +1,23 @@
-import torch
-import torch.nn as nn
+from tqdm import tqdm
+import time
+import itertools
 
-DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
+# Création d'une animation personnalisée pour la barre de chargement
+def spinner_animation():
+    spinners = itertools.cycle(['-', '\\', '|', '/'])
+    while True:
+        yield next(spinners)
 
-
-class CNN(nn.Module):
-    def __init__(self):
-        super(CNN, self).__init__()
-        self.encoder = nn.Sequential(
-            nn.Conv2d(1, 32, 3, stride=2, padding=1),
-            nn.ReLU(),
-            nn.Conv2d(32, 64, 3, stride=2, padding=1),
-            nn.ReLU(),
-            nn.Conv2d(64, 128, 3, stride=2, padding=1),
-            nn.ReLU(),
-            nn.Conv2d(128, 256, 3, stride=2, padding=1),
-            nn.ReLU(),
-        )
-        self.decoder = nn.Sequential(
-            nn.ConvTranspose2d(256, 128, 4, stride=2, padding=1),
-            nn.ReLU(),
-            nn.ConvTranspose2d(128, 64, 4, stride=2, padding=1),
-            nn.ReLU(),
-            nn.ConvTranspose2d(64, 32, 4, stride=2, padding=1),
-            nn.ReLU(),
-            nn.ConvTranspose2d(32, 1, 4, stride=2, padding=1),
-            nn.Sigmoid(),
-        )
-
-    def forward(self, x):
-        x = self.encoder(x)
-        x = self.decoder(x)
-        return x
+# Fonction pour afficher une barre de chargement personnalisée
+def custom_progress_bar(total, desc="Chargement", unit="unités", ncols=100):
+    spinner = spinner_animation()
     
-cnn = CNN().to(DEVICE)
+    with tqdm(total=total, desc=desc, unit=unit, ncols=ncols, bar_format='{desc}: {percentage:3.0f}%|{bar}| {n}/{total} [{elapsed}<{remaining}, {rate_fmt}] {postfix}') as pbar:
+        for i in range(total):
+            # Animation du spinner
+            pbar.set_postfix(spin=next(spinner))
+            time.sleep(0.1)  # Simule une opération qui prend du temps
+            pbar.update(1)
 
-x = torch.randn(1, 1, 128, 128).to(DEVICE)
-
-output = cnn(x)
-print(output.shape)  # torch.Size([1, 1, 128, 128])
+# Utilisation de la barre de chargement personnalisée
+custom_progress_bar(100, desc="Téléchargement en cours", unit="unités")

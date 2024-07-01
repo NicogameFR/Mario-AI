@@ -14,41 +14,39 @@ import os
 from PIL import Image
 from matplotlib import pyplot as plt
 from math import sqrt
+import numpy as np
+import tqdm
+
 # configuration du periférique de calcul (GPU ou CPU)
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 
 
 # %%
 # mise en place de la fonction d'entrainement
-def train(model, dataloader, criterion, optimizer, num_epochs):
+def train(model, dataloader, criterion, optimizer, pbar):
     model.train()
-    for epoch in range(num_epochs):
-        running_loss = 0.0
-        num_batches = 1
-        for inputs in dataloader:
-            inputs = inputs[0].to(DEVICE)
-            if torch.any(torch.isnan(inputs)):
-                print(f"Skipping batch {num_batches}/{len(dataloader)}\n")
-                num_batches += 1
-                continue
-            
-            print(f"{num_batches}/{len(dataloader)}\r", end="")
-            num_batches += 1
-            optimizer.zero_grad()
-            outputs = model(inputs)
+    running_loss = 0.0
+    num_batches = 1
+    for inputs in dataloader:
+        inputs = inputs[0].to(DEVICE)
+        # if torch.any(torch.isnan(inputs)):
+        #   print(f"Skipping batch {num_batches}/{len(dataloader)}\n")
+        #   num_batches += 1
+        #   continue
 
-            loss = criterion(outputs)
+        optimizer.zero_grad()
+        outputs = model(inputs)
 
-            loss.backward()
-            optimizer.step()
-
-            running_loss = running_loss + loss.item()
-
-        print(
-            f"Epoch [{epoch + 1}/{num_epochs}], Loss: {running_loss / len(dataloader)}"
-        )
-
-    print("Finished Training")
+        loss, r_loss, kl_loss = criterion(outputs)
+        num_batches += 1
+        loss.backward()
+        optimizer.step()
+        running_loss = running_loss + loss.item()
+        pbar.update(1)
+    pbar.set_postfix(
+        loss=f"{running_loss/num_batches:.4f}",
+    )
+    return running_loss
 
 
 # mise en place de la fonction de traitement des données
@@ -56,8 +54,7 @@ def train(model, dataloader, criterion, optimizer, num_epochs):
 
 transform = transforms.Compose(
     [
-        transforms.Grayscale(),
-        transforms.Resize((64, 64)),
+        transforms.Resize((128, 128)),
         transforms.ToTensor(),
     ]
 )
@@ -83,7 +80,8 @@ class CustomImageDataset(Dataset):
         image = Image.open(img_path)
         if self.transform:
             image = self.transform(image)
-        return image, img_name  # Return both image and filename
+
+        return image, img_name
 
 
 def affichage_image(dataloader):
@@ -95,10 +93,9 @@ def affichage_image(dataloader):
         plt.subplot(
             int(sqrt(config["batch_size"])), int(sqrt(config["batch_size"])), i + 1
         )  # Assuming batch_size = 16, adjust according to your batch size
-        plt.imshow(
-            batch_images[i][0], cmap="gray"
-        )  # Select the image tensor and use cmap='gray' for grayscale
-        plt.title(batch_filenames[i])  # Display filename as title
+        print(batch_images[i].shape)
+        plt.imshow(batch_images[i][0])
+        plt.title(batch_filenames[i])
         plt.axis("off")
 
     plt.subplots_adjust(wspace=0.5, hspace=0.5)
@@ -108,10 +105,10 @@ def affichage_image(dataloader):
 # %%
 
 config = {
-    "batch_size": 64,
-    "epochs": 100,
+    "batch_size": 32,
+    "epochs": 10,
     "lr": 0.001,
-    "latent_dim": 16,
+    "latent_dim": 8,
 }
 
 PNG_PATH = "..\.data\Mario_data"
@@ -120,7 +117,26 @@ dataloader = DataLoader(
     dataset, batch_size=config["batch_size"], shuffle=True, drop_last=True
 )
 # %%
-affichage_image(dataloader)
+# Initialiser les accumulateurs pour les sommes et les carrés des sommes
+# mean = 0.
+# std = 0.
+# nb_samples = 0.
+#
+# for data in dataloader:
+#    data = data[0]
+#    batch_samples = data.size(0)
+#    data = data.view(batch_samples, data.size(1), -1)
+#    mean += data.mean(2).sum(0)
+#    std += data.std(2).sum(0)
+#    nb_samples += batch_samples
+#
+# mean /= nb_samples
+# std /= nb_samples
+#
+# print(f'Mean: {mean}')
+# print(f'Std: {std}')
+#
+# affichage_image(dataloader)
 # %%
 
 vae = VAE(config["latent_dim"]).to(DEVICE)
@@ -131,4 +147,9 @@ optimizer = torch.optim.Adam(vae.parameters(), lr=config["lr"])
 
 # %%
 
-train(vae, dataloader, criterion, optimizer, config["epochs"])
+
+for i in range(config["epochs"]):
+    with tqdm.tqdm(
+        total=len(dataloader), desc="Entrainement", unit="Batch", ncols=75
+    ) as pbar:
+        train(vae, dataloader, criterion, optimizer, pbar)
