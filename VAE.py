@@ -48,7 +48,8 @@ class VAE(nn.Module):
     def reparameterize(self, mu, logvar):
         std = torch.exp(0.5 * logvar)
         eps = torch.randn_like(std)
-        return mu + eps * std
+        z = mu + eps * std
+        return z
 
     def decode(self, z):
         x = self.decoder_input(z)
@@ -64,7 +65,7 @@ class VAE(nn.Module):
 
 
 # Perte VAE
-def vae_loss(recon_x, x, mu, logvar, k=[1, 0.06]):
+def vae_loss(recon_x, x, mu, logvar, k=[1, 0.05]):
     BCE = F.binary_cross_entropy(recon_x, x, reduction="sum")
     KLD = -0.5 * torch.sum(1 + logvar - mu.pow(2) - logvar.exp())
     return k[0] * BCE + k[1] * KLD

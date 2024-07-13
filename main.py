@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import pyscreenshot
 import time
 
-from VAE_model.module.VAE import VAE
+from VAE import VAE
 
 # %%
 
