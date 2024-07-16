@@ -48,13 +48,15 @@ except FileNotFoundError:
 
 i = 1
 
+bh.emulation.request_framecount()
+bh.client.advance_frame()
 while bh.client.is_connected() and i <= TOTAL_FRAMES:
     print(
         f"Nombre de captures: {i}/{TOTAL_FRAMES}\r",
         end="",
     )
     image = pyscreenshot.grab(childprocess=False, bbox=(1167, 66, 1712, 483))
-    #image = pyscreenshot.grab(childprocess=False, bbox=(1515, 54, 809, 619))
+    #image = pyscreenshot.grab(childprocess=False, bbox=(1515, 54, 1809, 619))
     image = image.resize((SIZE, SIZE))
     image.save(f"{PATH_PNG}/{i:04d}.png")
     i += 1
