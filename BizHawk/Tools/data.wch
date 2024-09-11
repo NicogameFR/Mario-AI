@@ -1,0 +1,119 @@
+SystemID NES
+075A	b	u	0	RAM	Vies
+0760	b	u	0	RAM	niveau actuel dans un monde
+075F	b	u	0	RAM	numéro du monde (1 à 8)
+0723	b	u	0	RAM	Scroll Lock
+07FA	b	u	0	RAM	Timer
+000E	b	u	0	RAM	Mario state
+0756	b	u	0	RAM	Mario type
+0782	b	u	0	RAM	JumpSwim Timer
+04AC	b	u	0	RAM	Mario x1
+04AD	b	u	0	RAM	Mario y1
+04AE	b	u	0	RAM	Mario x2
+04AF	b	u	0	RAM	Mario y2
+000F	b	u	0	RAM	Enemy1 drawn?
+0016	b	u	0	RAM	Enemy1 type
+04B0	b	u	0	RAM	enemy1 x1
+04B1	b	u	0	RAM	enemy1 y1
+04B2	b	u	0	RAM	enemy1 x2
+04B3	b	u	0	RAM	enemy1 y2
+0010	b	u	0	RAM	Enemy2 drawn?
+0017	b	u	0	RAM	Enemy2 type
+04B4	b	u	0	RAM	enemy2 x1
+04B5	b	u	0	RAM	enemy2 y1
+04B6	b	u	0	RAM	enemy2 x2
+04B7	b	u	0	RAM	enemy2 y2
+0011	b	u	0	RAM	Enemy3 drawn?
+0018	b	u	0	RAM	Enemy3 type
+04B8	b	u	0	RAM	enemy3 x1
+04B9	b	u	0	RAM	enemy3 y1
+04BA	b	u	0	RAM	enemy3 x2
+04BB	b	u	0	RAM	enemy3 y2
+0012	b	u	0	RAM	Enemy4 drawn?
+0019	b	u	0	RAM	Enemy4 type
+04BC	b	u	0	RAM	enemy4 x1
+04BD	b	u	0	RAM	enemy4 y1
+04BE	b	u	0	RAM	enemy4 x2
+04BF	b	u	0	RAM	enemy4 y2
+0013	b	u	0	RAM	Enemy5 drawn?
+001A	b	u	0	RAM	Enemy5 type
+04C0	b	u	0	RAM	enemy5 x1
+04C1	b	u	0	RAM	enemy5 y1
+04C2	b	u	0	RAM	enemy5 x2
+04C3	b	u	0	RAM	enemy5 y2
+0014	b	u	0	RAM	Powerup drawn?
+04C4	b	u	0	RAM	Powerup x1
+04C5	b	u	0	RAM	Powerup y1
+04C6	b	u	0	RAM	Powerup x2
+04C7	b	u	0	RAM	Powerup y2
+0024	b	u	0	RAM	Fireball1 drawn?
+04C8	b	u	0	RAM	Fireball1 x1
+04C9	b	u	0	RAM	Fireball1 y1
+04CA	b	u	0	RAM	Fireball1 x2
+04CB	b	u	0	RAM	Fireball1 y2
+0025	b	u	0	RAM	Fireball2 drawn?
+04CC	b	u	0	RAM	Fireball2 x1
+04CD	b	u	0	RAM	Fireball2 y1
+04CE	b	u	0	RAM	Fireball2 x2
+04CF	b	u	0	RAM	Fireball2 y2
+0030	b	u	0	RAM	Hammer7
+0031	b	u	0	RAM	Hammer8
+0032	b	u	0	RAM	Hammer9
+002A	b	u	0	RAM	Hammer1
+04D0	b	u	0	RAM	Hammer1 x1
+04D1	b	u	0	RAM	Hammer1 y1
+04D2	b	u	0	RAM	Hammer1 x2
+04D3	b	u	0	RAM	Hammer1 y2
+002B	b	u	0	RAM	Hammer2
+04D4	b	u	0	RAM	Hammer2 x1
+04D5	b	u	0	RAM	Hammer2 y1
+04D6	b	u	0	RAM	Hammer2 x2
+04D7	b	u	0	RAM	Hammer2 y2
+002C	b	u	0	RAM	Hammer3
+04D8	b	u	0	RAM	Hammer3 x1
+04D9	b	u	0	RAM	Hammer3 y1
+04DA	b	u	0	RAM	Hammer3 x2
+04DB	b	u	0	RAM	Hammer3 y2
+002D	b	u	0	RAM	Hammer4
+04DC	b	u	0	RAM	Hammer4 x1
+04DD	b	u	0	RAM	Hammer4 y1
+04DE	b	u	0	RAM	Hammer4 x2
+04DF	b	u	0	RAM	Hammer4 y2
+002E	b	u	0	RAM	Hammer5
+04E0	b	u	0	RAM	Hammer5 x1
+04E1	b	u	0	RAM	Hammer5 y1
+04E2	b	u	0	RAM	Hammer5 x2
+04E3	b	u	0	RAM	Hammer5 y2
+002F	b	u	0	RAM	Hammer6
+04E4	b	u	0	RAM	Hammer6 x1
+04E5	b	u	0	RAM	Hammer6 y1
+04E6	b	u	0	RAM	Hammer6 x2
+04E7	b	u	0	RAM	Hammer6 y2
+04E8	b	u	0	RAM	Hammer7 x1
+04E9	b	u	0	RAM	Hammer7 y1
+04EA	b	u	0	RAM	Hammer7 x2
+04EB	b	u	0	RAM	Hammer7 y2
+04EC	b	u	0	RAM	Hammer8 x1
+04ED	b	u	0	RAM	Hammer8 y1
+04EE	b	u	0	RAM	Hammer8 x2
+04EF	b	u	0	RAM	Hammer8 y2
+04F0	b	u	0	RAM	Hammer9 x1
+04F1	b	u	0	RAM	Hammer9 y1
+04F2	b	u	0	RAM	Hammer9 x2
+04F3	b	u	0	RAM	Hammer9 y2
+0030	b	u	0	RAM	Coin1
+04E0	b	u	0	RAM	Coin1 x1
+04E1	b	u	0	RAM	Coin1 y1
+04E2	b	u	0	RAM	Coin1 x2
+04E3	b	u	0	RAM	Coin1 y2
+0031	b	u	0	RAM	Coin2
+04E4	b	u	0	RAM	Coin2 x1
+04E5	b	u	0	RAM	Coin2 y1
+04E6	b	u	0	RAM	Coin2 x2
+04E7	b	u	0	RAM	Coin2 y2
+0032	b	u	0	RAM	Coin3
+04E8	b	u	0	RAM	Coin3 x1
+04E9	b	u	0	RAM	Coin3 y1
+04EA	b	u	0	RAM	Coin3 x2
+04EB	b	u	0	RAM	Coin3 y2
+
