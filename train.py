@@ -28,7 +28,7 @@ def train(model, optimizer, num_epochs=10, dataloader=train_dataloader):
     for epoch in range(num_epochs):
         train_loss = 0
         for batch_idx, data in enumerate(dataloader):
-            print(f"batch {batch_idx}/{len(dataloader)}\r", end="")
+            print(f"batch {batch_idx+1}/{len(dataloader)}\r", end="")
             data = data[0].to(DEVICE)
             optimizer.zero_grad()
             recon_batch, mu, logvar = model(data)
@@ -55,7 +55,7 @@ def val(model, dataloader=val_dataloader):
     print(f"Loss: {val_loss / len(dataloader.dataset)}")
 
 
-train(model, optimizer, num_epochs=5, dataloader=train_dataloader)
+train(model, optimizer, num_epochs=100, dataloader=train_dataloader)
 # %%
-torch.save(model.state_dict(), f"./models/VAE_{datetime.datetime.now().timestamp()}")
+torch.save(model.state_dict(), f"./models/VAE")
 # %%

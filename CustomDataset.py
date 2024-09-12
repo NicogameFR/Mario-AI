@@ -16,7 +16,7 @@ class CustomImageDataset(Dataset):
         self.img_dir = img_dir
         self.transform = transforms.Compose(
             [
-                transforms.Resize((128, 128)),
+                transforms.Resize((64, 64)),
                 transforms.Grayscale(),
                 transforms.ToTensor(),
             ]
@@ -41,20 +41,20 @@ class CustomImageDataset(Dataset):
         return image, img_name
 
 
-def display_images_grid(dataset, avec_model=False, num_images=9):
+def display_images_grid(dataset, avec_model=True, images = [], stop = False):
 
-    fig, axes = plt.subplots(3, 3, figsize=(5, 5))
-    images = []
-    for i in range(num_images):
-        x_img = randint(0, len(dataset))
-        images.append(dataset[x_img][0])
+    fig, axes = plt.subplots(3, 3, figsize=(8, 8))
+    if images == []:
+        for i in range(9):
+            x_img = randint(0, len(dataset))
+            images.append(dataset[x_img][0])
     for i, ax in enumerate(axes.flat):
         if avec_model == True:
             DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
             model = VAE(latent_dim=128).to(DEVICE)
-            #model.load_state_dict(
-            #    torch.load("models\VAE_1726138127.74771", weights_only=True)
-            #)
+            model.load_state_dict(
+                torch.load("models\VAE", weights_only=True)
+            )
             model.eval()
             img = images[i - 1]
             img_recon = model(img.unsqueeze(0).to(DEVICE))[0]
@@ -66,11 +66,13 @@ def display_images_grid(dataset, avec_model=False, num_images=9):
 
     plt.tight_layout()
     plt.show()
+    if stop == True:
+        return
+    display_images_grid(dataset, False, images, stop = True)
+
 
 
 # %%
 if __name__ == "__main__":
     dataset = CustomImageDataset(".data\Mario_data")
-    display_images_grid(dataset, True, 9)
-
-# %%
+    display_images_grid(dataset)

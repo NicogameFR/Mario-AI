@@ -20,11 +20,11 @@ class VAE(nn.Module):
             nn.ReLU(),
         )
 
-        self.fc_mu = nn.Linear(256 * 8 * 8, latent_dim)
-        self.fc_logvar = nn.Linear(256 * 8 * 8, latent_dim)
+        self.fc_mu = nn.Linear(256 * 4 * 4, latent_dim)
+        self.fc_logvar = nn.Linear(256 * 4 * 4, latent_dim)
 
         # Décodeur
-        self.decoder_input = nn.Linear(latent_dim, 256 * 8 * 8)
+        self.decoder_input = nn.Linear(latent_dim, 256 * 4 * 4)
 
         self.decoder = nn.Sequential(
             nn.ConvTranspose2d(256, 128, 4, 2, 1),
@@ -52,7 +52,7 @@ class VAE(nn.Module):
 
     def decode(self, z):
         x = self.decoder_input(z)
-        x = x.view(x.size(0), 256, 8, 8)
+        x = x.view(x.size(0), 256, 4, 4)
         x = self.decoder(x)
         return x
 
