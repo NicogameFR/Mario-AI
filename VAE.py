@@ -2,6 +2,7 @@ import torch
 from torch import nn
 import torch.nn.functional as F
 
+
 class VAE(nn.Module):
     def __init__(self, latent_dim=128):
         super(VAE, self).__init__()
@@ -9,9 +10,7 @@ class VAE(nn.Module):
 
         # Encodeur
         self.encoder = nn.Sequential(
-            nn.Conv2d(
-                3, 32, 4, 2, 1
-            ),  # in_channels, out_channels, kernel_size, stride, padding
+            nn.Conv2d(1, 32, 4, 2, 1),
             nn.ReLU(),
             nn.Conv2d(32, 64, 4, 2, 1),
             nn.ReLU(),
@@ -34,8 +33,8 @@ class VAE(nn.Module):
             nn.ReLU(),
             nn.ConvTranspose2d(64, 32, 4, 2, 1),
             nn.ReLU(),
-            nn.ConvTranspose2d(32, 3, 4, 2, 1),
-            nn.Sigmoid(),  # Si vos images sont normalisées entre 0 et 1, utilisez Sigmoid, sinon utilisez Tanh pour [-1, 1]
+            nn.ConvTranspose2d(32, 1, 4, 2, 1),
+            nn.Sigmoid(),
         )
 
     def encode(self, x):

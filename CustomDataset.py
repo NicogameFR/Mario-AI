@@ -1,16 +1,11 @@
 # %%
-import torch
 from torch.utils.data import Dataset
 from torchvision import transforms
-from torch import nn
-from torch import optim
-import torch.nn.functional as F
-from torch.utils.data import DataLoader
-
-from matplotlib import pyplot as plt
 from PIL import Image
 import os
-from VAE import VAE, vae_loss
+from matplotlib import pyplot as plt
+from random import randint
+import math
 
 # %%
 
@@ -21,6 +16,7 @@ class CustomImageDataset(Dataset):
         self.transform = transforms.Compose(
             [
                 transforms.Resize((128, 128)),
+                transforms.Grayscale(),
                 transforms.ToTensor(),
             ]
         )
@@ -44,33 +40,23 @@ class CustomImageDataset(Dataset):
         return image, img_name
 
 
+def display_images_grid(dataset, num_images=9):
+
+    fig, axes = plt.subplots(3, 3, figsize=(5, 5))
+    images = []
+    for i in range(num_images):
+        x_img = randint(0, len(dataset))
+        images.append(dataset[x_img][0])
+    for i, ax in enumerate(axes.flat):
+        ax.imshow(images[i-1].squeeze(0), cmap="gray")
+        ax.axis("off")  # Cacher les axes
+    plt.tight_layout()
+    plt.show()
+
+
 # %%
-
 if __name__ == "__main__":
-
-    DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    model = VAE(latent_dim=128).to(DEVICE)
     dataset = CustomImageDataset(".data\Mario_data")
-    dataloader = DataLoader(dataset, batch_size=64, shuffle=True)
-    optimizer = optim.Adam(model.parameters(), lr=1e-3)
+    display_images_grid(dataset)
 
-    # Exemple d'entraînement
-    def train(model, dataloader, optimizer, num_epochs=10):
-        model.train()
-        for epoch in range(num_epochs):
-            train_loss = 0
-            for batch_idx, data in enumerate(dataloader):
-                print(f"batch {batch_idx}/{len(dataloader)}\r", end="")
-                data = data[0].to(DEVICE)
-                optimizer.zero_grad()
-                recon_batch, mu, logvar = model(data)
-                loss = vae_loss(recon_batch, data, mu, logvar)
-                loss.backward()
-                train_loss += loss.item()
-                optimizer.step()
-
-            print(
-                f"Epoch {epoch+1}/{num_epochs}, Loss: {train_loss / len(dataloader.dataset)}"
-            )
-
-    train(model, dataloader, optimizer, num_epochs=100)
+# %%
