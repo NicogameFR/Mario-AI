@@ -4,6 +4,7 @@ from torch import optim
 from torch.utils.data import DataLoader
 from VAE import VAE, vae_loss
 from CustomDataset import CustomImageDataset
+import datetime
 
 #%%
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -15,8 +16,9 @@ if train_distrib+val_distrib != len(dataset):
 train_set, val_set = torch.utils.data.random_split(
     dataset, [train_distrib , val_distrib ]
 )
+
 train_dataloader = DataLoader(train_set, batch_size=32, shuffle=True)
-val_dataloader = DataLoader(val_set, batch_size=32, shuffle=True)
+val_dataloader = DataLoader(val_set, batch_size=32, shuffle=False)
 optimizer = optim.Adam(model.parameters(), lr=1e-4)
 
 #%%
@@ -36,7 +38,7 @@ def train(model, optimizer, num_epochs=10, dataloader=train_dataloader):
             optimizer.step()
         val(model)
         print(
-            f"Epoch {epoch+1}/{num_epochs}, Loss: {train_loss / len(dataloader.dataset)}"
+            f"Epoch {epoch+1}/{num_epochs}, Loss: {train_loss / len(dataloader.dataset)}\n"
         )
 
 
@@ -50,10 +52,10 @@ def val(model, dataloader=val_dataloader):
             loss = vae_loss(recon_batch, data, mu, logvar)
             val_loss += loss.item()
 
-    print(f"Loss: {val_loss / len(dataloader.dataset)}\r", end='')
+    print(f"Loss: {val_loss / len(dataloader.dataset)}")
 
 
 train(model, optimizer, num_epochs=5, dataloader=train_dataloader)
 # %%
-torch.save(model.state_dict(), "./models/new_VAE")
+torch.save(model.state_dict(), f"./models/VAE_{datetime.datetime.now().timestamp()}")
 # %%
