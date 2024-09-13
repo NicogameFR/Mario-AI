@@ -26,12 +26,15 @@ train_dataloader = DataLoader(train_set, batch_size=32, shuffle=True)
 val_dataloader = DataLoader(val_set, batch_size=32, shuffle=False)
 optimizer = optim.Adam(model.parameters(), lr=1e-4)
 images = []
+
+gifs = []
+
+#%%
 for i in range(5):
     images.append(dataset[random.randint(0, len(dataset))][0])
 print(
     f"Device: {DEVICE} - Train set: {len(train_dataloader.dataset)} - Val set: {len(val_dataloader.dataset)}"
 )
-gifs = []
 # %%
 
 
@@ -75,7 +78,7 @@ train(model, optimizer, num_epochs=1000, dataloader=train_dataloader)
 # %%
 save = gifs
 
-new_size = (1080, 1080)
+new_size = (720, 720)
 gifs = [gif.resize(new_size) for gif in gifs]
 
 

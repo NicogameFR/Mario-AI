@@ -4,13 +4,13 @@ import torch.nn.functional as F
 
 
 class VAE(nn.Module):
-    def __init__(self, latent_dim=512):
+    def __init__(self, latent_dim, color_channels):
         super(VAE, self).__init__()
         self.latent_dim = latent_dim
 
         # Encodeur
         self.encoder = nn.Sequential(
-            nn.Conv2d(1, 64, 4, 2, 1),  # Augmentation des canaux
+            nn.Conv2d(color_channels, 64, 4, 2, 1),  # Augmentation des canaux
             nn.BatchNorm2d(64),
             nn.ReLU(),
             nn.Conv2d(64, 128, 4, 2, 1),
@@ -46,7 +46,7 @@ class VAE(nn.Module):
             nn.ConvTranspose2d(128, 64, 4, 2, 1),
             nn.BatchNorm2d(64),
             nn.ReLU(),
-            nn.ConvTranspose2d(64, 1, 4, 2, 1),
+            nn.ConvTranspose2d(64, color_channels, 4, 2, 1),
             nn.Sigmoid(),
         )
 
