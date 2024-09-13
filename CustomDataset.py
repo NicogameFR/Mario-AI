@@ -41,34 +41,39 @@ class CustomImageDataset(Dataset):
         return image, img_name
 
 
-def display_images_grid(dataset):
+def display_images_grid(dataset,images, model):
 
-    fig, axes = plt.subplots(2, 3, figsize=(6, 4))
-    images = []
-    for i in range(3):
-        x_img = randint(0, len(dataset))
-        images.append(dataset[x_img][0])
+    fig, axes = plt.subplots(2, 5, figsize=(16, 8))
     for i, ax in enumerate(axes.flat):
-        if i <= 3:
+        if i <= 4:
+            img = images[i]
             DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-            model = VAE().to(DEVICE)
-            model.load_state_dict(torch.load("models\VAE", weights_only=True))
-            model.eval()
-            img = images[i - 1]
             img_recon = model(img.unsqueeze(0).to(DEVICE))[0]
             img_recon = transforms.ToPILImage()(img_recon.squeeze(0))
+            gif = img_recon
             ax.imshow(img_recon, cmap="gray")
             ax.axis("off")
         else:
-            ax.imshow(images[i - 4].squeeze(0), cmap="gray")
+            ax.imshow(images[i - 10].squeeze(0), cmap="gray")
             ax.axis("off")
+    plt.tight_layout()
     plt.show()
+    return gif
+
+
 
 
 # %%
 if __name__ == "__main__":
     dataset = CustomImageDataset(".data\Mario_data")
     DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    model = VAE().to(DEVICE)
-    # summary(model, (1, 128, 128))
-    display_images_grid(dataset)
+    model = VAE(latent_dim=1024).to(DEVICE)
+    model.load_state_dict(torch.load("models\VAE_1024_best", weights_only=True))
+    model.eval()
+# %%
+if __name__ == "__main__":
+    images = []
+    for i in range(5):
+        images.append(dataset[randint(0, len(dataset))][0])
+    display_images_grid(dataset, images)
+# %%
