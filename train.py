@@ -6,12 +6,11 @@ from VAE import VAE, vae_loss
 from CustomDataset import CustomImageDataset, display_images_grid
 from torchsummary import summary
 import random
-from PIL import Image
 
 
 # %%
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-model = VAE(latent_dim=1024).to(DEVICE)
+model = VAE(1024, 1).to(DEVICE)
 dataset = CustomImageDataset(".data\Mario_data")
 train_distrib, val_distrib = int((len(dataset) * 0.8) // 1), int(
     (len(dataset) * 0.2) // 1
