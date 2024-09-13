@@ -17,7 +17,7 @@ class CustomImageDataset(Dataset):
         self.transform = transforms.Compose(
             [
                 transforms.Resize((128, 128)),
-                #transforms.Grayscale(num_output_channels=1),
+                transforms.Grayscale(num_output_channels=1),
                 transforms.ToTensor(),
             ]
         )
@@ -51,12 +51,11 @@ def display_images_grid(dataset,images, model):
             img_recon = model(img.unsqueeze(0).to(DEVICE))[0]
             img_recon = transforms.ToPILImage()(img_recon.squeeze(0))
             gif = img_recon
-            ax.imshow(img_recon)
+            ax.imshow(img_recon, cmap="gray")
             
             ax.axis("off")
         else:
-            #ax.imshow(images[i - 10].squeeze(0))
-            ax.imshow(images[i - 10].permute(1, 2, 0).squeeze(0), cmap="gray")
+            ax.imshow(images[i - 5].squeeze(0), cmap="gray")
             ax.axis("off")
     plt.tight_layout()
     plt.show()
@@ -70,12 +69,12 @@ if __name__ == "__main__":
     dataset = CustomImageDataset(".data\Mario_data")
     DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model = VAE(1024, 1).to(DEVICE)
-    model.load_state_dict(torch.load("models\VAE_1024_best", weights_only=True))
+    model.load_state_dict(torch.load("models\VAE_1024_gray", weights_only=True))
     model.eval()
 # %%
 if __name__ == "__main__":
     images = []
     for i in range(5):
         images.append(dataset[randint(0, len(dataset))][0])
-    display_images_grid(dataset, images)
+    display_images_grid(dataset, images, model)
 # %%
