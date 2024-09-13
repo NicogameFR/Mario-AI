@@ -5,10 +5,11 @@ from torch.utils.data import DataLoader
 from VAE import VAE, vae_loss
 from CustomDataset import CustomImageDataset
 import datetime
+from torchsummary import summary
 
 #%%
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-model = VAE(latent_dim=128).to(DEVICE)
+model = VAE().to(DEVICE)
 dataset = CustomImageDataset(".data\Mario_data")
 train_distrib , val_distrib = int((len(dataset) * 0.8)//1), int((len(dataset) * 0.2)//1)
 if train_distrib+val_distrib != len(dataset):
@@ -54,7 +55,10 @@ def val(model, dataloader=val_dataloader):
 
     print(f"Loss: {val_loss / len(dataloader.dataset)}")
 
+#%%
+summary(model, (1, 128, 128))
 
+#%%
 train(model, optimizer, num_epochs=100, dataloader=train_dataloader)
 # %%
 torch.save(model.state_dict(), f"./models/VAE")

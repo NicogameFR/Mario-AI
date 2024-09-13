@@ -10,7 +10,7 @@ class VAE(nn.Module):
 
         # Encodeur
         self.encoder = nn.Sequential(
-            nn.Conv2d(3, 64, 4, 2, 1),  # Augmentation des canaux
+            nn.Conv2d(1, 64, 4, 2, 1),  # Augmentation des canaux
             nn.BatchNorm2d(64),
             nn.ReLU(),
             nn.Conv2d(64, 128, 4, 2, 1),
@@ -46,7 +46,7 @@ class VAE(nn.Module):
             nn.ConvTranspose2d(128, 64, 4, 2, 1),
             nn.BatchNorm2d(64),
             nn.ReLU(),
-            nn.ConvTranspose2d(64, 3, 4, 2, 1),
+            nn.ConvTranspose2d(64, 1, 4, 2, 1),
             nn.Sigmoid(),
         )
 
@@ -65,7 +65,7 @@ class VAE(nn.Module):
 
     def decode(self, z):
         x = self.decoder_input(z)
-        x = x.view(x.size(0), 256, 4, 4)
+        x = x.view(x.size(0), 1024, 4, 4)
         x = self.decoder(x)
         return x
 

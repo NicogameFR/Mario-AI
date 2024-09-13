@@ -16,7 +16,8 @@ class CustomImageDataset(Dataset):
         self.img_dir = img_dir
         self.transform = transforms.Compose(
             [
-                transforms.Resize((64, 64)),
+                transforms.Resize((128, 128)),
+                transforms.Grayscale(num_output_channels=1),
                 transforms.ToTensor(),
             ]
         )
@@ -40,42 +41,34 @@ class CustomImageDataset(Dataset):
         return image, img_name
 
 
-def display_images_grid(dataset, avec_model=True, images = [], stop = False):
+def display_images_grid(dataset):
 
-    fig, axes = plt.subplots(3, 3, figsize=(8, 8))
-    if images == []:
-        for i in range(9):
-            x_img = randint(0, len(dataset))
-            images.append(dataset[x_img][0])
+    fig, axes = plt.subplots(2, 3, figsize=(6, 4))
+    images = []
+    for i in range(3):
+        x_img = randint(0, len(dataset))
+        images.append(dataset[x_img][0])
     for i, ax in enumerate(axes.flat):
-        if avec_model == True:
+        if i <= 3:
             DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-            model = VAE(latent_dim=128).to(DEVICE)
-            model.load_state_dict(
-                torch.load("models\VAE", weights_only=True)
-            )
+            model = VAE().to(DEVICE)
+            model.load_state_dict(torch.load("models\VAE", weights_only=True))
             model.eval()
             img = images[i - 1]
             img_recon = model(img.unsqueeze(0).to(DEVICE))[0]
-            img_recon= transforms.ToPILImage()(img_recon.squeeze(0))
+            img_recon = transforms.ToPILImage()(img_recon.squeeze(0))
             ax.imshow(img_recon, cmap="gray")
+            ax.axis("off")
         else:
-            ax.imshow(images[i - 1].squeeze(0))
-        ax.axis("off")  # Cacher les axes
-
-    plt.tight_layout()
+            ax.imshow(images[i - 4].squeeze(0), cmap="gray")
+            ax.axis("off")
     plt.show()
-    if stop == True:
-        return
-    display_images_grid(dataset, False, images, stop = True)
-
 
 
 # %%
 if __name__ == "__main__":
     dataset = CustomImageDataset(".data\Mario_data")
-    #display_images_grid(dataset)
     DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    model = VAE(latent_dim=128).to(DEVICE)
-    summary(model, (3, 64, 64))
-# %%
+    model = VAE().to(DEVICE)
+    # summary(model, (1, 128, 128))
+    display_images_grid(dataset)
