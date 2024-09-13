@@ -52,7 +52,6 @@ def display_images_grid(dataset,images, model):
             img_recon = transforms.ToPILImage()(img_recon.squeeze(0))
             gif = img_recon
             ax.imshow(img_recon, cmap="gray")
-            
             ax.axis("off")
         else:
             ax.imshow(images[i - 5].squeeze(0), cmap="gray")
