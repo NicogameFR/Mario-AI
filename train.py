@@ -22,7 +22,7 @@ val_dataloader = DataLoader(val_set, batch_size=32, shuffle=False)
 optimizer = optim.Adam(model.parameters(), lr=1e-4)
 
 #%%
-# Exemple d'entraînement
+
 def train(model, optimizer, num_epochs=10, dataloader=train_dataloader):
     model.train()
     for epoch in range(num_epochs):

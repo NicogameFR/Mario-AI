@@ -17,7 +17,6 @@ class CustomImageDataset(Dataset):
         self.transform = transforms.Compose(
             [
                 transforms.Resize((64, 64)),
-                transforms.Grayscale(),
                 transforms.ToTensor(),
             ]
         )
@@ -61,7 +60,7 @@ def display_images_grid(dataset, avec_model=True, images = [], stop = False):
             img_recon= transforms.ToPILImage()(img_recon.squeeze(0))
             ax.imshow(img_recon, cmap="gray")
         else:
-            ax.imshow(images[i - 1].squeeze(0), cmap="gray")
+            ax.imshow(images[i - 1].squeeze(0))
         ax.axis("off")  # Cacher les axes
 
     plt.tight_layout()
@@ -75,4 +74,8 @@ def display_images_grid(dataset, avec_model=True, images = [], stop = False):
 # %%
 if __name__ == "__main__":
     dataset = CustomImageDataset(".data\Mario_data")
-    display_images_grid(dataset)
+    #display_images_grid(dataset)
+    DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    model = VAE(latent_dim=128).to(DEVICE)
+    summary(model, (3, 64, 64))
+# %%

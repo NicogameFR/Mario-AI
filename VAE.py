@@ -4,36 +4,49 @@ import torch.nn.functional as F
 
 
 class VAE(nn.Module):
-    def __init__(self, latent_dim=128):
+    def __init__(self, latent_dim=512):
         super(VAE, self).__init__()
         self.latent_dim = latent_dim
 
         # Encodeur
         self.encoder = nn.Sequential(
-            nn.Conv2d(1, 32, 4, 2, 1),
-            nn.ReLU(),
-            nn.Conv2d(32, 64, 4, 2, 1),
+            nn.Conv2d(3, 64, 4, 2, 1),  # Augmentation des canaux
+            nn.BatchNorm2d(64),
             nn.ReLU(),
             nn.Conv2d(64, 128, 4, 2, 1),
+            nn.BatchNorm2d(128),
             nn.ReLU(),
             nn.Conv2d(128, 256, 4, 2, 1),
+            nn.BatchNorm2d(256),
+            nn.ReLU(),
+            nn.Conv2d(256, 512, 4, 2, 1),  # Couches supplémentaires pour capturer plus de complexité
+            nn.BatchNorm2d(512),
+            nn.ReLU(),
+            nn.Conv2d(512, 1024, 4, 2, 1),
+            nn.BatchNorm2d(1024),
             nn.ReLU(),
         )
 
-        self.fc_mu = nn.Linear(256 * 4 * 4, latent_dim)
-        self.fc_logvar = nn.Linear(256 * 4 * 4, latent_dim)
+        self.fc_mu = nn.Linear(1024 * 4 * 4, latent_dim)
+        self.fc_logvar = nn.Linear(1024 * 4 * 4, latent_dim)
 
         # Décodeur
-        self.decoder_input = nn.Linear(latent_dim, 256 * 4 * 4)
+        self.decoder_input = nn.Linear(latent_dim, 1024 * 4 * 4)
 
         self.decoder = nn.Sequential(
+            nn.ConvTranspose2d(1024, 512, 4, 2, 1),
+            nn.BatchNorm2d(512),
+            nn.ReLU(),
+            nn.ConvTranspose2d(512, 256, 4, 2, 1),
+            nn.BatchNorm2d(256),
+            nn.ReLU(),
             nn.ConvTranspose2d(256, 128, 4, 2, 1),
+            nn.BatchNorm2d(128),
             nn.ReLU(),
             nn.ConvTranspose2d(128, 64, 4, 2, 1),
+            nn.BatchNorm2d(64),
             nn.ReLU(),
-            nn.ConvTranspose2d(64, 32, 4, 2, 1),
-            nn.ReLU(),
-            nn.ConvTranspose2d(32, 1, 4, 2, 1),
+            nn.ConvTranspose2d(64, 3, 4, 2, 1),
             nn.Sigmoid(),
         )
 
@@ -64,7 +77,7 @@ class VAE(nn.Module):
 
 
 # Perte VAE
-def vae_loss(recon_x, x, mu, logvar, k=[1, 0.05]):
+def vae_loss(recon_x, x, mu, logvar, k=[1, 0.01]):
     BCE = F.binary_cross_entropy(recon_x, x, reduction="sum")
     KLD = -0.5 * torch.sum(1 + logvar - mu.pow(2) - logvar.exp())
     return k[0] * BCE + k[1] * KLD
