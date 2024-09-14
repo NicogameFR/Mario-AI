@@ -35,6 +35,7 @@ print("Connecting to server at {} on port {}.".format(HOST, PORT))
 
 
 # %%
+exit()
 PATH_PNG = "../.data/Mario_data/"
 if os.listdir(PATH_PNG):
     os.system(f"cd {PATH_PNG} & del /f *.png")

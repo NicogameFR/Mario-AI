@@ -37,9 +37,10 @@ print(
 # %%
 
 
-def train(model, optimizer, num_epochs=10, dataloader=train_dataloader):
+def train(model, optimizer, dataloader=train_dataloader):
     model.train()
-    for epoch in range(num_epochs):
+    epoch = 1
+    while True:
         train_loss = 0
         for batch_idx, data in enumerate(dataloader):
             print(f"batch {batch_idx+1}/{len(dataloader)}\r", end="")
@@ -52,9 +53,10 @@ def train(model, optimizer, num_epochs=10, dataloader=train_dataloader):
             optimizer.step()
 
         print(
-            f"Epoch {epoch+1}/{num_epochs}, Loss: {train_loss / len(dataloader.dataset)}"
+            f"Epoch {epoch}, Loss: {train_loss / len(dataloader.dataset)}"
         )
         val(model)
+        epoch += 1
 
 
 def val(model, dataloader=val_dataloader):
@@ -73,7 +75,7 @@ def val(model, dataloader=val_dataloader):
 
 
 # %%
-train(model, optimizer, num_epochs=1000, dataloader=train_dataloader)
+train(model, optimizer, dataloader=train_dataloader)
 # %%
 save = gifs
 
@@ -82,6 +84,6 @@ gifs = [gif.resize(new_size) for gif in gifs]
 
 
 output_path = ".data/reconstitution/training.gif"
-gifs[0].save(output_path, save_all=True, append_images=gifs[1:], loop=0, duration=250)
+gifs[0].save(output_path, save_all=True, append_images=gifs[1:], loop=0, duration=50)
 
 # %%

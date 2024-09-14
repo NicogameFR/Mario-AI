@@ -1,62 +1,14 @@
-# %%
-import pyscreenshot
-import birdseyelib as bird
-import os
+import mss
 
-# %%
+with mss.mss() as sct:
+    # Obtenir la liste des moniteurs
+    moniteurs = sct.monitors
+    for i, monitor in enumerate(moniteurs[1:], start=1):
+        print(f"Moniteur {i}: {monitor}")
 
-HOST = "127.0.0.1"
-PORT = 8080
+    # Capture du deuxième moniteur
+    moniteur_2 = moniteurs[2]  # Par exemple le deuxième moniteur
+    screenshot = sct.grab(moniteur_2)
 
-PATH_PNG = "../.data/Mario_data/"
-
-TOTAL_FRAMES = 16632
-SIZE = 640
-
-# %%
-
-
-class BizHawk:
-
-    def __init__(self, HOST, PORT):
-        self.client = bird.Client(HOST, PORT)
-        self.memory = bird.Memory(self.client)
-        self.controller_input = bird.ControllerInput(self.client)
-        self.emulation = bird.Emulation(self.client)
-        self.external_tool = bird.ExternalTool(self.client)
-        self.client.connect()
-        self.external_tool.set_commandeer(True)
-
-    def __str__(self):
-        return f"BizHawk Client: {self.client}"
-
-
-bh = BizHawk(HOST, PORT)
-print("Connecting to server at {} on port {}.".format(HOST, PORT))
-
-
-# %%
-PATH_PNG = ".data/Mario_data/"
-if os.listdir(PATH_PNG):
-    os.system(f"cd {PATH_PNG} & del /f *.png")
-    print("Suppression des anciennes captures")
-# %%
-
-i = 1
-
-while bh.client.is_connected() and i <= TOTAL_FRAMES:
-    print(
-        f"Nombre de captures: {i}/{TOTAL_FRAMES}\r",
-        end="",
-    )
-    image = pyscreenshot.grab(bbox=(413, 46, 2146, 1370))
-    image = image.resize((SIZE, SIZE))
-    image.save(f"{PATH_PNG}/{i:04d}.png")
-    image.close()
-    image = None
-    i += 1
-    bh.emulation.request_framecount()
-    bh.client.advance_frame()
-print("\nFin de la capture")
-
-# %%
+    # Enregistrer la capture
+    mss.tools.to_png(screenshot.rgb, screenshot.size, output="capture_moniteur_2_mss.png")
