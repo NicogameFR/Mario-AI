@@ -11,7 +11,10 @@ Le projet repose sur deux modèles :
 
 Projet personnel initié en terminale (2023-2024), non finalisé.
 
-- Jeu de données annoté et modèle de détection entraîné : [Mario AI Database sur Roboflow](https://universe.roboflow.com/baptiste-hustaix-znm0u/mario-ai-database)
+- Jeu de données annoté et modèle de détection entraîné :
+  [Mario IA DataBase Classification](https://app.roboflow.com/baptiste-hustaix-znm0u/mario-ia-database-classification/3)
+  [Mario AI DataBase Detection](https://app.roboflow.com/baptiste-hustaix-znm0u/mario-ai-database-detection/1)
+  
 - Modèle de décision : en cours de développement, non abouti
 
 ## Technologies
